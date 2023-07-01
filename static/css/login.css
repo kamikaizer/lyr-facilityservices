@@ -1,6 +1,5 @@
-
 html {
-    background-color: #ffffff;
+    background-color: #D5E8FA;
   }
   
   body {
@@ -264,4 +263,9 @@ html {
   }
   h1 {
       margin: 25px 0px;
+  }
+  img {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    scale: 100%;
   }
