@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="container">
+  <h1 class="mt-4">Solicitud de Vacaciones</h1>
+
+  <form method="POST" class="mt-4">
+    <div class="form-group">
+      <label for="start_date">Fecha de Inicio</label>
+      <input type="date" name="start_date" id="start_date" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="end_date">Fecha de Fin</label>
+      <input type="date" name="end_date" id="end_date" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="reason">Motivo</label>
+      <textarea name="reason" id="reason" class="form-control" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
+  </form>
+
+  <a href="{{ url_for('hr.hr_index') }}" class="btn btn-secondary mt-4">Volver</a>
+</div>
+
+{% endblock %}

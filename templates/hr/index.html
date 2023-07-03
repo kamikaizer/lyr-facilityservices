@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="container">
+  <h1 class="mt-4">Recursos Humanos</h1>
+
+  <h2 class="mt-4">Documentos</h2>
+
+  <ul class="list-group">
+    {% for document in documents %}
+      <li class="list-group-item">{{ document }}</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{{ url_for('hr.upload_document') }}" class="btn btn-primary mt-4">Subir Documento</a>
+  
+  <a href="{{ url_for('hr.vacation_request') }}" class="btn btn-primary mt-4">Solicitar Vacaciones</a>
+</div>
+
+{% endblock %}

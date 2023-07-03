@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Control y Administración de Inventario</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</head>
-<body>
-    <!-- { extends 'base.html' }
+{% extends 'base.html' %}
 
-le faltan los %, si se lo dejaba lo tomaba igual aqui y en el endblock al final
 
-    { block content } -->
+{% block content %}
 <div class="container mt-4">
-    <h1>Control y Administración de Inventario</h1>
-    
-    <h2>Equipos</h2>
+    <h1>Control y Administración</h1>
+
+    <h2>Facturas</h2>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -31,31 +20,34 @@ le faltan los %, si se lo dejaba lo tomaba igual aqui y en el endblock al final
                 <td>{{ equipment.name }}</td>
                 <td>
                     {% if equipment.user_id %}
-                        {{ get_user_by_id(equipment.user_id).name }}
+                    {{ get_user_by_id(equipment.user_id).name }}
                     {% else %}
-                        Sin asignar
+                    Sin asignar
                     {% endif %}
                 </td>
                 <td>
                     {% if equipment.is_assigned %}
-                        {% if not change_request_exists(equipment.id) %}
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#changeRequestModal{{ equipment.id }}">Solicitar Cambio</button>
-                        {% else %}
-                            <button class="btn btn-secondary" disabled>Solicitado</button>
-                        {% endif %}
+                    {% if not change_request_exists(equipment.id) %}
+                    <button class="btn btn-primary" data-toggle="modal"
+                        data-target="#changeRequestModal{{ equipment.id }}">Solicitar Cambio</button>
                     {% else %}
-                        <button class="btn btn-success" data-toggle="modal" data-target="#assignEquipmentModal{{ equipment.id }}">Asignar</button>
+                    <button class="btn btn-secondary" disabled>Solicitado</button>
+                    {% endif %}
+                    {% else %}
+                    <button class="btn btn-success" data-toggle="modal"
+                        data-target="#assignEquipmentModal{{ equipment.id }}">Asignar</button>
                     {% endif %}
                     {% if equipment.is_assigned %}
-                        <button class="btn btn-warning" data-toggle="modal" data-target="#returnEquipmentModal{{ equipment.id }}">Devolver</button>
+                    <button class="btn btn-warning" data-toggle="modal"
+                        data-target="#returnEquipmentModal{{ equipment.id }}">Devolver</button>
                     {% endif %}
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    
-    <h2>Usuarios</h2>
+
+    <h2>Orden de Compra</h2>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -69,25 +61,68 @@ le faltan los %, si se lo dejaba lo tomaba igual aqui y en el endblock al final
                 <td>{{ user.name }}</td>
                 <td>
                     {% for equipment in equipment %}
-                        {% if equipment.user_id == user.id %}
-                            {{ equipment.name }},
-                        {% endif %}
+                    {% if equipment.user_id == user.id %}
+                    {{ equipment.name }},
+                    {% endif %}
                     {% endfor %}
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    <h2>Solicitudes de Cambio</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Equipo</th>
+            <th>Usuario Actual</th>
+            <th>Nuevo Usuario</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for request in change_requests %}
+        {% set equipment = get_equipment_by_id(request.equipment_id) %}
+        {% set current_user = get_user_by_id(equipment.user_id) %}
+        {% set new_user = get_user_by_id(request.user_id) %}
+        <tr>
+            <td>{{ equipment.name }}</td>
+            <td>{{ current_user.name }}</td>
+            <td>{{ new_user.name }}</td>
+            <td>
+                {% if request.is_approved %}
+                    Aprobado
+                {% else %}
+                    Pendiente
+                {% endif %}
+            </td>
+            <td>
+                {% if not request.is_approved %}
+                    <form action="{{ url_for('approve_change_route', request_id=request.id) }}" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-success">Aprobar</button>
+                    </form>
+                    <form action="{{ url_for('reject_change_route', request_id=request.id) }}" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-danger">Rechazar</button>
+                    </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 </div>
 
 <!-- Modals -->
 {% for equipment in equipment %}
 <!-- Asignar Equipo Modal -->
-<div class="modal fade" id="assignEquipmentModal{{ equipment.id }}" tabindex="-1" role="dialog" aria-labelledby="assignEquipmentModalLabel{{ equipment.id }}" aria-hidden="true">
+<div class="modal fade" id="assignEquipmentModal{{ equipment.id }}" tabindex="-1" role="dialog"
+    aria-labelledby="assignEquipmentModalLabel{{ equipment.id }}" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="assignEquipmentModalLabel{{ equipment.id }}">Asignar Equipo - {{ equipment.name }}</h5>
+                <h5 class="modal-title" id="assignEquipmentModalLabel{{ equipment.id }}">Asignar Equipo - {{
+                    equipment.name }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -99,7 +134,7 @@ le faltan los %, si se lo dejaba lo tomaba igual aqui y en el endblock al final
                         <select class="form-control" id="user_id" name="user_id" required>
                             <option value="">Seleccionar usuario</option>
                             {% for user in users %}
-                                <option value="{{ user.id }}">{{ user.name }}</option>
+                            <option value="{{ user.id }}">{{ user.name }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -111,11 +146,13 @@ le faltan los %, si se lo dejaba lo tomaba igual aqui y en el endblock al final
 </div>
 
 <!-- Solicitar Cambio Modal -->
-<div class="modal fade" id="changeRequestModal{{ equipment.id }}" tabindex="-1" role="dialog" aria-labelledby="changeRequestModalLabel{{ equipment.id }}" aria-hidden="true">
+<div class="modal fade" id="changeRequestModal{{ equipment.id }}" tabindex="-1" role="dialog"
+    aria-labelledby="changeRequestModalLabel{{ equipment.id }}" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="changeRequestModalLabel{{ equipment.id }}">Solicitar Cambio - {{ equipment.name }}</h5>
+                <h5 class="modal-title" id="changeRequestModalLabel{{ equipment.id }}">Solicitar Cambio - {{
+                    equipment.name }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -127,7 +164,7 @@ le faltan los %, si se lo dejaba lo tomaba igual aqui y en el endblock al final
                         <select class="form-control" id="user_id" name="user_id" required>
                             <option value="">Seleccionar usuario</option>
                             {% for user in users %}
-                                <option value="{{ user.id }}">{{ user.name }}</option>
+                            <option value="{{ user.id }}">{{ user.name }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -138,12 +175,15 @@ le faltan los %, si se lo dejaba lo tomaba igual aqui y en el endblock al final
     </div>
 </div>
 
+
 <!-- Devolver Equipo Modal -->
-<div class="modal fade" id="returnEquipmentModal{{ equipment.id }}" tabindex="-1" role="dialog" aria-labelledby="returnEquipmentModalLabel{{ equipment.id }}" aria-hidden="true">
+<div class="modal fade" id="returnEquipmentModal{{ equipment.id }}" tabindex="-1" role="dialog"
+    aria-labelledby="returnEquipmentModalLabel{{ equipment.id }}" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="returnEquipmentModalLabel{{ equipment.id }}">Devolver Equipo - {{ equipment.name }}</h5>
+                <h5 class="modal-title" id="returnEquipmentModalLabel{{ equipment.id }}">Devolver Equipo - {{
+                    equipment.name }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -160,17 +200,18 @@ le faltan los %, si se lo dejaba lo tomaba igual aqui y en el endblock al final
 {% endfor %}
 
 {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <div class="container mt-4">
-        {% for message in messages %}
-            <div class="alert alert-success" role="alert">
-                {{ message }}
-            </div>
-        {% endfor %}
+{% if messages %}
+<div class="container mt-4">
+    {% for message in messages %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
     </div>
-    {% endif %}
+    {% endfor %}
+</div>
+{% endif %}
 {% endwith %}
 
-<!-- { endblock } -->
+{% endblock %}
 </body>
+
 </html>

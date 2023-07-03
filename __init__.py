@@ -36,4 +36,11 @@ def create_app(test_config=None):
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
+    
+
+    from .hr import hr_bp as hr_blueprint
+    app.register_blueprint(hr_blueprint)
+    
+    
+
     return app

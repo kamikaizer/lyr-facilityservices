@@ -188,11 +188,12 @@
      
 <div class="container-fluid py-4">
       
-  <div class="card">
-    <div class="card-body">
-      <h1>cuerpo de la pagina</h1>
-    </div>
-  </div>
+  <!-- <div class="card">
+    <div class="card-body"> -->
+      {% block content %}{% endblock %}
+				{% block scripts %}{% endblock %}
+    <!-- </div>
+  </div> -->
 
 <!-- FOOTER -->
 
