@@ -36,3 +36,160 @@ main = Blueprint('main', __name__)
 
 
 
+
+
+
+
+
+class Equipment:
+    def __init__(self, id, name, user_id=None, is_assigned=False):
+        self.id = id
+        self.name = name
+        self.user_id = user_id
+        self.is_assigned = is_assigned
+
+class User:
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
+
+def init_db():
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS equipment (
+            id INT IDENTITY(1,1) PRIMARY KEY,
+            name NVARCHAR(50) NOT NULL,
+            user_id INT,
+            is_assigned BIT DEFAULT 0
+        )
+    ''')
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS users (
+            id INT IDENTITY(1,1) PRIMARY KEY,
+            name NVARCHAR(50) NOT NULL
+        )
+    ''')
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS change_requests (
+            id INT IDENTITY(1,1) PRIMARY KEY,
+            equipment_id INT NOT NULL,
+            user_id INT NOT NULL,
+            is_approved BIT DEFAULT 0
+        )
+    ''')
+    db.commit()
+
+def fetch_all_equipment():
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('SELECT id, name, user_id, is_assigned FROM equipment')
+    rows = cursor.fetchall()
+    equipment = [Equipment(row[0], row[1], row[2], row[3]) for row in rows]
+    return equipment
+
+def fetch_all_users():
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('SELECT id, name FROM users')
+    rows = cursor.fetchall()
+    users = [User(row[0], row[1]) for row in rows]
+    return users
+
+def get_equipment_by_id(equipment_id):
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('SELECT id, name, user_id, is_assigned FROM equipment WHERE id = ?', (equipment_id,))
+    row = cursor.fetchone()
+    if row:
+        return Equipment(row[0], row[1], row[2], row[3])
+    return None
+
+def get_user_by_id(user_id):
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('SELECT id, name FROM users WHERE id = ?', (user_id,))
+    row = cursor.fetchone()
+    if row:
+        return User(row[0], row[1])
+    return None
+
+def assign_equipment(equipment_id, user_id):
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('UPDATE equipment SET user_id = ?, is_assigned = 1 WHERE id = ?', (user_id, equipment_id))
+    db.commit()
+
+def request_change(equipment_id, user_id):
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('INSERT INTO change_requests (equipment_id, user_id) VALUES (?, ?)', (equipment_id, user_id))
+    db.commit()
+
+def approve_change(request_id):
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('UPDATE change_requests SET is_approved = 1 WHERE id = ?', (request_id,))
+    db.commit()
+
+def return_equipment(equipment_id):
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('UPDATE equipment SET user_id = NULL, is_assigned = 0 WHERE id = ?', (equipment_id,))
+    db.commit()
+
+@main.route('/main')
+def index():
+    # equipment = fetch_all_equipment()
+    # users = fetch_all_users()
+    return render_template('main.html')
+
+@main.route('/assign_equipment/<int:equipment_id>', methods=['POST'])
+def assign_equipment_route(equipment_id):
+    user_id = int(request.form.get('user_id'))
+
+    equipment = get_equipment_by_id(equipment_id)
+    user = get_user_by_id(user_id)
+
+    if equipment and user:
+        if equipment.is_assigned:
+            flash('El equipo ya está asignado a otro usuario.')
+        else:
+            assign_equipment(equipment_id, user_id)
+            flash(f'El equipo {equipment.name} ha sido asignado a {user.name}.')
+
+    return redirect(url_for('index'))
+
+@main.route('/request_change/<int:equipment_id>', methods=['POST'])
+def request_change_route(equipment_id):
+    user_id = int(request.form.get('user_id'))
+
+    equipment = get_equipment_by_id(equipment_id)
+    user = get_user_by_id(user_id)
+
+    if equipment and user:
+        request_change(equipment_id, user_id)
+        flash(f'Se ha solicitado el cambio del equipo {equipment.name} al usuario {user.name}.')
+
+    return redirect(url_for('index'))
+
+@main.route('/approve_change/<int:request_id>', methods=['POST'])
+def approve_change_route(request_id):
+    approve_change(request_id)
+    flash('La solicitud de cambio ha sido aprobada.')
+    return redirect(url_for('index'))
+
+@main.route('/return_equipment/<int:equipment_id>', methods=['POST'])
+def return_equipment_route(equipment_id):
+    equipment = get_equipment_by_id(equipment_id)
+    if equipment:
+        return_equipment(equipment_id)
+        flash(f'El equipo {equipment.name} ha sido devuelto y está disponible para asignación.')
+
+    return redirect(url_for('index'))
+
+
+
+
+
+
