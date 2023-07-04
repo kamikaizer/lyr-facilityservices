@@ -200,6 +200,10 @@ def crud():
 def aprobar():
     return render_template('aprobar.html')
 
+@main.route('/panel')
+def panel():
+    return render_template('panel.html')
+
 
 
 
