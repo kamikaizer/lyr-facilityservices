@@ -192,6 +192,14 @@ def return_equipment_route(equipment_id):
 def ingreso():
     return render_template('ingreso.html')
 
+@main.route('/crud')
+def crud():
+    return render_template('crud.html')
+
+@main.route('/aprobar')
+def aprobar():
+    return render_template('aprobar.html')
+
 
 
 

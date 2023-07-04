@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+
+<div class="card">
+    <div class="card-title">
+        <h1>Aprobar</h1>
+     </div>
+    <div class="card-body">
+
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Columna 01</th>
+            <th scope="col">Columna 02</th>
+            <th scope="col">Columna 03</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+
+
+{% endblock %}
