@@ -6,7 +6,7 @@ import os
 hr_bp = Blueprint('hr', __name__)
 
 # Configurar la ruta donde se almacenarán los documentos subidos
-DOCUMENTS_UPLOAD_FOLDER = '/uploads/documents'
+DOCUMENTS_UPLOAD_FOLDER = '/Users/bayronfuentealba/Desktop/proyectos negocio/lyr-facilityservices/uploads/documents'
 ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx'}
 
 # Configurar la extensión de archivos permitida

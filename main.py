@@ -188,7 +188,9 @@ def return_equipment_route(equipment_id):
 
     return redirect(url_for('index'))
 
-
+@main.route('/agregar')
+def ingreso():
+    return render_template('ingreso.html')
 
 
 

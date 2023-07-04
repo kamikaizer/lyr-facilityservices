@@ -4,10 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
-<link rel="icon" type="image/png" href="./assets/img/favicon.png">
 
 <title>Facility Services</title>
-<link rel="icon" type="image/x-icon" href="/static/img/favicon.png">
+<link rel="icon" type="image/x-icon" href="{{url_for('static', filename='./img/favicon.png')}}">
 
 
 
@@ -46,13 +45,11 @@
       aria-hidden="true" id="iconSidenav"></i>
     <a class="navbar-brand m-0" href="#"
       target="_blank">
-      <center><img src="./img/logo-ct.png" style="scale: 200%;" class="navbar-brand-img h-100" alt="main_logo"></center>
+      <center><img src="{{url_for('static', filename='./img/logo-ct.png')}}" style="scale: 200%;" class="navbar-brand-img h-100" alt="main_logo"></center>
       <span class="ms-1 font-weight-bold text-dark"></span>
     </a>
   </div>
   
-
-  <hr class="horizontal light mt-0 mb-2">
   
   <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
     <ul class="navbar-nav">
@@ -76,7 +73,7 @@
             <i class="material-icons opacity-10">library_add</i>
           </div>
   
-          <span class="nav-link-text ms-1">Menu 1</span>
+          <span class="nav-link-text ms-1">Ingreso</span>
         </a>
       </li>
   
@@ -88,7 +85,7 @@
             <i class="material-icons opacity-10">edit</i>
           </div>
   
-          <span class="nav-link-text ms-1">Menu 2</span>
+          <span class="nav-link-text ms-1">Edición</span>
         </a>
       </li>
   
@@ -100,7 +97,7 @@
             <i class="material-icons opacity-10">check</i>
           </div>
   
-          <span class="nav-link-text ms-1">Menu 3</span>
+          <span class="nav-link-text ms-1">Aprobación</span>
         </a>
       </li>
   
@@ -112,10 +109,9 @@
             <i class="material-icons opacity-10">attachment</i>
           </div>
   
-          <span class="nav-link-text ms-1">Menu 4</span>
+          <span class="nav-link-text ms-1">Documentos</span>
         </a>
       </li>
-      <hr>
       <li class="nav-item">
         <a class="nav-link text-dark " href="#">
   
@@ -123,7 +119,7 @@
             <i class="material-icons opacity-10">group</i>
           </div>
   
-          <span class="nav-link-text ms-1">rrhh</span>
+          <span class="nav-link-text ms-1">RRHH</span>
         </a>
       </li>
       <li class="nav-item">
@@ -145,7 +141,7 @@
 
   <div class="sidenav-footer position-absolute w-100 bottom-0 ">
     <div class="mx-3">
-      <a class="btn bg-gradient-info w-100" href="#" type="button">Salir</a>
+      <a class="btn bg-gradient-info w-100" href="login" type="button">Salir</a>
     </div>
     
   </div>
@@ -221,6 +217,9 @@
 <!--   Core JS Files   -->
 <script src="./assets/js/core/popper.min.js" ></script>
 <script src="./assets/js/core/bootstrap.min.js" ></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
 <script src="./assets/js/plugins/perfect-scrollbar.min.js" ></script>
 <script src="./assets/js/plugins/smooth-scrollbar.min.js" ></script>
 <!-- Github buttons -->
