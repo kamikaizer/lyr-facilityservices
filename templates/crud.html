@@ -15,26 +15,17 @@
     <table class="table table-striped">
         <thead>
           <tr>
-<<<<<<< HEAD
             <th scope="col">Rut Cliente</th>
             <th scope="col">Cliente</th>
             <th scope="col">Mes</th>
             <th scope="col">Tipo</th>
             <th scope="col">Detalle</th>
-=======
-            <th scope="col">Columna 01</th>
-            <th scope="col">Columna 02</th>
-            <th scope="col">Columna 03</th>
-            <th scope="col">Columna 04</th>
-            <th scope="col">Columna 05</th>
->>>>>>> 4bb5815872c18c27a88ee750c504b79a20197f00
             <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
           {% for dato in datos %}
           <tr>
-<<<<<<< HEAD
             <th scope="row">{{dato.rut}}</th>
             <th scope="row"></th>
             <th scope="row">{{dato.fecha}}</th>
@@ -45,20 +36,6 @@
               <button class="btn btn-danger" data-toggle="modal" ata-target="#changeRequestModal">Eliminar</button>
 
             </th>
-=======
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-
-            <td>
-              <div class="d-grid gap-1 d-md-flex justify-content-md-end">
-                <button class="btn btn-primary me-md-2" type="button">Editar</button>
-                <button class="btn btn-danger" type="button">Eliminar</button>
-              </div>
-            </td>
->>>>>>> 4bb5815872c18c27a88ee750c504b79a20197f00
           </tr>
           {% endfor %}
         </tbody>
