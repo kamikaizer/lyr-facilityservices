@@ -8,42 +8,36 @@
 
 <div class="card border-white">
     <div class="card-title">
-        <h1> Crud</h1>
+        <h1> Cotizaciones</h1>
      </div>
     <div class="card-body">
 
     <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">Columna 01</th>
-            <th scope="col">Columna 02</th>
-            <th scope="col">Columna 03</th>
-            <th scope="col"></th>
+            <th scope="col">Rut Cliente</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Mes</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Detalle</th>
             <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
+          {% for dato in datos %}
           <tr>
-            <th scope="row">1</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <th scope="row">{{dato.rut}}</th>
+            <th scope="row"></th>
+            <th scope="row">{{dato.fecha}}</th>
+            <th scope="row">{{dato.tipo}}</th>
+            <th scope="row">{{dato.detalle}}</th>
+            <th scope="row">
+              <button class="btn btn-info" data-toggle="modal" ata-target="#changeRequestModal">Editar</button>
+              <button class="btn btn-danger" data-toggle="modal" ata-target="#changeRequestModal">Eliminar</button>
+
+            </th>
           </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>

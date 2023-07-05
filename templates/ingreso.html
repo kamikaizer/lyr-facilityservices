@@ -11,26 +11,26 @@
     <h1>Formulario de Cotización</h1>
   </div>
   <div class="card-body">
-  <form>
+  <form action="{{ url_for('main.assign_equipment_route') }}" method="POST">
     <div class="row">
       <div class="col">
-        <input type="text" class="form-control" placeholder="Cliente" aria-label="First name">
+        <input type="text" id="cliente" name="cliente" class="form-control" placeholder="Cliente" aria-label="First name">
       </div>
       <div class="col">
-        <input type="text" class="form-control" placeholder="Rut" aria-label="Last name">
+        <input type="text"  id="rut" name="rut" class="form-control" placeholder="Rut" aria-label="Last name">
       </div>
     </div>
     <br>
     <div class="row">
       <div class="col">
-        <input type="text" class="form-control" placeholder="Mes" aria-label="First name">
+        <input type="date"  id="fecha" name="fecha" class="form-control" placeholder="Mes" aria-label="First name">
       </div>
       <div class="col">
-        <input type="text" class="form-control" placeholder="Tipo" aria-label="Last name">
+        <input type="text" id="tipo" name="tipo" class="form-control" placeholder="Tipo" aria-label="Last name">
       </div>
     </div>
     <br>
-    <textarea placeholder="Detalle" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <textarea placeholder="Detalle" id="detalle" name="detalle" class="form-control" rows="3"></textarea>
     <br>
       <button type="submit" class="btn bg-gradient-info w-100">Guardar</button>
     </form>

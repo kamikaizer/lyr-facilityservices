@@ -27,8 +27,8 @@ import sqlalchemy
 from sqlalchemy.sql import text
 import pandas as pd
 
-# url = 'mysql+mysqlconnector://root:root1234@localhost:3306/prueba'
-# engine = sqlalchemy.create_engine(url)
+url = 'mysql+mysqlconnector://root:root1234@localhost:3306/prueba'
+engine = sqlalchemy.create_engine(url)
 
 
 main = Blueprint('main', __name__)
@@ -144,21 +144,29 @@ def index():
     # users = fetch_all_users()
     return render_template('main.html')
 
-@main.route('/assign_equipment/<int:equipment_id>', methods=['POST'])
-def assign_equipment_route(equipment_id):
-    user_id = int(request.form.get('user_id'))
+@main.route('/assign_equipment', methods=['POST'])
+def assign_equipment_route():
 
-    equipment = get_equipment_by_id(equipment_id)
-    user = get_user_by_id(user_id)
+    rut = int(request.form.get('rut'))
+    fecha = request.form.get('fecha')
+    tipo = int(request.form.get('tipo'))
+    detalle = request.form.get('detalle')
 
-    if equipment and user:
-        if equipment.is_assigned:
-            flash('El equipo ya está asignado a otro usuario.')
-        else:
-            assign_equipment(equipment_id, user_id)
-            flash(f'El equipo {equipment.name} ha sido asignado a {user.name}.')
+    current_app.logger.debug(request.form)
+    
+    values = {'rut':rut, 'fecha':fecha, 'tipo':tipo, 'detalle':detalle}
+            
 
-    return redirect(url_for('index'))
+    sql = """
+            INSERT INTO cotizacion (rut, fecha, tipo, detalle) 
+            VALUES (:rut, :fecha, :tipo, :detalle);"""
+    
+    with engine.connect() as conn:
+        conn.execute(text(sql),values)
+        conn.commit()
+        flash(f'Se a creado una nueva cotización.')
+
+    return redirect(url_for('main.index'))
 
 @main.route('/request_change/<int:equipment_id>', methods=['POST'])
 def request_change_route(equipment_id):
@@ -194,7 +202,10 @@ def ingreso():
 
 @main.route('/crud')
 def crud():
-    return render_template('crud.html')
+    with engine.connect() as conn:
+        sql1 = """select * from cotizacion """
+        datos = conn.execute(text(sql1)).fetchall()
+        return render_template('crud.html',datos=datos)
 
 @main.route('/aprobar')
 def aprobar():
