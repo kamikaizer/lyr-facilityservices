@@ -204,6 +204,9 @@ def aprobar():
 def panel():
     return render_template('panel.html')
 
+@main.route('/perfil')
+def perfil():
+    return render_template('perfil.html')
 
 
 
