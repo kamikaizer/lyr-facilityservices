@@ -27920,3 +27920,8 @@ pre[class*="language-"] {
   padding-left: 25px;
   padding-right: 25px;
 }
+#c1 {
+  padding: 30px;
+  text-align: center;
+  font-size: 60px;
+}

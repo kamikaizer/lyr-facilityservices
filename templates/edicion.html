@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+
+<div class="card border-white">
+    <div class="card-title">
+        <h1> Edición</h1>
+     </div>
+
+     <div class="card-body">
+        <form action="{{ url_for('main.assign_equipment_route') }}" method="POST">
+          <div class="row">
+            <div class="col">
+              <input type="text" id="origen" name="origen" class="form-control" placeholder="Origen" aria-label="First name">
+            </div>
+            <div class="col">
+              <input type="number"  id="pago" name="pago" class="form-control" placeholder="Pago" aria-label="Last name">
+            </div>
+            <div class="col">
+                <input type="number"  id="costo_proveedor" name="costo_proveedor" class="form-control" placeholder="Costo Proveedor" aria-label="First name">
+              </div>
+          </div>
+          <br>
+          <div class="row">
+
+            <div class="col">
+              <input type="number" id="Pago_proveedor" name="Pago_proveedor" class="form-control" placeholder="Pago Proveedor" aria-label="Last name">
+            </div>
+
+            <div class="col">
+                <input type="number" id="ct" name="ct" class="form-control" placeholder="N° C.T." aria-label="Last name">
+              </div>
+          </div>
+
+          <br>
+            <button type="submit" class="btn bg-gradient-info w-100">Guardar</button>
+          </form>
+
+</div>
+</div>
+
+<div class="row">
+    <div class="col-md-7 mt-4">
+      
+      <div class="card border-white">
+        <div class="card-body pt-4 p-3">
+          <ul class="list-group">
+            <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+              <div class="d-flex flex-column">
+                <h6 class="mb-3 text-sm">Valor Neto: </h6>
+                <span class="mb-2 text-md">IVA: <span class="text-dark font-weight-bold ms-sm-2">xx %</span></span>
+                <span class="mb-2 text-md">Total: <span class="text-dark font-weight-bold ms-sm-2">$ xxxxx</span></span>
+                <span class="mb-2 text-md">O.C.: <span class="text-dark ms-sm-2 font-weight-bold">xxx</span></span>
+                <span class="mb-2 text-md">Factura: <span class="text-dark ms-sm-2 font-weight-bold">xxx</span></span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 mt-4">
+      <div class="card h-100 mb-4 border-white">
+        <div class="card-title pb-0 px-3">
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class="mb-0">Resultado Antes de Impuesto:</h6>
+            </div>
+          </div>
+        </div>
+        <div class="card-body pt-4 p-3">
+            <h1 id="c1">$ xxxxx</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+{% endblock %}

@@ -219,5 +219,15 @@ def panel():
 def perfil():
     return render_template('perfil.html')
 
+@main.route('/edicion')
+def edicion():
+    return render_template('edicion.html')
+
+@main.route('/documentos')
+def documentos():
+    return render_template('documentos.html')
+
+
+
 
 
