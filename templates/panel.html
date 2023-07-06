@@ -24,6 +24,9 @@
               <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre">
             </div>
             <div class="col">
+              <input type="text" class="form-control" placeholder="Apellido" aria-label="Apellido">
+            </div>
+            <div class="col">
               <input type="text" class="form-control" placeholder="Cargo" aria-label="Cargo">
             </div>
             <div class="col">
@@ -33,7 +36,8 @@
               <input type="text" class="form-control" placeholder="Teléfono" aria-label="Teléfono">
             </div>
             <div class="col">
-              <input type="text" class="form-control" placeholder="Fecha de inicio de contrato" aria-label="contrato">
+              <input type="date"  id="fecha" name="fecha" class="form-control" placeholder="Fecha de contrato" aria-label="First name">
+
             </div>
             <div class="col">
               <a class="btn bg-gradient-info w-100"  type="button">Agregar</a>
@@ -45,10 +49,10 @@
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Cargo</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Contacto</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha Contrato</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Cargo</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Contacto</th>
+                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha Contrato</th>
                     <th class="text-secondary opacity-7"></th>
                   </tr>
                 </thead>
@@ -68,14 +72,13 @@
                         <div class="d-flex flex-column justify-content-center">
                             <h6 class="mb-0 text-sm">Teléfono</h6>
                             <p class="text-xs text-secondary mb-0">mail</p>
-                          </div>                      </td>
+                          </div>                      
+                    </td>
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">dd/mm/aaaa</span>
                     </td>
                     <td class="align-middle">
-                      <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                        Editar
-                      </a>
+                      <button type="submit" class="btn bg-gradient-info w-100">Ver</button>
                     </td>
                   </tr>
                 </tbody>
