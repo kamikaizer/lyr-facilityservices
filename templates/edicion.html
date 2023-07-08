@@ -5,6 +5,14 @@
 <p>{{ error }}</p>
 {% endif %}
 
+
+<div class="card border-white">
+  <div class="card-body">
+    Datos ingresados en el formulario
+  </div>
+</div>
+<br>
+
 <div class="card border-white">
   <div class="card-title">
     <h1>Costos {{datos.id}} </h1>
@@ -18,7 +26,6 @@
       <div class="col">
         <input type="number" id="pago" name="pago" class="form-control" placeholder="Pago" aria-label="Pago">
       </div>
-
     </div>
     <br>
     <div class="row">
@@ -34,69 +41,9 @@
 
     </div>
   </div>
+</div>
 
-  <!-- <div class="card-body">
-        <h1>Material</h1>
-        <br>
-          <div class="row">
-            <div class="col">
-              <input type="text" id="origen" name="origen" class="form-control" placeholder="Proveedor" aria-label="Proveedor">
-            </div>
-            <div class="col">
-              <input type="number"  id="pago" name="pago" class="form-control" placeholder="Factura" aria-label="Factura">
-            </div>
-            <div class="col">
-                <input type="number"  id="costo_proveedor" name="costo_proveedor" class="form-control" placeholder="Glosa" aria-label="Glosa">
-              </div>
-          </div>
-          <br>
-          <div class="row">
-
-            <div class="col">
-              <input type="number" id="Pago_proveedor" name="Pago_proveedor" class="form-control" placeholder="Valor Neto" aria-label="Valor Neto">
-            </div>
-
-            <div id="c2" class="col  bg-gray-100">
-                <h6>IVA:</h6>
-            </div>
-
-            <div id="c2" class="col  bg-gray-100">
-              <h6>Valor Total: $ xxxx</h6>
-            </div>
-        </div>
-      </div> -->
-
-  <!-- <div class="card-body">
-        <h1>Mano de Obra</h1>
-        <br>
-          <div class="row">
-            <div class="col">
-              <input type="text" id="origen" name="origen" class="form-control" placeholder="Mano de Obra" aria-label="Mano de Obra">
-            </div>
-            <div class="col">
-              <input type="number"  id="pago" name="pago" class="form-control" placeholder="Valor Neto" aria-label="Valor Neto">
-            </div>
-
-          </div>
-
-          <br>
-
-          <div class="row">
-              <div class="col">
-              <input type="number" id="Pago_proveedor" name="Pago_proveedor" class="form-control" placeholder="Costo Total Neto" aria-label="Costo Total Neto">
-            </div>
-  
-            <div class="col ">
-                <input type="number" id="ct" name="ct" class="form-control" placeholder="Costo Total Bruto" aria-label="Costo Total Bruto">
-            </div>
-          </div>
-          <br>
-          <button type="submit" class="btn bg-gradient-info w-100">Guardar</button>
-
-      </div> -->
-
-
-  <div class="container-fluid py-4">
+<div class="container-fluid py-4">
     <div class="row">
       <div class="col-12">
         <div class="card my-4 border-white">
@@ -108,7 +55,7 @@
 
           <br>
           <form name="material" id="material" method="POST">
-            <div class="row">
+            <div class="row" id="f1">
               <input type="hidden" id="cotizacion" name="cotizacion" value="{{datos.id}}">
               <div class="col">
                 <input type="text" id="proveedor" name="proveedor" class="form-control" placeholder="Proveedor"
@@ -145,6 +92,8 @@
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Valor Neto</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">IVA</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Valor Total</th>
+                    <th></th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -192,6 +141,12 @@
                         </div>
                       </div>
                     </td>
+                    <td>
+                      <div class="d-grid gap-2 d-md-block">
+                        <button class="btn btn-info" data-toggle="modal" ata-target="#changeRequestModal">Editar</button>
+                        <button class="btn btn-danger" data-toggle="modal" ata-target="#changeRequestModal">Eliminar</button>
+                    </div>
+                    </td>
 
                   </tr>
                   {% endfor %}
@@ -199,22 +154,26 @@
               </table>
             </div>
 
-            <div class="card-body pt-4 p-3 bg-gray-100">
-              <h1 id="c1">Suma Valor Neto $ {{valor}}</h1>
-              <h1 id="c1">Suma IVA $ {{valor * 0.19}}</h1>
-              <h1 id="c1">Suma Valor Total $ {{valor * 1.19}}</h1>
+            <div class="text-center card-body pt-4 p-3 bg-gray-100">
+              <div class="row align-items-start" id="c1">
+                <div class="col">
+                  <h5>Suma Valor Neto $ {{valor}}</h5>
+                </div>
+                <div class="col">
+                  <h5>Suma IVA $ {{valor * 0.19}}</h5>
+                </div>
+                <div class="col">
+                  <h5>Suma Valor Total $ {{valor * 1.19}}</h5>
+                </div>
+              </div>
             </div>
-
-
           </div>
         </div>
       </div>
     </div>
+</div>
 
-
-  </div>
-
-  <div class="container-fluid py-4">
+<div class="container-fluid py-4">
     <div class="row">
       <div class="col-12">
         <div class="card my-4 border-white">
@@ -226,7 +185,7 @@
 
           <br>
           <form name="mano_obra" id="mano_obra" method="POST">
-            <div class="row">
+            <div class="row"  id="f2">
               <input type="hidden" id="cotizacion" name="cotizacion" value="{{datos.id}}">
               <div class="col">
                 <input type="number" id="cantidad" name="cantidad" class="form-control" min="1" placeholder="Cantidad" aria-label="cantidad" required>
@@ -287,6 +246,12 @@
                       </div>
                     </td>
                   </tr>
+                  <tr>
+                    <div class="d-grid gap-2 d-md-block">
+                      <button class="btn btn-info" data-toggle="modal" ata-target="#changeRequestModal">Editar</button>
+                      <button class="btn btn-danger" data-toggle="modal" ata-target="#changeRequestModal">Eliminar</button>
+                  </div>
+                  </tr>
                   {% endfor %}
                 </tbody>
               </table>
@@ -303,32 +268,10 @@
     </div>
 
 
-  </div>
-
-
-
 </div>
 
 <div class="row">
-  <!-- <div class="col-md-7 mt-4">
-
-    <div class="card border-white">
-      <div class="card-body pt-4 p-3">
-        <ul class="list-group">
-          <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-            <div class="d-flex flex-column">
-              <h6 class="mb-3 text-sm">Valor Neto: </h6>
-              <span class="mb-2 text-md">IVA: <span class="text-dark font-weight-bold ms-sm-2">xx %</span></span>
-              <span class="mb-2 text-md">Total: <span class="text-dark font-weight-bold ms-sm-2">$ xxxxx</span></span>
-              <span class="mb-2 text-md">O.C.: <span class="text-dark ms-sm-2 font-weight-bold">xxx</span></span>
-              <span class="mb-2 text-md">Factura: <span class="text-dark ms-sm-2 font-weight-bold">xxx</span></span>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div> -->
-  <div class="col-md-5 mt-4">
+  <div class="col-md-6 mt-4">
     <div class="card h-100 mb-4 border-white">
       <div class="card-title pb-0 px-3">
         <div class="row">
@@ -342,7 +285,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-5 mt-4">
+  <div class="col-md-6 mt-4">
     <div class="card h-100 mb-4 border-white">
       <div class="card-title pb-0 px-3">
         <div class="row">

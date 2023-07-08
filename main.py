@@ -27,7 +27,7 @@ import sqlalchemy
 from sqlalchemy.sql import text
 import pandas as pd
 
-url = 'mysql+mysqlconnector://root:root1234@localhost:3306/prueba'
+url = 'mysql+mysqlconnector://root:@localhost:3306/prueba'
 engine = sqlalchemy.create_engine(url)
 
 
@@ -229,7 +229,10 @@ def edicion():
         materiales = conn.execute(text(sql1)).fetchall()
         sql1 = """select sum(valor_neto) as 'valor' from material where id_cotizacion= """+id
         valor = conn.execute(text(sql1)).fetchone()
-        valor = float(valor[0])
+        if valor[0] is None:
+            valor = 0
+        else:
+            valor = float(valor[0])
 
 
         sql1 = """select * from cotizacion where id= """+id
