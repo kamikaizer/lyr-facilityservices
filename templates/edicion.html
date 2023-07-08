@@ -2,40 +2,40 @@
 
 {% block content %}
 {% if error %}
-        <p>{{ error }}</p>
-    {% endif %}
+<p>{{ error }}</p>
+{% endif %}
 
 <div class="card border-white">
-    <div class="card-title">
-        <h1>Costos</h1>
-    </div>
+  <div class="card-title">
+    <h1>Costos {{datos.id}} </h1>
+  </div>
 
-      <div class="card-body">
-        <form action="{{ url_for('main.assign_equipment_route') }}" method="POST">
-          <div class="row">
-            <div class="col">
-              <input type="text" id="origen" name="origen" class="form-control" placeholder="Origen" aria-label="Origen">
-            </div>
-            <div class="col">
-              <input type="number"  id="pago" name="pago" class="form-control" placeholder="Pago" aria-label="Pago">
-            </div>
-          </div>
-          <br>
-          <div class="row">
-
-            <div class="col">
-              <input type="number" id="Pago_proveedor" name="Pago_proveedor" class="form-control" placeholder="Pago Proveedor" aria-label="Pago Proveedor">
-            </div>
-
-            <div class="col">
-              <input type="number" id="ct" name="ct" class="form-control" placeholder="N° C.T." aria-label="N° C.T.">
-            </div>
-
-          </div>  
-     
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        <input type="text" id="origen" name="origen" class="form-control" placeholder="Origen" aria-label="Origen">
+      </div>
+      <div class="col">
+        <input type="number" id="pago" name="pago" class="form-control" placeholder="Pago" aria-label="Pago">
       </div>
 
-      <!-- <div class="card-body">
+    </div>
+    <br>
+    <div class="row">
+
+      <div class="col">
+        <input type="number" id="Pago_proveedor" name="Pago_proveedor" class="form-control" placeholder="Pago Proveedor"
+          aria-label="Pago Proveedor">
+      </div>
+
+      <div class="col">
+        <input type="number" id="ct" name="ct" class="form-control" placeholder="N° C.T." aria-label="N° C.T.">
+      </div>
+
+    </div>
+  </div>
+
+  <!-- <div class="card-body">
         <h1>Material</h1>
         <br>
           <div class="row">
@@ -66,7 +66,7 @@
         </div>
       </div> -->
 
-      <!-- <div class="card-body">
+  <!-- <div class="card-body">
         <h1>Mano de Obra</h1>
         <br>
           <div class="row">
@@ -94,246 +94,271 @@
           <button type="submit" class="btn bg-gradient-info w-100">Guardar</button>
 
       </div> -->
-        
-
-      <div class="container-fluid py-4">
-        <div class="row">
-          <div class="col-12">
-            <div class="card my-4 border-white">
-              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                <div class="bg-gradient-secondary shadow-secondary border-radius-lg pt-4 pb-3">
-                  <h6 class="text-white text-capitalize ps-3">Material</h6>
-                </div>
-              </div>
-    
-              <br>
-              <div class="row" id="form_contrato">
-                <div class="col">
-                  <input type="text" class="form-control" placeholder="proveedor" aria-label="Proveedor">
-                </div>
-                <div class="col">
-                  <input type="text" class="form-control" placeholder="Factura" aria-label="Factura">
-                </div>
-                <div class="col">
-                  <input type="text" class="form-control" placeholder="Glosa" aria-label="Glosa">
-                </div>
-                <div class="col">
-                  <input type="text" class="form-control" placeholder="Valor Neto" aria-label="Valor Neto">
-                </div>
-                <div class="col">
-                  <input type="text" class="form-control" placeholder="IVA" aria-label="IVA">
-                </div>
-                <div class="col">
-                  <input type="text" class="form-control" placeholder="Valor Total" aria-label="Valor Total">
-                </div>
-                <div class="col">
-                  <a class="btn bg-gradient-info w-100"  type="button">Agregar</a>
-                </div>
-              </div>
-              <br>
-              <div class="card-body px-0 pb-2">
-                <div class="table-responsive p-0">
-                  <table class="table align-items-center mb-0">
-                    <thead>
-                      <tr>
-                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Proveedor</th>
-                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Factura</th>
-                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Glosa</th>
-                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Valor Neto</th>
-                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">IVA</th>
-                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Valor Total</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">xxxxxxxx</h6>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">xxxxxxxx</h6>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">xxxxxxxx</h6>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">xxxxxxxx</h6>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">xxxxxxxx</h6>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">xxxxxxxx</h6>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <div class="card-body pt-4 p-3 bg-gray-100">
-                  <h1 id="c1">Sumatoria $ xxxxx</h1>
-              </div>
 
 
-              </div>
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card my-4 border-white">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-secondary shadow-secondary border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Material</h6>
             </div>
           </div>
-        </div>
-    
-    
-      </div>
 
-      <div class="container-fluid py-4">
-        <div class="row">
-          <div class="col-12">
-            <div class="card my-4 border-white">
-              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                <div class="bg-gradient-secondary shadow-secondary border-radius-lg pt-4 pb-3">
-                  <h6 class="text-white text-capitalize ps-3">Mano de Obra</h6>
-                </div>
+          <br>
+          <form name="material" id="material" method="POST">
+            <div class="row">
+              <input type="hidden" id="cotizacion" name="cotizacion" value="{{datos.id}}">
+              <div class="col">
+                <input type="text" id="proveedor" name="proveedor" class="form-control" placeholder="Proveedor"
+                  aria-label="Proveedor" required>
               </div>
-    
-              <br>
-              <div class="row" id="form_contrato">
-                <div class="col">
-                  <input type="text" class="form-control" placeholder="Cantidad" aria-label="cantidad">
-                </div>
-                <div class="col">
-                  <input type="text" class="form-control" placeholder="Precio" aria-label="precio">
-                </div>
-                <div class="col">
-                  <input type="text" class="form-control" placeholder="Días" aria-label="días">
-                </div>
-                <div class="col">
-                  <input type="text" class="form-control" placeholder="Total Neto" aria-label="Total Neto">
-                </div>
-                <div class="col">
-                  <a class="btn bg-gradient-info w-100"  type="button">Agregar</a>
-                </div>
+              <div class="col">
+                <input type="text" id="factura" name="factura" class="form-control" placeholder="Factura"
+                  aria-label="Factura" required>
               </div>
-              <br>
-              <div class="card-body px-0 pb-2">
-                <div class="table-responsive p-0">
-                  <table class="table align-items-center mb-0">
-                    <thead>
-                      <tr>
-                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Cantidad</th>
-                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Precio</th>
-                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Días</th>
-                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Total Neto</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">xxxxxxxx</h6>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">xxxxxxxx</h6>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">xxxxxxxx</h6>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">xxxxxxxx</h6>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <div class="card-body pt-4 p-3 bg-gray-100">
-                  <h1 id="c1">Sumatoria $ xxxxx</h1>
+              <div class="col">
+                <input type="text" id="glosa" name="glosa" class="form-control" placeholder="Glosa" aria-label="Glosa"
+                  required>
+              </div>
+              <div class="col">
+                <input type="number" id="valor" name="valor" class="form-control" min="0" placeholder="Valor Neto"
+                  aria-label="Valor Neto" required>
               </div>
 
-
+              <div class="col">
+                <button type="submit" class="btn bg-gradient-info w-100">Guardar</button>
               </div>
+
             </div>
+          </form>
+          <br>
+          <div class="card-body px-0 pb-2" id="div_materiales" name="div_materiales">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Proveedor</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Factura</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Glosa</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Valor Neto</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">IVA</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Valor Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for material in materiales %}
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{material.proveedor}}</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{material.factura}}</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{material.glosa}}</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">$ {{material.valor_neto}}</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{material.valor_neto * 0.19| float}}</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{material.valor_neto * 1.19 |float}}</h6>
+                        </div>
+                      </div>
+                    </td>
+
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="card-body pt-4 p-3 bg-gray-100">
+              <h1 id="c1">Suma Valor Neto $ {{valor}}</h1>
+              <h1 id="c1">Suma IVA $ {{valor * 0.19}}</h1>
+              <h1 id="c1">Suma Valor Total $ {{valor * 1.19}}</h1>
+            </div>
+
+
           </div>
-        </div>
-    
-        <button type="submit" class="btn bg-gradient-info w-100">Guardar</button>
-
-      </div>
-
-
-      </form>
-</div>
-
-<div class="row">
-    <div class="col-md-7 mt-4">
-      
-      <div class="card border-white">
-        <div class="card-body pt-4 p-3">
-          <ul class="list-group">
-            <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-              <div class="d-flex flex-column">
-                <h6 class="mb-3 text-sm">Valor Neto: </h6>
-                <span class="mb-2 text-md">IVA: <span class="text-dark font-weight-bold ms-sm-2">xx %</span></span>
-                <span class="mb-2 text-md">Total: <span class="text-dark font-weight-bold ms-sm-2">$ xxxxx</span></span>
-                <span class="mb-2 text-md">O.C.: <span class="text-dark ms-sm-2 font-weight-bold">xxx</span></span>
-                <span class="mb-2 text-md">Factura: <span class="text-dark ms-sm-2 font-weight-bold">xxx</span></span>
-              </div>
-            </li>
-          </ul>
         </div>
       </div>
     </div>
-    <div class="col-md-5 mt-4">
-      <div class="card h-100 mb-4 border-white">
-        <div class="card-title pb-0 px-3">
-          <div class="row">
-            <div class="col-md-6">
-              <h6 class="mb-0">Resultado Antes de Impuesto:</h6>
+
+
+  </div>
+
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card my-4 border-white">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-secondary shadow-secondary border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Mano de Obra</h6>
             </div>
           </div>
-        </div>
-        <div class="card-body pt-4 p-3">
-            <h1 id="c1">$ xxxxx</h1>
+
+          <br>
+          <form name="mano_obra" id="mano_obra" method="POST">
+            <div class="row">
+              <input type="hidden" id="cotizacion" name="cotizacion" value="{{datos.id}}">
+              <div class="col">
+                <input type="number" id="cantidad" name="cantidad" class="form-control" min="1" placeholder="Cantidad" aria-label="cantidad" required>
+              </div>
+              <div class="col">
+                <input type="number" id="valor" name="valor" class="form-control" min="1" placeholder="Precio" aria-label="precio" required>
+              </div>
+              <div class="col">
+                <input type="number" id="dias" name="dias" min="1" class="form-control" placeholder="Días" aria-label="días" required>
+              </div>
+              
+              <div class="col">
+                <button type="submit" class="btn bg-gradient-info w-100">Guardar</button>
+              </div>
+            </div>
+          </form>
+          <br>
+          <div class="card-body px-0 pb-2" name="div_mano_obra" id="div_mano_obra">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Cantidad</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Precio</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Días</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Total Neto</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for mano_obra in manos_obra%}
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{mano_obra.cantidad}} </h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{mano_obra.precio}}</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{mano_obra.dias}}</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{mano_obra.valor_neto}}</h6>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="card-body pt-4 p-3 bg-gray-100">
+              <h1 id="c1">Total Neto $ {{valor_obra}}</h1>
+            </div>
+
+
+          </div>
         </div>
       </div>
     </div>
+
+
   </div>
 
 
+
+</div>
+
+<div class="row">
+  <!-- <div class="col-md-7 mt-4">
+
+    <div class="card border-white">
+      <div class="card-body pt-4 p-3">
+        <ul class="list-group">
+          <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+            <div class="d-flex flex-column">
+              <h6 class="mb-3 text-sm">Valor Neto: </h6>
+              <span class="mb-2 text-md">IVA: <span class="text-dark font-weight-bold ms-sm-2">xx %</span></span>
+              <span class="mb-2 text-md">Total: <span class="text-dark font-weight-bold ms-sm-2">$ xxxxx</span></span>
+              <span class="mb-2 text-md">O.C.: <span class="text-dark ms-sm-2 font-weight-bold">xxx</span></span>
+              <span class="mb-2 text-md">Factura: <span class="text-dark ms-sm-2 font-weight-bold">xxx</span></span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div> -->
+  <div class="col-md-5 mt-4">
+    <div class="card h-100 mb-4 border-white">
+      <div class="card-title pb-0 px-3">
+        <div class="row">
+          <div class="col-md-6">
+            <h6 class="mb-0">Costo Total Neto:</h6>
+          </div>
+        </div>
+      </div>
+      <div class="card-body pt-4 p-3">
+        <h1 id="c1">$ {{valor_obra+valor }}</h1>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-5 mt-4">
+    <div class="card h-100 mb-4 border-white">
+      <div class="card-title pb-0 px-3">
+        <div class="row">
+          <div class="col-md-6">
+            <h6 class="mb-0">Costo Total Bruto</h6>
+          </div>
+        </div>
+      </div>
+      <div class="card-body pt-4 p-3">
+        <h1 id="c1">$ {{valor_obra+valor*1.19 }}</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="{{ url_for('static', filename='js/otro.js')}}"></script>
 
 {% endblock %}

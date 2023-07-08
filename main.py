@@ -219,9 +219,84 @@ def panel():
 def perfil():
     return render_template('perfil.html')
 
-@main.route('/edicion')
+@main.route('/edicion',methods=['POST','GET'])
 def edicion():
-    return render_template('edicion.html')
+    id = request.args.get('id')
+    with engine.connect() as conn:
+        sql1 = """select * from cotizacion where id= """+id
+        datos = conn.execute(text(sql1)).fetchone()
+        sql1 = """select * from material where id_cotizacion= """+id
+        materiales = conn.execute(text(sql1)).fetchall()
+        sql1 = """select sum(valor_neto) as 'valor' from material where id_cotizacion= """+id
+        valor = conn.execute(text(sql1)).fetchone()
+        valor = float(valor[0])
+
+
+        sql1 = """select * from cotizacion where id= """+id
+        datos = conn.execute(text(sql1)).fetchone()
+        sql1 = """select * from mano_obra where id_cotizacion= """+id
+        manos_obra = conn.execute(text(sql1)).fetchall()
+        sql1 = """select sum(valor_neto) as 'valor' from mano_obra where id_cotizacion= """+id
+        valor_obra = conn.execute(text(sql1)).fetchone()
+        if valor_obra[0] is None:
+            valor_obra = 0
+        else:
+            valor_obra = float(valor_obra[0])
+        
+        current_app.logger.debug(valor)
+        return render_template('edicion.html',datos=datos,materiales=materiales,manos_obra=manos_obra,valor=valor,valor_obra=valor_obra)
+
+@main.route('/material', methods=['POST','GET'])
+def material():
+    
+    if request.method == 'POST':
+        proveedor = request.form.get('proveedor')
+        factura = request.form.get('factura')
+        valor = int(request.form.get('valor'))
+        glosa = request.form.get('glosa')
+        cotizacion = int(request.form.get('cotizacion'))
+
+
+        values = {'proveedor':proveedor, 'factura':factura, 'valor':valor, 'glosa':glosa,'cotizacion':cotizacion}
+            
+
+        sql = """
+                INSERT INTO prueba.material(id_cotizacion, proveedor, factura, valor_neto)
+                  VALUES(:cotizacion, :proveedor, :factura, :valor);
+                  """
+    
+        with engine.connect() as conn:
+            conn.execute(text(sql),values)
+            conn.commit()
+
+        return jsonify('success')
+    
+@main.route('/mano_obra', methods=['POST','GET'])
+def mano_obra():
+    
+    if request.method == 'POST':
+        current_app.logger.debug(request.form)
+        cantidad = int(request.form.get('cantidad'))
+        dias = int(request.form.get('dias'))
+        valor = int(request.form.get('valor'))
+        
+        cotizacion = int(request.form.get('cotizacion'))
+
+
+        values = {'cantidad':cantidad, 'dias':dias, 'valor':valor, 'cotizacion':cotizacion,'valor_neto':cantidad*dias*valor}
+            
+
+        sql = """
+                INSERT INTO prueba.mano_obra(id_cotizacion, cantidad, precio, dias,valor_neto)
+                VALUES(:cotizacion, :cantidad, :valor, :dias,:valor_neto);
+
+                """
+    
+        with engine.connect() as conn:
+            conn.execute(text(sql),values)
+            conn.commit()
+
+        return jsonify('success')
 
 @main.route('/documentos')
 def documentos():
