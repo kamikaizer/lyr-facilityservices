@@ -5,14 +5,14 @@
 <p>{{ error }}</p>
 {% endif %}
 
-
+<!-- tarjeta de datos ingresados anteriormente -->
 <div class="card border-white">
   <div class="card-body">
     Datos ingresados en el formulario
   </div>
 </div>
 <br>
-
+<!-- tarjeta edicion -->
 <div class="card border-white">
   <div class="card-title">
     <h1>Costos {{datos.id}} </h1>
@@ -43,13 +43,14 @@
   </div>
 </div>
 
+<!-- crud materiales -->
 <div class="container-fluid py-4">
     <div class="row">
       <div class="col-12">
         <div class="card my-4 border-white">
           <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
             <div class="bg-gradient-secondary shadow-secondary border-radius-lg pt-4 pb-3">
-              <h6 class="text-white text-capitalize ps-3">Material</h6>
+              <h6 class="text-white text-capitalize ps-3">Materiales</h6>
             </div>
           </div>
 
@@ -141,8 +142,8 @@
                         </div>
                       </div>
                     </td>
-                    <td><button class="btn btn-info" data-toggle="modal" ata-target="#changeRequestModal">Editar</button></td>
-                    <td><button class="btn btn-danger" data-toggle="modal" ata-target="#changeRequestModal">Eliminar</button></td>
+                    <td><button class="btn btn-info w-100" data-toggle="modal" ata-target="#changeRequestModal">Editar</button></td>
+                    <td><button class="btn btn-danger w-100" data-toggle="modal" ata-target="#changeRequestModal">Eliminar</button></td>
 
                   </tr>
                   {% endfor %}
@@ -169,6 +170,7 @@
     </div>
 </div>
 
+<!-- crud mano de obra -->
 <div class="container-fluid py-4">
     <div class="row">
       <div class="col-12">
@@ -243,8 +245,8 @@
                         </div>
                       </div>
                     </td>
-                    <td><button class="btn btn-info" data-toggle="modal" ata-target="#changeRequestModal">Editar</button></td>
-                    <td><button class="btn btn-danger" data-toggle="modal" ata-target="#changeRequestModal">Eliminar</button></td>
+                    <td><button class="btn btn-info w-100" data-toggle="modal" ata-target="#changeRequestModal">Editar</button></td>
+                    <td><button class="btn btn-danger w-100" data-toggle="modal" ata-target="#changeRequestModal">Eliminar</button></td>
                   </tr>
 
                   {% endfor %}
@@ -265,6 +267,7 @@
 
 </div>
 
+<!-- tarjeta costos -->
 <div class="row">
   <div class="col-md-6 mt-4">
     <div class="card h-100 mb-4 border-white">

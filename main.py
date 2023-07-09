@@ -219,6 +219,10 @@ def panel():
 def perfil():
     return render_template('perfil.html')
 
+@main.route('/rrhh')
+def rrhh():
+    return render_template('rrhh.html')
+
 @main.route('/edicion',methods=['POST','GET'])
 def edicion():
     id = request.args.get('id')
