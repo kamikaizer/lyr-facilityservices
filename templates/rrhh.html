@@ -6,7 +6,15 @@
         <p>{{ error }}</p>
     {% endif %}
 
+    <div class="tab">
+      <button class="tablinks" onclick="showTab('Tab1')" id="defaultTab">Creación de Usuarios</button>
+      <button class="tablinks" onclick="showTab('Tab2')">Solicitud de Vacaciones</button>
+      <button class="tablinks" onclick="showTab('Tab3')">Adjuntar Documentos</button>
+    </div>
 
+<div id="Tab1" class="tabcontent">
+  <br>
+  <br>
 
 <div class="container-fluid py-4">
     <div class="row">
@@ -89,8 +97,18 @@
       </div>
     </div>
 
+</div>
+</div>
 
-  </div>
+<div id="Tab2" class="tabcontent">
+  <h3>Solicitud de Vacaciones</h3>
+  <p>Este es el contenido del segundo tab.</p>
+</div>
+
+<div id="Tab3" class="tabcontent">
+  <h3>Adjuntar Documentos</h3>
+  <p>Este es el contenido del tercer tab.</p>
+</div>
 
 
 {% endblock %}

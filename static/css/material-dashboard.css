@@ -27932,3 +27932,13 @@ pre[class*="language-"] {
   margin-left: 5px; 
   margin-right: 5px;
 }
+.tablinks {
+  background-color: #eee; /* Color de fondo de los tabs */
+  color: black; /* Color del texto de los tabs */
+  float: left; /* Alinea los tabs a la izquierda */
+  border: 1px solid #ccc; /* Borde de los tabs */
+  outline: none; /* Quita el borde al hacer clic */
+  cursor: pointer; /* Cambia el cursor a una mano al pasar sobre los tabs */
+  padding: 14px 16px; /* Espacio alrededor del texto */
+  font-size: 17px; /* Tamaño del texto */
+}
