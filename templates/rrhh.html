@@ -106,15 +106,159 @@
 </div>
 
 <div id="Tab2" class="tabcontent">
-  <h3>Solicitud de Vacaciones</h3>
-  <p>Este es el contenido del segundo tab.</p>
+  <br>
+  <br>
+
+<div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card my-4 border-white">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-info shadow-info border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Solicitud de vacaciones</h6>
+            </div>
+          </div>
+
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Fehca Inicio</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Fecha Fin</th>
+                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Cantidad de días habiles</th>
+                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Aprobador</th>
+                    <th class="text-secondary opacity-7"></th>
+                    <th class="text-secondary opacity-7"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">nombre 01</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="align-middle text-center">
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">dd/mm/aaaa</h6>
+                        </div>
+                      </div>                    
+                    </td>
+                    <td class="align-middle text-center">
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">dd/mm/aaaa</h6>
+                        </div>
+                      </div>                        
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">xx</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">Aprobado por</span>
+                    </td>
+                    <td class="align-middle">
+                      <button type="submit" class="btn bg-gradient-info w-100">Aprobar</button>
+                    </td>
+                    <td class="align-middle">
+                      <button type="submit" class="btn bg-gradient-danger w-100">Eliminar</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
 </div>
 
 <div id="Tab3" class="tabcontent">
-  <h3>Adjuntar Documentos</h3>
-  <p>Este es el contenido del tercer tab.</p>
+
+  <br>
+  <br>
+
+<div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card my-4 border-white">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-info shadow-info border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Carga de documentos</h6>
+            </div>
+          </div>
+
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Cargo</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"">Documentos</th>
+                    <th class="text-secondary opacity-7"></th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">nombre 01</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <p class="text-xs text-secondary mb-0">Cargo</p>
+                    </td>
+                    <td>
+                      <p class="text-xs text-secondary mb-0">Documentos</p>
+                    </td>
+                    <td class="align-middle">
+                      <button type="submit" class="btn bg-gradient-info w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar</button>
+                    </td>
+
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 </div>
 
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar documento</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="ejemplo_archivo_1">Adjuntar un archivo</label>
+          <input type="file" id="ejemplo_archivo_1">
+        </div>      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
       // Simula un clic en el primer tab para mostrarlo al cargar la página
       document.getElementById("defaultTab").click();
