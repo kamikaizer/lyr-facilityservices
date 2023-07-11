@@ -223,6 +223,10 @@ def perfil():
 def rrhh():
     return render_template('rrhh.html')
 
+@main.route('/factura')
+def factura():
+    return render_template('factura.html')
+
 @main.route('/edicion',methods=['POST','GET'])
 def edicion():
     id = request.args.get('id')

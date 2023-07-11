@@ -62,6 +62,8 @@
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Contacto</th>
                     <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha Contrato</th>
                     <th class="text-secondary opacity-7"></th>
+                    <th class="text-secondary opacity-7"></th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -86,7 +88,10 @@
                       <span class="text-secondary text-xs font-weight-bold">dd/mm/aaaa</span>
                     </td>
                     <td class="align-middle">
-                      <button type="submit" class="btn bg-gradient-info w-100">Ver</button>
+                      <button type="submit" class="btn bg-gradient-info w-100">Editar</button>
+                    </td>
+                    <td class="align-middle">
+                      <button type="submit" class="btn bg-gradient-danger w-100">Eliminar</button>
                     </td>
                   </tr>
                 </tbody>
@@ -110,5 +115,8 @@
   <p>Este es el contenido del tercer tab.</p>
 </div>
 
-
+<script>
+      // Simula un clic en el primer tab para mostrarlo al cargar la página
+      document.getElementById("defaultTab").click();
+</script>
 {% endblock %}

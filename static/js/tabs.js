@@ -34,5 +34,4 @@
     document.getElementById(tab).style.display = "block";
     event.currentTarget.className += " active";
   }
-    // Simula un clic en el primer tab para mostrarlo al cargar la página
-    document.getElementById("defaultTab").click();
+  

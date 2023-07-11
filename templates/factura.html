@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+
+        <h2>Factura n° xxxx</h2>
+    
+        <div class="card border-white">
+            <div class="container">
+                <h3>Información del cliente</h3>
+                <p>Nombre: [Nombre del cliente]</p>
+                <p>Dirección: [Dirección del cliente]</p>
+            </div>
+        </div>
+    <br>
+        <div class="card border-white">
+            <div class="container">
+                <h3>Cotización</h3>
+                <p>[Información de la cotización]</p>
+            </div>
+        </div>
+        <br>
+        <div class="card border-white">
+            <div class="container">
+                <h3>Costos</h3>
+                <p>[Información de los costos]</p>
+            </div>
+        </div>
+        <br>
+        <div class="card border-white">
+            <div class="container">
+                <h3>Detalle de mano de obra</h3>
+    
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Descripción</th>
+                      <th>Cantidad</th> 
+                      <th>Precio unitario</th>
+                      <th>Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>[Descripción del trabajo]</td>
+                      <td>[Cantidad]</td>
+                      <td>[Precio unitario]</td>
+                      <td>[Total]</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <div class="card border-white">
+            <div class="container">
+                <h3>Detalle de materiales</h3>
+    
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Proveedor</th>
+                      <th>Factura</th>
+                      <th>Descripción</th>
+                      <th>Precio unitario</th>
+                      <th>Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>[Proveedor]</td>
+                      <td>[Factura]</td>
+                      <td>[Descripción]</td> 
+                      <td>[Precio unitario]</td>
+                      <td>[Total]</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <div class="card border-white">
+            <div class="container">
+                <h3>Totales</h3>
+        
+                <p>Valor neto: [Valor neto]</p>
+                <p>Valor bruto: [Valor bruto]</p>
+            </div>
+        </div>
+
+
+{% endblock %}
