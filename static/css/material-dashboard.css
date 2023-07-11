@@ -27942,3 +27942,23 @@ pre[class*="language-"] {
   padding: 14px 16px; /* Espacio alrededor del texto */
   font-size: 17px; /* Tamaño del texto */
 }
+<div class="col-6 text-end">
+<a class="btn bg-gradient-dark mb-0" href="javascript:;"><i class="material-icons text-sm">add</i>Agregar</a>
+</div>
+
+<div class="col-md-12 mb-lg-0 mb-6">
+<div class="card mt-4 border-white">
+  <div class="card-title pb-0 p-3">
+    <div class="row">
+      <div class="col-6 d-flex align-items-center">
+        <h6 class="mb-0">Datos Empleado</h6>
+      </div>
+    </div>
+  </div>
+  <div class="card-body p-3">
+    <div class="row">
+
+    </div>
+  </div>
+</div>
+</div>
