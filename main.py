@@ -227,6 +227,10 @@ def rrhh():
 def factura():
     return render_template('factura.html')
 
+@main.route('/ct')
+def ct():
+    return render_template('ct.html')
+
 @main.route('/edicion',methods=['POST','GET'])
 def edicion():
     id = request.args.get('id')

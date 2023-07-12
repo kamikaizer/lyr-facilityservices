@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+<div class="card border-white" style="padding-top: 50px; padding-bottom: 50px;">
+    <div class="container text-center">
+        <div class="row align-items-start">
+          <div class="col">
+          </div>
+          <div class="col">
+          </div>
+          <div class="col">
+            <img src="{{url_for('static', filename='./img/logo-ct.png')}}" alt="">
+            <h4>Santiago, [fecha]</h4>
+            <p>Cotiz.: [Numero de cotización]</p>
+        </div>
+        </div>
+      </div>
+
+      <div class="container text-left">
+        <div class="row align-items-start">
+          <div class="col">
+            <h4>Solicitud de Cotización</h4>
+            <p>Srs. [Nombre]</p>
+          </div>
+          <div class="col">
+          </div>
+          <div class="col">
+        </div>
+        </div>
+      </div>
+<br>
+<br><br><br>
+      <div class="container text-left">
+        <div>
+            <p>Estimado [Nombre]
+               <br> A continuación, presentamos detalle de la cotización según requerimiento:</p>
+          </div>
+      </div>
+      <br>
+      <br><br><br>
+        <div class="container">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Cantidad</th>
+                  <th>Descripción</th>
+                  <th>Precio Neto</th>
+                  <th>Precio Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>[Cantidad]</td>
+                  <td>[Descripción]</td>
+                  <td>[Precio Neto]</td> 
+                  <td>[recio Total]</td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <td>Total</td>
+                    <td>[Total]</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+    <br>
+    <br><br><br>
+
+    <div class="container text-left">
+        <div class="row align-items-start">
+          <div class="col">
+            <p>El Presupuesto incluye:</p>
+            <ul>
+                <li>[lista]</li>
+            </ul>
+          </div>
+          <div class="col">
+          </div>
+          <div class="col">
+        </div>
+        </div>
+      </div>
+
+      <br><br><br>
+
+      <div class="container text-left">
+          <div class="row align-items-start">
+            <div class="col">
+              <p>Agradecemos su preferencia. Estamos a sus órdenes para aclarar cualquier duda.</p>
+            </div>
+          </div>
+        </div>
+
+        <br><br><br>
+        <br><br><br>
+
+        <div class="container text-center">
+            <div class="row align-items-start">
+              <div class="col">
+              </div>
+              <div class="col">
+                <h3>Christopher Lara</h3>
+                <p>Operations Supervisor</p>
+              </div>
+              <div class="col">
+            </div>
+            </div>
+          </div>
+</div>
+
+{% endblock %}
