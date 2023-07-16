@@ -36,4 +36,24 @@ $(document).ready(function () {
 
   });
 
+  $('#aprobar').on("submit", function (event) {
+    
+    event.preventDefault();
+    $.ajax({
+      url: "/aprobar_cotizacion",
+      method: "POST",
+      data: $('#aprobar').serialize(),
+      beforeSend: function () {
+        $('#aprobar').val("Inserting");
+      },
+      success: function (data) {
+        if (data == 'success') {
+          alert("Cotización Terminada, pasa a Etapa de Aprobación");
+          window.location.href = 'crud'
+        }
+      }
+    });
+
+  });
+
 })

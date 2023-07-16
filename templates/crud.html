@@ -32,7 +32,9 @@
             <th scope="row">{{dato.fecha}}</th>
             <th scope="row">{{dato.tipo}}</th>
             <th scope="row">{{dato.detalle}}</th>
-            <th><button class="btn btn-info w-100" data-toggle="modal" ata-target="#changeRequestModal">Editar</button></th>
+            <th><a href="/edicion?id={{dato.id}}"  class="btn btn-info w-100 " > <span class="iconify"
+              data-icon="bx:edit" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Editar</a></th>
+            
             <th><button class="btn btn-danger w-100" data-toggle="modal" ata-target="#changeRequestModal">Eliminar</button></th>
           </tr>
           {% endfor %}

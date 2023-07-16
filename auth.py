@@ -1,7 +1,7 @@
 import functools
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, flash,jsonify, g, redirect, render_template, request, session, url_for, current_app
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 import mysql.connector
@@ -113,10 +113,19 @@ def login():
         cursor = db.cursor()
         cursor.execute("SELECT * FROM users WHERE username=%s AND password=%s", (username, hashed_password))
         user = cursor.fetchone()
-        cursor.close()
+        current_app.logger.debug(user)
+        
 
         if user:
             session['username'] = username
+            session['nombre'] = user[4]+" "+user[5]
+            session['fecha'] = user[8]
+            session['cargo'] = user[9]
+            current_app.logger.debug(session['nombre'])
+
+
+            
+
             return redirect('/dashboard')
         else:
             error = 'Usuario o contraseña incorrectos.'
@@ -127,10 +136,17 @@ def login():
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        role = 'user'  # Por defecto, todos los usuarios se registran como 'user'
+        current_app.logger.debug(request)
+        name = request.form['name']
+        apellido = request.form['apellido']
+        cargo = request.form['cargo']
+        correo = request.form['correo']
+        telefono = request.form['telefono']
+        fecha = request.form['fecha']
 
+        role = 'user'  # Por defecto, todos los usuarios se registran como 'user'
+        password = name+"."+apellido
+        username = password
         hashed_password = hashlib.sha256(password.encode()).hexdigest()
         
         db = mysql.connector.connect(
@@ -150,13 +166,13 @@ def register():
             role = 'master'  # Si el usuario maestro no existe, registra el nuevo usuario como 'master'
 
         # Inserta el nuevo usuario en la base de datos
-        cursor.execute("INSERT INTO users (username, password, role) VALUES (%s, %s, %s)", (username, hashed_password, role))
+        
+        cursor.execute("""INSERT INTO users (username, password, role,nombre, apellido, correo, telefono,fecha,cargo) 
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)""", (username, hashed_password, role,name,apellido,correo,telefono,fecha,cargo))
         db.commit()
         cursor.close()
 
-        return redirect('/login')
-
-    return render_template('/auth/register.html')
+        return jsonify('success')
 
 @auth.route('/dashboard')
 def dashboard():

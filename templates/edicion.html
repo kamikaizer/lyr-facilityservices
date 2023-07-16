@@ -300,8 +300,10 @@
 </div>
 
 <br>
-<button type="submit" class="btn bg-gradient-info w-100">Guardar</button>
-
+<form name="aprobar" id="aprobar" method="POST">
+  <input type="hidden" id="cotizacion" name="cotizacion" value="{{datos.id}}">
+  <button type="submit" class="btn bg-gradient-info w-100">Guardar</button>
+</form>
 
 <script src="{{ url_for('static', filename='js/otro.js')}}"></script>
 

@@ -1,7 +1,7 @@
 import io
 # import pyodbc
 # from flask import make_response 
-from flask import Blueprint, render_template, redirect,url_for,request,flash,jsonify,json,send_file,current_app
+from flask import Blueprint,session, render_template, redirect,url_for,request,flash,jsonify,json,send_file,current_app
 # from flask_ldap3_login import LDAP3LoginManager
 # from flask_login import LoginManager,login_required, login_user, UserMixin, current_user, logout_user
 # from flask_ldap3_login.forms import LDAPLoginForm
@@ -27,7 +27,7 @@ import sqlalchemy
 from sqlalchemy.sql import text
 import pandas as pd
 
-url = 'mysql+mysqlconnector://root:@localhost:3306/prueba'
+url = 'mysql+mysqlconnector://root:root1234@localhost:3306/prueba'
 engine = sqlalchemy.create_engine(url)
 
 
@@ -158,8 +158,8 @@ def assign_equipment_route():
             
 
     sql = """
-            INSERT INTO cotizacion (rut, fecha, tipo, detalle) 
-            VALUES (:rut, :fecha, :tipo, :detalle);"""
+            INSERT INTO cotizacion (rut, fecha, tipo, detalle,estado) 
+            VALUES (:rut, :fecha, :tipo, :detalle,0);"""
     
     with engine.connect() as conn:
         conn.execute(text(sql),values)
@@ -203,25 +203,38 @@ def ingreso():
 @main.route('/crud')
 def crud():
     with engine.connect() as conn:
-        sql1 = """select * from cotizacion """
+        sql1 = """select * from cotizacion where estado = 0 """
         datos = conn.execute(text(sql1)).fetchall()
         return render_template('crud.html',datos=datos)
 
 @main.route('/aprobar')
 def aprobar():
-    return render_template('aprobar.html')
+    with engine.connect() as conn:
+        sql1 = """select * from cotizacion where estado = 1"""
+        datos = conn.execute(text(sql1)).fetchall()
+        return render_template('aprobar.html',datos=datos)
 
 @main.route('/panel')
 def panel():
     return render_template('panel.html')
 
-@main.route('/perfil')
+@main.route('/perfil',methods=['POST','GET'])
 def perfil():
-    return render_template('perfil.html')
+    with engine.connect() as conn:
+        sql1 = """select * from sol_vacaciones where username = '"""+session['nombre']+"';"
+        datos = conn.execute(text(sql1)).fetchall()
+    
+    return render_template('perfil.html',datos=datos)
 
 @main.route('/rrhh')
 def rrhh():
-    return render_template('rrhh.html')
+     with engine.connect() as conn:
+        sql1 = """select * from users """
+        datos = conn.execute(text(sql1)).fetchall()
+        sql1 = """select * from sol_vacaciones where estado=0 """
+        datos1 = conn.execute(text(sql1)).fetchall()
+        return render_template('rrhh.html',datos=datos,datos1=datos1)
+    
 
 @main.route('/factura')
 def factura():
@@ -312,6 +325,54 @@ def mano_obra():
             conn.commit()
 
         return jsonify('success')
+
+@main.route('/aprobar_cotizacion',methods=['POST','GET'])
+def aprobar_cotizacion():
+    if request.method == 'POST':
+        
+        cotizacion = request.form.get('cotizacion')
+
+
+            
+
+        sql = """update cotizacion set estado = 1 where id = """+cotizacion+";"
+    
+        with engine.connect() as conn:
+            conn.execute(text(sql))
+            conn.commit()
+
+        return jsonify('success')
+    
+@main.route('/sol_vacaciones',methods=['POST','GET'])
+def sol_vacaciones():
+    current_app.logger.debug("aqazwsxqazwsx")
+    if request.method == 'POST':
+        current_app.logger.debug("asds fvdssdfasba")
+        id_user = request.form.get('id_user')
+        start_date = request.form.get('start_date')
+        end_date = request.form.get('end_date')
+        reason = request.form.get('reason')
+
+        current_app.logger.debug(request)
+
+            
+
+        values = {'id_user':id_user, 'start_date':start_date, 'end_date':end_date, 'reason':reason}
+            
+
+        sql = """
+                INSERT INTO sol_vacaciones
+                (fechainicio, fechafin, detalle, estado, username)
+                VALUES(:start_date, :end_date, :reason, 0, :id_user);
+
+                """
+    
+        with engine.connect() as conn:
+            conn.execute(text(sql),values)
+            conn.commit()
+
+        return redirect(url_for('main.perfil'))
+        
 
 @main.route('/documentos')
 def documentos():

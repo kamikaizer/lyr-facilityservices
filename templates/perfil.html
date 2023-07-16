@@ -16,9 +16,9 @@
             <ul class="list-group">
               <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                 <div class="d-flex flex-column">
-                  <h6 class="mb-3 text-sm">Nombre: </h6>
-                  <span class="mb-2 text-md">Fecha Contrato: <span class="text-dark font-weight-bold ms-sm-2">dd/mm/aaaa</span></span>
-                  <span class="mb-2 text-md">Cargo: <span class="text-dark ms-sm-2 font-weight-bold">xxx</span></span>
+                  <h6 class="mb-3 text-sm">Nombre: <span class="text-dark font-weight-bold ms-sm-2">{{ session['nombre'] }}</span></h6>
+                  <span class="mb-2 text-md">Fecha Contrato: <span class="text-dark font-weight-bold ms-sm-2">{{ session['fecha'] }}</span></span>
+                  <span class="mb-2 text-md">Cargo: <span class="text-dark ms-sm-2 font-weight-bold">{{ session['cargo'] }}</span></span>
                 </div>
               </li>
             </ul>
@@ -100,7 +100,7 @@
             <div class="card-title pb-0 px-3">
               <h6 class="mb-0">Vacaciones</h6>
             </div>
-            <div class="card-body pt-4 p-3">
+            <div id="vacaciones" name="vacaciones" class="card-body pt-4 p-3">
               <ul class="list-group">
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                   <div class="d-flex flex-column">
@@ -110,7 +110,9 @@
                     <span class="mb-2 text-xs">Cantidad de días habiles: <span class="text-dark ms-sm-2 font-weight-bold">xxx</span></span>
                   </div>
                   <div class="ms-auto text-end">
-                    <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">edit</i>Solicitar</a>
+                    <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#vacationRequestModal">
+                      Solicitar Vacaciones
+                    </button>
                   </div>
                 </li>
               </ul>
@@ -142,5 +144,43 @@
           </div>
         </div>
       </div>
+
+<!-- Solicitud de vacaciones -->
+<!-- Modal para la solicitud de vacaciones -->
+<div class="modal fade" id="vacationRequestModal" tabindex="-1" role="dialog" aria-labelledby="vacationRequestModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="vacationRequestModalLabel">Solicitud de Vacaciones</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Formulario de solicitud de vacaciones -->
+        <form action="{{ url_for('main.sol_vacaciones') }}" method="POST">
+          <div class="form-group">
+            <input type="hidden" id="id_user" name="id_user" value="{{ session['username'] }}">
+            <label for="start_date">Fecha de Inicio</label>
+            <input type="date" name="start_date" id="start_date" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="end_date">Fecha de Fin</label>
+            <input type="date" name="end_date" id="end_date" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="reason">Motivo</label>
+            <textarea name="reason" id="reason" class="form-control" rows="3"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename='js/rrhh.js')}}"></script>
 
   {% endblock %}

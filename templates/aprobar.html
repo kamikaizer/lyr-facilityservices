@@ -23,7 +23,7 @@
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Numero</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nombre</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Rut Cliente</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Fecha Emisión</th>
                       <th></th>
                       <th></th>
@@ -32,20 +32,21 @@
                     </tr>
                   </thead>
                   <tbody>
+                    {% for dato in datos %}
                     <tr>
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-md">xxxx</h6>
+                            <h6 class="mb-0 text-md">{{dato.id}}</h6>
                           </div>
                         </div>
                       </td>
                       <td>
-                        <h6 class="mb-0 text-md">xxxx</h6>
+                        <h6 class="mb-0 text-md">{{dato.rut}}</h6>
                       </td>
                       <td>
                           <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-md">xxxx</h6>
+                              <h6 class="mb-0 text-md">{{dato.fecha}}</h6>
                             </div>                      
                       </td>
                       <td style="width: 60px;">      
@@ -58,6 +59,7 @@
                         <button type="submit" class="btn bg-gradient-danger w-100">Rechazar</button>
                     </td>
                     </tr>
+                    {% endfor %}
                   </tbody>
                 </table>
               </div>
