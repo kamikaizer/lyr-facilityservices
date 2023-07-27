@@ -106,7 +106,7 @@ def login():
         db = mysql.connector.connect(
         host='localhost',
         user='root',
-        password='root1234',
+        password='',
         database='prueba'
         )
         # Verifica las credenciales en la base de datos
@@ -152,7 +152,7 @@ def register():
         db = mysql.connector.connect(
         host='localhost',
         user='root',
-        password='root1234',
+        password='',
         database='prueba'
         )
         # Verifica si el usuario maestro ya existe

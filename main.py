@@ -27,7 +27,7 @@ import sqlalchemy
 from sqlalchemy.sql import text
 import pandas as pd
 
-url = 'mysql+mysqlconnector://root:root1234@localhost:3306/prueba'
+url = 'mysql+mysqlconnector://root:@localhost:3306/prueba'
 engine = sqlalchemy.create_engine(url)
 
 
@@ -378,7 +378,11 @@ def sol_vacaciones():
 def documentos():
     return render_template('documentos.html')
 
+@main.route('/ingreso_factura')
+def ingreso_factura():
+    return render_template('ingreso_factura.html')
 
-
-
+@main.route('/crud_factura')
+def crud_factura():
+    return render_template('crud_factura.html')
 
