@@ -5,38 +5,125 @@
 {% if error %}
         <p>{{ error }}</p>
     {% endif %}
-    
-<div class="card border-white">
-  <div class="card-title">
-    <h1>Formulario de Cotización</h1>
+
+
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="card my-4 border-white">
+        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+          <div class="bg-gradient-secondary shadow-secondary border-radius-lg pt-4 pb-3">
+            <h6 class="text-white text-capitalize ps-3">Mantenedor de Clientes</h6>
+          </div>
+        </div>
+
+        <br>
+        <form name="mano_obra" id="mano_obra" method="POST">
+          <div class="row"  id="f2">
+            <input type="hidden" id="cotizacion" name="cotizacion" value="">
+            <div class="col">
+              <input type="text" id="nombre" name="nombre" class="form-control" min="1" placeholder="Nombre Cliente" aria-label="nombre" required>
+            </div>
+            <div class="col">
+              <input type="number" id="rut" name="rut" class="form-control" min="1" placeholder="Rut" aria-label="rut" required>
+            </div>
+            <div class="col-1">
+              <input type="number" id="dv" name="dv" class="form-control" min="1" placeholder="Dv" aria-label="dv" required>
+            </div>
+            <div class="col">
+              <input type="text" id="giro" name="giro" class="form-control" min="1" placeholder="Giro" aria-label="giro" required>
+            </div>
+            
+            <div class="col">
+              <button type="submit" class="btn bg-gradient-info w-100">Agregar</button>
+            </div>
+          </div>
+        </form>
+        <br>
+        <div class="card-body px-0 pb-2" name="div_mano_obra" id="div_mano_obra">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre Cliente</th>
+                  <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Rut</th>
+                  <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Giro</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">xxxx</h6>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">xxxxxx</h6>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">xxxxxxx</h6>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">xxxxxxx</h6>
+                      </div>
+                    </div>
+                  </td>
+                  <td><button class="btn btn-info w-100" data-toggle="modal" ata-target="#changeRequestModal" data-bs-toggle="modal" data-bs-target="#modalcliente">Editar</button></td>
+                  <td><button class="btn btn-danger w-100" data-toggle="modal" ata-target="#changeRequestModal">Eliminar</button></td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+<!-- Modal cliente -->
+<div class="modal fade" id="modalcliente" tabindex="-1" aria-labelledby="modalcliente" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalcliente">Editor de Cliente</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="mb-3">
+          <label for="formGroupExampleInput" class="form-label">NOMBRE CLIENTE</label>
+          <input type="text" class="form-control" id="formGroupExampleInput" >
+        </div>
+        <div class="mb-3">
+          <label for="formGroupExampleInput2" class="form-label">RUT</label>
+          <input type="text" class="form-control" id="formGroupExampleInput2">
+        </div>
+        <div class="mb-3">
+          <label for="formGroupExampleInput2" class="form-label">GIRO</label>
+          <input type="text" class="form-control" id="formGroupExampleInput2">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
   </div>
-  <div class="card-body">
-  <form action="{{ url_for('main.assign_equipment_route') }}" method="POST">
-    <div class="row">
-      <div class="col">
-        <input type="text" id="cliente" name="cliente" class="form-control" placeholder="Cliente" aria-label="Clientee">
-      </div>
-      <div class="col">
-        <input type="text"  id="rut" name="rut" class="form-control" placeholder="Rut" aria-label="Rut">
-      </div>
-      <div class="col-1">
-        <input type="text"  id="rut" name="rut" class="form-control" placeholder="Dv" aria-label="Dv">
+</div>
+
+        </div>
       </div>
     </div>
-    <br>
-    <div class="row">
-      <div class="col">
-        <input type="date"  id="fecha" name="fecha" class="form-control" placeholder="Mes" aria-label="Mes">
-      </div>
-      <div class="col">
-        <input type="text" id="tipo" name="tipo" class="form-control" placeholder="Tipo" aria-label="Tipo">
-      </div>
-    </div>
-    <br>
-    <textarea placeholder="Detalle" id="detalle" name="detalle" class="form-control" rows="3"></textarea>
-    <br>
-      <button type="submit" class="btn bg-gradient-info w-100">Guardar</button>
-    </form>
-    </div>
+  </div>
 </div>
 {% endblock %}

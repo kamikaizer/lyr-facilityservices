@@ -1,0 +1,357 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="card border-white">
+    <div class="card-title">
+      <h1>Costos </h1>
+    </div>
+  
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <input type="text" id="origen" name="origen" class="form-control" placeholder="Origen" aria-label="Origen">
+        </div>
+        <div class="col">
+          <input type="number" id="pago" name="pago" class="form-control" placeholder="Pago" aria-label="Pago">
+        </div>
+      </div>
+      <br>
+      <div class="row">
+  
+        <div class="col">
+          <input type="number" id="Pago_proveedor" name="Pago_proveedor" class="form-control" placeholder="Pago Proveedor"
+            aria-label="Pago Proveedor">
+        </div>
+  
+        <div class="col">
+          <input type="number" id="ct" name="ct" class="form-control" placeholder="N° C.T." aria-label="N° C.T.">
+        </div>
+  
+      </div>
+    </div>
+    </div>
+
+    <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card my-4 border-white">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-secondary shadow-secondary border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Materiales</h6>
+            </div>
+          </div>
+
+          <br>
+          <form name="material" id="material" method="POST">
+            <div class="row" id="f1">
+              <input type="hidden" id="cotizacion" name="cotizacion" value="">
+              <div class="col">
+                <input type="text" id="proveedor" name="proveedor" class="form-control" placeholder="Proveedor"
+                  aria-label="Proveedor" required>
+              </div>
+              <div class="col">
+                <input type="text" id="factura" name="factura" class="form-control" placeholder="Factura"
+                  aria-label="Factura" required>
+              </div>
+              <div class="col">
+                <input type="text" id="glosa" name="glosa" class="form-control" placeholder="Glosa" aria-label="Glosa"
+                  required>
+              </div>
+              <div class="col">
+                <input type="number" id="valor" name="valor" class="form-control" min="0" placeholder="Valor Neto"
+                  aria-label="Valor Neto" required>
+              </div>
+
+              <div class="col">
+                <button type="submit" class="btn bg-gradient-info w-100">Agregar</button>
+              </div>
+
+            </div>
+          </form>
+          <br>
+          <div class="card-body px-0 pb-2" id="div_materiales" name="div_materiales">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Proveedor</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Factura</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Glosa</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Valor Neto</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">IVA</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Valor Total</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm"></h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm"></h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm"></h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm"></h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm"></h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm"></h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td><button class="btn btn-info w-100" data-toggle="modal" ata-target="#changeRequestModal" data-bs-toggle="modal" data-bs-target="#modalmateriasl">Editar</button></td>
+                    <td><button class="btn btn-danger w-100" data-toggle="modal" ata-target="#changeRequestModal">Eliminar</button></td>
+
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+
+            <div class="text-center card-body pt-4 p-3 bg-gray-100">
+              <div class="row align-items-start" id="c1">
+                <div class="col">
+                  <h5>Suma Valor Neto $ </h5>
+                </div>
+                <div class="col">
+                  <h5>Suma IVA $ </h5>
+                </div>
+                <div class="col">
+                  <h5>Suma Valor Total $ </h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+<!-- crud mano de obra -->
+<div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card my-4 border-white">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-secondary shadow-secondary border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Mano de Obra</h6>
+            </div>
+          </div>
+
+          <br>
+          <form name="mano_obra" id="mano_obra" method="POST">
+            <div class="row"  id="f2">
+              <input type="hidden" id="cotizacion" name="cotizacion" value="">
+              <div class="col">
+                <input type="number" id="cantidad" name="cantidad" class="form-control" min="1" placeholder="Cantidad" aria-label="cantidad" required>
+              </div>
+              <div class="col">
+                <input type="number" id="valor" name="valor" class="form-control" min="1" placeholder="Precio" aria-label="precio" required>
+              </div>
+              <div class="col">
+                <input type="number" id="dias" name="dias" min="1" class="form-control" placeholder="Días" aria-label="días" required>
+              </div>
+              
+              <div class="col">
+                <button type="submit" class="btn bg-gradient-info w-100">Agregar</button>
+              </div>
+            </div>
+          </form>
+          <br>
+          <div class="card-body px-0 pb-2" name="div_mano_obra" id="div_mano_obra">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Cantidad</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Precio</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Días</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Total Neto</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm"></h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm"></h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm"></h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm"></h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td><button class="btn btn-info w-100" data-toggle="modal" ata-target="#changeRequestModal" data-bs-toggle="modal" data-bs-target="#modalmano">Editar</button></td>
+                    <td><button class="btn btn-danger w-100" data-toggle="modal" ata-target="#changeRequestModal">Eliminar</button></td>
+                  </tr>
+
+
+                </tbody>
+              </table>
+            </div>
+
+            <div class="card-body pt-4 p-3 bg-gray-100">
+              <h1 id="c1">Total Neto $ </h1>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- tarjeta costos -->
+<div class="row">
+    <div class="col-md-6 mt-4">
+      <div class="card h-100 mb-4 border-white">
+        <div class="card-title pb-0 px-3">
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class="mb-0">Costo Total Neto:</h6>
+            </div>
+          </div>
+        </div>
+        <div class="card-body pt-4 p-3">
+          <h1 id="c1">$ </h1>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mt-4">
+      <div class="card h-100 mb-4 border-white">
+        <div class="card-title pb-0 px-3">
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class="mb-0">Costo Total Bruto</h6>
+            </div>
+          </div>
+        </div>
+        <div class="card-body pt-4 p-3">
+          <h1 id="c1">$ </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <br>
+  <form name="aprobar" id="aprobar" method="POST">
+    <input type="hidden" id="cotizacion" name="cotizacion" value="">
+    <button type="submit" class="btn bg-gradient-info w-100">Guardar</button>
+  </form>
+
+  <!-- Modal materiales -->
+<div class="modal fade" id="modalmano" tabindex="-1" aria-labelledby="modalmanoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="modalmanoLabel">Mano de Obra</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+  
+          <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Cantidad</label>
+            <input type="number" class="form-control" id="formGroupExampleInput" >
+          </div>
+          <div class="mb-3">
+            <label for="formGroupExampleInput2" class="form-label">Precio</label>
+            <input type="number" class="form-control" id="formGroupExampleInput2">
+          </div>
+          <div class="mb-3">
+            <label for="formGroupExampleInput2" class="form-label">Días</label>
+            <input type="number" class="form-control" id="formGroupExampleInput2">
+          </div>
+  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- Modal Mano de Obra -->
+  <div class="modal fade" id="modalmateriasl" tabindex="-1" aria-labelledby="modalmateriaslLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="modalmateriaslLabel">Materiales</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+  
+          <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Proveedor</label>
+            <input type="text" class="form-control" id="formGroupExampleInput" >
+          </div>
+          <div class="mb-3">
+            <label for="formGroupExampleInput2" class="form-label">Factura</label>
+            <input type="text" class="form-control" id="formGroupExampleInput2">
+          </div>
+          <div class="mb-3">
+            <label for="formGroupExampleInput2" class="form-label">Glosa</label>
+            <input type="text" class="form-control" id="formGroupExampleInput2">
+          </div>
+          <div class="mb-3">
+            <label for="formGroupExampleInput2" class="form-label">Valor Neto</label>
+            <input type="text" class="form-control" id="formGroupExampleInput2">
+          </div>
+  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

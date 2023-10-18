@@ -8,8 +8,8 @@
 
 <div class="card border-white">
     <div class="card-title">
-        <h1> Cotizaciones</h1>
-     </div>
+      <a class="btn btn-primary" href="ingreso_cotizacion" role="button">Nueva Cotización</a>
+    </div>
     <div class="card-body">
 
     <table class="table table-striped">
@@ -22,6 +22,8 @@
             <th scope="col">Detalle</th>
             <th scope="col"></th>
             <th scope="col"></th>
+            <th scope="col"></th>
+
           </tr>
         </thead>
         <tbody>
@@ -32,9 +34,8 @@
             <th scope="row">{{dato.fecha}}</th>
             <th scope="row">{{dato.tipo}}</th>
             <th scope="row">{{dato.detalle}}</th>
-            <th><a href="/edicion?id={{dato.id}}"  class="btn btn-info w-100 " > <span class="iconify"
-              data-icon="bx:edit" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Editar</a></th>
-            
+            <th><a class="btn btn-warning w-100" href="ct" role="button">ver</a></th>
+            <th><a href="/edicion?id={{dato.id}}"  class="btn btn-info w-100 " > <span class="iconify" data-icon="bx:edit" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Editar</a></th>
             <th><button class="btn btn-danger w-100" data-toggle="modal" ata-target="#changeRequestModal">Eliminar</button></th>
           </tr>
           {% endfor %}

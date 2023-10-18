@@ -386,3 +386,6 @@ def ingreso_factura():
 def crud_factura():
     return render_template('crud_factura.html')
 
+@main.route('/ingreso_cotizacion')
+def ingreso_cotizacion():
+    return render_template('ingreso_cotizacion.html')
