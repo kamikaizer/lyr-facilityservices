@@ -15,11 +15,12 @@
     <table class="table table-striped" id="cotizaciones" name="cotizaciones">
         <thead>
           <tr>
+            <th scope="col">N° Cotización</th>
             <th scope="col">Rut Cliente</th>
             <th scope="col">Cliente</th>
             <th scope="col">Mes</th>
-            <th scope="col">Tipo</th>
-            <th scope="col">Detalle</th>
+            <!-- <th scope="col">Tipo</th> -->
+            <!-- <th scope="col">Detalle</th> -->
             <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>
@@ -29,12 +30,13 @@
         <tbody>
           {% for dato in datos %}
           <tr>
+            <th scope="row">{{dato.id}}</th>
             <th scope="row">{{dato.rut}}</th>
             <th scope="row"></th>
             <th scope="row">{{dato.fecha}}</th>
-            <th scope="row">{{dato.tipo}}</th>
-            <th scope="row">{{dato.detalle}}</th>
-            <th><a class="btn btn-warning w-100" href="ct" role="button">ver</a></th>
+            <!-- <th scope="row">{{dato.tipo}}</th> -->
+            <!-- <th scope="row">{{dato.detalle}}</th> -->
+            <th><a class="btn btn-warning w-100" href="/ct?id={{dato.id}}" role="button">ver</a></th>
             <th><a href="/edicion?id={{dato.id}}"  class="btn btn-info w-100 " > <span class="iconify" data-icon="bx:edit" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Editar</a></th>
             <th><button onClick="delete_cotizacion({{dato.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></th>
           </tr>

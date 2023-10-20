@@ -144,29 +144,29 @@ def index():
     # users = fetch_all_users()
     return render_template('main.html')
 
-@main.route('/assign_equipment', methods=['POST'])
-def assign_equipment_route():
+# @main.route('/assign_equipment', methods=['POST'])
+# def assign_equipment_route():
 
-    rut = int(request.form.get('rut'))
-    fecha = request.form.get('fecha')
-    tipo = int(request.form.get('tipo'))
-    detalle = request.form.get('detalle')
+#     rut = int(request.form.get('rut'))
+#     fecha = request.form.get('fecha')
+#     tipo = int(request.form.get('tipo'))
+#     detalle = request.form.get('detalle')
 
-    current_app.logger.debug(request.form)
+#     current_app.logger.debug(request.form)
     
-    values = {'rut':rut, 'fecha':fecha, 'tipo':tipo, 'detalle':detalle}
+#     values = {'rut':rut, 'fecha':fecha, 'tipo':tipo, 'detalle':detalle}
             
 
-    sql = """
-            INSERT INTO cotizacion (rut, fecha, tipo, detalle,estado) 
-            VALUES (:rut, :fecha, :tipo, :detalle,0);"""
+#     sql = """
+#             INSERT INTO cotizacion (rut, fecha, tipo, detalle,estado) 
+#             VALUES (:rut, :fecha, :tipo, :detalle,0);"""
     
-    with engine.connect() as conn:
-        conn.execute(text(sql),values)
-        conn.commit()
-        flash(f'Se a creado una nueva cotización.')
+#     with engine.connect() as conn:
+#         conn.execute(text(sql),values)
+#         conn.commit()
+#         flash(f'Se a creado una nueva cotización.')
 
-    return redirect(url_for('main.index'))
+#     return redirect(url_for('main.index'))
 
 @main.route('/request_change/<int:equipment_id>', methods=['POST'])
 def request_change_route(equipment_id):
@@ -242,7 +242,16 @@ def factura():
 
 @main.route('/ct')
 def ct():
-    return render_template('ct.html')
+    precio_total=0
+    id_cotizacion = request.args.get('id')
+    with engine.connect() as conn:
+        sql_materiales = """select * from material where id_cotizacion="""+id_cotizacion
+        materiales = conn.execute(text(sql_materiales)).fetchall()
+
+
+    for mat in materiales:
+        precio_total+=mat.valor_neto *mat.cantidad* 1.19
+    return render_template('ct.html',materiales=materiales,id_cotizacion=id_cotizacion,precio_total=precio_total)
 
 @main.route('/edicion',methods=['POST','GET'])
 def edicion():
@@ -278,8 +287,8 @@ def edicion():
 def material():
     
     if request.method == 'POST':
-        proveedor = request.form.get('proveedor')
-        # factura = request.form.get('factura')
+        # proveedor = request.form.get('proveedor')
+        cantidad = request.form.get('cantidad')
         valor = int(request.form.get('valor'))
         glosa = request.form.get('glosa')
         cotizacion = int(request.form.get('cotizacion'))
@@ -287,12 +296,12 @@ def material():
         # cotizacion = conn.execute(text(sql1)).fetchone()
         # cotizacion=int(cotizacion)+1
 
-        values = {'proveedor':proveedor, 'valor':valor, 'glosa':glosa,'cotizacion':cotizacion}
+        values = { 'valor':valor, 'glosa':glosa,'cotizacion':cotizacion,'cantidad':cantidad}
             
 
         sql = """
-                INSERT INTO prueba.material(id_cotizacion, proveedor, valor_neto,glosa)
-                  VALUES(:cotizacion, :proveedor, :valor, :glosa);
+                INSERT INTO prueba.material(id_cotizacion, valor_neto,glosa,cantidad)
+                  VALUES(:cotizacion, :valor, :glosa, :cantidad);
                   """
     
         with engine.connect() as conn:
@@ -307,18 +316,19 @@ def mano_obra():
     if request.method == 'POST':
         current_app.logger.debug(request.form)
         cantidad = int(request.form.get('cantidad'))
+        glosa = request.form.get('glosa')
         dias = int(request.form.get('dias'))
         valor = int(request.form.get('valor'))
         
         cotizacion = int(request.form.get('cotizacion'))
 
 
-        values = {'cantidad':cantidad, 'dias':dias, 'valor':valor, 'cotizacion':cotizacion,'valor_neto':cantidad*dias*valor}
+        values = {'cantidad':cantidad, 'dias':dias, 'valor':valor,'glosa':glosa, 'cotizacion':cotizacion,'valor_neto':cantidad*dias*valor}
             
 
         sql = """
-                INSERT INTO prueba.mano_obra(id_cotizacion, cantidad, precio, dias,valor_neto)
-                VALUES(:cotizacion, :cantidad, :valor, :dias,:valor_neto);
+                INSERT INTO prueba.mano_obra(id_cotizacion, cantidad, precio, dias,valor_neto,glosa)
+                VALUES(:cotizacion, :cantidad, :valor, :dias,:valor_neto,:glosa);
 
                 """
     
@@ -411,6 +421,30 @@ def delete_cotizacion():
 
     id_cotizacion = request.args.get('id')
     sql = """delete from cotizacion where id ="""+id_cotizacion
+    
+    with engine.connect() as conn:
+        conn.execute(text(sql))
+        conn.commit()
+
+    return jsonify('success')
+
+@main.route('/delete_material',methods=['POST','GET'])
+def delete_material():
+
+    id_material = request.args.get('id')
+    sql = """delete from material where id ="""+id_material
+    
+    with engine.connect() as conn:
+        conn.execute(text(sql))
+        conn.commit()
+
+    return jsonify('success')
+
+@main.route('/delete_mano_obra',methods=['POST','GET'])
+def delete_mano_obra():
+
+    id_mano_obra = request.args.get('id')
+    sql = """delete from mano_obra where id ="""+id_mano_obra
     
     with engine.connect() as conn:
         conn.execute(text(sql))

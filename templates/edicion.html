@@ -13,36 +13,23 @@
 </div>
 <br>
 
-<!-- tarjeta edicion -->
-<div class="card border-white">
+<!-- <div class="card border-white">
   <div class="card-title">
-    <h1>Costos</h1>
+    <h1>Datos Cliente </h1>
   </div>
 
   <div class="card-body">
     <div class="row">
       <div class="col">
-        <input type="text" id="origen" name="origen" class="form-control" placeholder="Origen" aria-label="Origen">
+        <input type="text" id="empresa" name="empresa" class="form-control" placeholder="Empresa" aria-label="Empresa">
       </div>
       <div class="col">
-        <input type="number" id="pago" name="pago" class="form-control" placeholder="Pago" aria-label="Pago">
+        <input type="text" id="solicitante" name="solicitante" class="form-control" placeholder="Solicitante" aria-label="Solicitante">
       </div>
     </div>
     <br>
-    <div class="row">
-
-      <div class="col">
-        <input type="number" id="Pago_proveedor" name="Pago_proveedor" class="form-control" placeholder="Pago Proveedor"
-          aria-label="Pago Proveedor">
-      </div>
-
-      <div class="col">
-        <input type="number" id="ct" name="ct" class="form-control" placeholder="N° C.T." aria-label="N° C.T.">
-      </div>
-
-    </div>
   </div>
-</div>
+  </div> -->
 
 <!-- crud materiales -->
 <div class="container-fluid py-4">
@@ -59,13 +46,13 @@
           <form name="material" id="material" method="POST">
             <div class="row" id="f1">
               <input type="hidden" id="cotizacion" name="cotizacion" value="{{datos.id}}">
-              <div class="col">
+              <!-- <div class="col">
                 <input type="text" id="proveedor" name="proveedor" class="form-control" placeholder="Proveedor"
                   aria-label="Proveedor" required>
-              </div>
+              </div> -->
               <div class="col">
-                <input type="text" id="factura" name="factura" class="form-control" placeholder="Factura"
-                  aria-label="Factura" required>
+                <input type="text" id="cantidad" name="cantidad" class="form-control" placeholder="Cantidad"
+                  aria-label="Cantidad" required>
               </div>
               <div class="col">
                 <input type="text" id="glosa" name="glosa" class="form-control" placeholder="Glosa" aria-label="Glosa"
@@ -85,15 +72,17 @@
           <br>
           <div class="card-body px-0 pb-2" id="div_materiales" name="div_materiales">
             <div class="table-responsive p-0">
-              <table class="table align-items-center mb-0">
+              <table class="table align-items-center mb-0" id="materiales" name="materiales">
                 <thead>
                   <tr>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Proveedor</th>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Factura</th>
+                    <!-- <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Id Material</th> -->
+                    <!-- <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Proveedor</th> -->
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Cantidad</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Glosa</th>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Valor Neto</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Valor Neto Unitario</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Valor Total Neto</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">IVA</th>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Valor Total</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Valor Total IVA Incluido</th>
                     <th></th>
                     <th></th>
                   </tr>
@@ -101,19 +90,26 @@
                 <tbody>
                   {% for material in materiales %}
                   <tr>
-                    <td>
+                    <!-- <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{material.id}}</h6>
+                        </div>
+                      </div>
+                    </td> -->
+                    <!-- <td>
                       <div class="d-flex px-2 py-1">
                         <div class="d-flex flex-column justify-content-center">
                           <h6 class="mb-0 text-sm">{{material.proveedor}}</h6>
                         </div>
                       </div>
-                    </td>
+                    </td> -->
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{material.factura}}</h6>
+                          <h6 class="mb-0 text-sm">{{material.cantidad}}</h6>
                         </div>
-                      </div>
+                      </div> 
                     </td>
                     <td>
                       <div class="d-flex px-2 py-1">
@@ -132,19 +128,28 @@
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{material.valor_neto * 0.19| float}}</h6>
+                          <h6 class="mb-0 text-sm">{{material.valor_neto *material.cantidad* 1.19 |float}}</h6>
                         </div>
                       </div>
                     </td>
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{material.valor_neto * 1.19 |float}}</h6>
+                          <h6 class="mb-0 text-sm">{{material.valor_neto*material.cantidad* 0.19| float}}</h6>
                         </div>
                       </div>
                     </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{material.valor_neto*material.cantidad* 0.19| float + material.valor_neto *material.cantidad* 1.19 |float}}</h6>
+                        </div>
+                      </div>
+                    </td>
+                    
                     <td><button class="btn btn-info w-100" data-toggle="modal" ata-target="#changeRequestModal" data-bs-toggle="modal" data-bs-target="#modalmateriasl">Editar</button></td>
-                    <td><button class="btn btn-danger w-100" data-toggle="modal" ata-target="#changeRequestModal">Eliminar</button></td>
+                    <td><button onClick="delete_material({{material.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></td>
+
 
                   </tr>
                   {% endfor %}
@@ -152,7 +157,7 @@
               </table>
             </div>
 
-            <div class="text-center card-body pt-4 p-3 bg-gray-100">
+            <!-- <div class="text-center card-body pt-4 p-3 bg-gray-100">
               <div class="row align-items-start" id="c1">
                 <div class="col">
                   <h5>Suma Valor Neto $ {{valor}}</h5>
@@ -164,7 +169,7 @@
                   <h5>Suma Valor Total $ {{valor * 1.19}}</h5>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -191,6 +196,9 @@
                 <input type="number" id="cantidad" name="cantidad" class="form-control" min="1" placeholder="Cantidad" aria-label="cantidad" required>
               </div>
               <div class="col">
+                <input type="text" id="glosa" name="glosa" class="form-control" min="1" placeholder="Glosa" aria-label="Glosa" required>
+              </div>
+              <div class="col">
                 <input type="number" id="valor" name="valor" class="form-control" min="1" placeholder="Precio" aria-label="precio" required>
               </div>
               <div class="col">
@@ -205,10 +213,11 @@
           <br>
           <div class="card-body px-0 pb-2" name="div_mano_obra" id="div_mano_obra">
             <div class="table-responsive p-0">
-              <table class="table align-items-center mb-0">
+              <table class="table align-items-center mb-0" name="mano_obra" id="mano_obra">
                 <thead>
                   <tr>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Cantidad</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Glosa</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Precio</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Días</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Total Neto</th>
@@ -223,6 +232,13 @@
                       <div class="d-flex px-2 py-1">
                         <div class="d-flex flex-column justify-content-center">
                           <h6 class="mb-0 text-sm">{{mano_obra.cantidad}} </h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{mano_obra.glosa}} </h6>
                         </div>
                       </div>
                     </td>
@@ -248,7 +264,7 @@
                       </div>
                     </td>
                     <td><button class="btn btn-info w-100" data-toggle="modal" ata-target="#changeRequestModal" data-bs-toggle="modal" data-bs-target="#modalmano">Editar</button></td>
-                    <td><button class="btn btn-danger w-100" data-toggle="modal" ata-target="#changeRequestModal">Eliminar</button></td>
+                    <td><button onClick="delete_mano_obra({{mano_obra.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></td>
                   </tr>
 
                   {% endfor %}

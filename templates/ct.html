@@ -15,7 +15,7 @@
           <div class="col">
             <img src="{{url_for('static', filename='./img/logo-ct.png')}}" alt="">
             <h4>Santiago, [fecha]</h4>
-            <p>Cotiz.: [Numero de cotización]</p>
+            <p>Cotización N°: {{id_cotizacion}}</p>
         </div>
         </div>
       </div>
@@ -23,7 +23,7 @@
       <div class="container text-left">
         <div class="row align-items-start">
           <div class="col">
-            <h4>Solicitud de Cotización</h4>
+            <h4>Cotización N° {{id_cotizacion}}</h4>
             <p>Srs. [Nombre]</p>
           </div>
           <div class="col">
@@ -53,18 +53,29 @@
                 </tr>
               </thead>
               <tbody>
+                {%for mat in materiales%}
                 <tr>
-                  <td>[Cantidad]</td>
-                  <td>[Descripción]</td>
-                  <td>[Precio Neto]</td> 
-                  <td>[recio Total]</td>
+                  <td>{{mat.cantidad}}</td>
+                  <td>{{mat.glosa}}</td>
+                  <td>{{mat.valor_neto *mat.cantidad* 1.19 |float}}</td> 
+                  <td>{{mat.valor_neto*mat.cantidad* 0.19| float + mat.valor_neto *mat.cantidad* 1.19 |float}}</td>
                 </tr>
+               
+                {%endfor%}
                 <tr>
-                    <th></th>
-                    <th></th>
-                    <td>Total</td>
-                    <td>[Total]</td>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
                 </tr>
+                
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th>Valor Total:</th>
+                  <!-- <td>Total</td> -->
+                  <th>{{precio_total}}</th>
+              </tr>
               </tbody>
             </table>
         </div>

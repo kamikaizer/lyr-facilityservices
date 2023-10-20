@@ -76,3 +76,35 @@ function delete_cotizacion(id){
     });
     }
   }
+  
+function delete_material(id){
+  if(confirm('¿Seguro que desea eliminar el Material N°'+id+'?')){
+    event.preventDefault();
+  $.ajax({
+    url: "/delete_material?id="+id,
+    method: "POST",
+    success: function (data) {
+      if (data == 'success') {
+        alert("Material Eliminado");
+        $("#materiales").load(window.location.href + " #materiales");
+      }
+    }
+  });
+  }
+}
+
+function delete_mano_obra(id){
+  if(confirm('¿Seguro que desea eliminar la Mano de Obra N°'+id+'?')){
+    event.preventDefault();
+  $.ajax({
+    url: "/delete_mano_obra?id="+id,
+    method: "POST",
+    success: function (data) {
+      if (data == 'success') {
+        alert("Mano de Obra Eliminada");
+        $("#div_mano_obra").load(window.location.href + " #div_mano_obra");
+      }
+    }
+  });
+  }
+}
