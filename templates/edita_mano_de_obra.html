@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
+
+<title>Facility Services</title>
+<link rel="icon" type="image/x-icon" href="{{url_for('static', filename='./img/favicon.png')}}">
+
+
+
+<!--     Fonts and icons     -->
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+
+<!-- Nucleo Icons -->
+<link href="./static/css/nucleo-icons.css" rel="stylesheet" />
+<link href="./static/css/nucleo-svg.css" rel="stylesheet" />
+
+<!-- Font Awesome Icons -->
+<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+
+<!-- CSS Files -->
+<link id="pagestyle" href="./static/css/material-dashboard.css" rel="stylesheet" />
+
+<!-- Query -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Nepcha Analytics (nepcha.com) -->
+<!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+<script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+
+<script src="{{url_for('static', filename='./js/tabs.js')}}"></script>
+</head>
+<body>
+    <div class="modal fade" id="modalmano" tabindex="-1" aria-labelledby="modalmanoLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="modalmanoLabel">Mano de Obra</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+      
+              <div class="mb-3">
+                <label for="formGroupExampleInput" class="form-label">Cantidad</label>
+                <input type="number" class="form-control" id="formGroupExampleInput" >
+              </div>
+              <div class="mb-3">
+                <label for="formGroupExampleInput2" class="form-label">Precio</label>
+                <input type="number" class="form-control" id="formGroupExampleInput2">
+              </div>
+              <div class="mb-3">
+                <label for="formGroupExampleInput2" class="form-label">Días</label>
+                <input type="number" class="form-control" id="formGroupExampleInput2">
+              </div>
+      
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+</html>
