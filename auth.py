@@ -118,10 +118,10 @@ def login():
 
         if user:
             session['username'] = username
-            session['nombre'] = user[4]+" "+user[5]
-            session['fecha'] = user[8]
-            session['cargo'] = user[9]
-            current_app.logger.debug(session['nombre'])
+            # session['nombre'] = user[4]+" "+user[5]
+            # session['fecha'] = user[8]
+            # session['cargo'] = user[9]
+            # current_app.logger.debug(session['nombre'])
 
 
             

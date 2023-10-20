@@ -56,4 +56,23 @@ $(document).ready(function () {
 
   });
 
+  
+
+
 })
+
+function delete_cotizacion(id){
+    if(confirm('¿Seguro que desea eliminar la cotización N°'+id+'?')){
+      event.preventDefault();
+    $.ajax({
+      url: "/delete_cotizacion?id="+id,
+      method: "POST",
+      success: function (data) {
+        if (data == 'success') {
+          alert("Cotización Eliminada");
+          $("#cotizaciones").load(window.location.href + " #cotizaciones");
+        }
+      }
+    });
+    }
+  }

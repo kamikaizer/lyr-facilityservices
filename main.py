@@ -279,18 +279,20 @@ def material():
     
     if request.method == 'POST':
         proveedor = request.form.get('proveedor')
-        factura = request.form.get('factura')
+        # factura = request.form.get('factura')
         valor = int(request.form.get('valor'))
         glosa = request.form.get('glosa')
         cotizacion = int(request.form.get('cotizacion'))
+        # sql1 = """select max(id) as 'maximo' from cotizacion"""
+        # cotizacion = conn.execute(text(sql1)).fetchone()
+        # cotizacion=int(cotizacion)+1
 
-
-        values = {'proveedor':proveedor, 'factura':factura, 'valor':valor, 'glosa':glosa,'cotizacion':cotizacion}
+        values = {'proveedor':proveedor, 'valor':valor, 'glosa':glosa,'cotizacion':cotizacion}
             
 
         sql = """
-                INSERT INTO prueba.material(id_cotizacion, proveedor, factura, valor_neto)
-                  VALUES(:cotizacion, :proveedor, :factura, :valor);
+                INSERT INTO prueba.material(id_cotizacion, proveedor, valor_neto,glosa)
+                  VALUES(:cotizacion, :proveedor, :valor, :glosa);
                   """
     
         with engine.connect() as conn:
@@ -388,4 +390,30 @@ def crud_factura():
 
 @main.route('/ingreso_cotizacion')
 def ingreso_cotizacion():
-    return render_template('ingreso_cotizacion.html')
+    
+    sql = """
+                INSERT INTO cotizacion
+                (estado)
+                VALUES(0);
+
+                """
+    
+    with engine.connect() as conn:
+        conn.execute(text(sql))
+        conn.commit()
+        sql1 = """select max(id) from cotizacion"""
+        id_max = conn.execute(text(sql1)).fetchone()[0]
+
+    return render_template('ingreso_cotizacion.html',id_max=id_max)
+
+@main.route('/delete_cotizacion',methods=['POST','GET'])
+def delete_cotizacion():
+
+    id_cotizacion = request.args.get('id')
+    sql = """delete from cotizacion where id ="""+id_cotizacion
+    
+    with engine.connect() as conn:
+        conn.execute(text(sql))
+        conn.commit()
+
+    return jsonify('success')
