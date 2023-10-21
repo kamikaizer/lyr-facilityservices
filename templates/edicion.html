@@ -72,7 +72,7 @@
           <br>
           <div class="card-body px-0 pb-2" id="div_materiales" name="div_materiales">
             <div class="table-responsive p-0">
-              <table class="table align-items-center mb-0" id="materiales" name="materiales">
+              <table class="table mb-0" id="materiales" name="materiales">
                 <thead>
                   <tr>
                     <!-- <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Id Material</th> -->
@@ -104,48 +104,12 @@
                         </div>
                       </div>
                     </td> -->
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{material.cantidad}}</h6>
-                        </div>
-                      </div> 
-                    </td>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{material.glosa}}</h6>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">$ {{material.valor_neto}}</h6>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{material.valor_neto *material.cantidad* 1.19 |float}}</h6>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{material.valor_neto*material.cantidad* 0.19| float}}</h6>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{material.valor_neto*material.cantidad* 0.19| float + material.valor_neto *material.cantidad* 1.19 |float}}</h6>
-                        </div>
-                      </div>
-                    </td>
+                    <td><h6 class="mb-0 text-sm">{{material.cantidad}}</h6></td>
+                    <td><h6 class="mb-0 text-sm">{{material.glosa}}</h6></td>
+                    <td><h6 class="mb-0 text-sm">$ {{material.valor_neto}}</h6></td>
+                    <td><h6 class="mb-0 text-sm">{{material.valor_neto *material.cantidad* 1.19 |float}}</h6></td>
+                    <td><h6 class="mb-0 text-sm">{{material.valor_neto*material.cantidad* 0.19| float}}</h6></td>
+                    <td><h6 class="mb-0 text-sm">{{material.valor_neto*material.cantidad* 0.19| float + material.valor_neto *material.cantidad* 1.19 |float}}</h6></td>
                     
                     <td><button class="btn btn-info w-100" data-toggle="modal" ata-target="#changeRequestModal" data-bs-toggle="modal" data-bs-target="#modalmateriasl">Editar</button></td>
                     <td><button onClick="delete_material({{material.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></td>
@@ -228,41 +192,11 @@
                 <tbody>
                   {% for mano_obra in manos_obra%}
                   <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{mano_obra.cantidad}} </h6>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{mano_obra.glosa}} </h6>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{mano_obra.precio}}</h6>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{mano_obra.dias}}</h6>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{mano_obra.valor_neto}}</h6>
-                        </div>
-                      </div>
-                    </td>
+                    <td><h6 class="mb-0 text-sm">{{mano_obra.cantidad}} </h6></td>
+                    <td><h6 class="mb-0 text-sm">{{mano_obra.glosa}} </h6></td>
+                    <td><h6 class="mb-0 text-sm">{{mano_obra.precio}}</h6></td>
+                    <td><h6 class="mb-0 text-sm">{{mano_obra.dias}}</h6></td>
+                    <td><h6 class="mb-0 text-sm">{{mano_obra.valor_neto}}</h6></td>
                     <td><button class="btn btn-info w-100" data-toggle="modal" ata-target="#changeRequestModal" data-bs-toggle="modal" data-bs-target="#modalmano">Editar</button></td>
                     <td><button onClick="delete_mano_obra({{mano_obra.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></td>
                   </tr>
