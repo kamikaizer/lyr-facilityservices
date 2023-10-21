@@ -451,3 +451,64 @@ def delete_mano_obra():
         conn.commit()
 
     return jsonify('success')
+
+@main.route('/edita_materiales',methods=['POST','GET'])
+def edita_materiales():
+
+    id_material = request.args.get('id')
+    
+    
+    with engine.connect() as conn:
+        sql = """select * from material where id ="""+id_material
+        materiales = conn.execute(text(sql)).fetchone()
+
+
+    return render_template('edita_materiales.html',materiales=materiales)
+
+@main.route('/update_materiales',methods=['POST','GET'])
+def update_materiales():
+    if request.method == 'POST':
+        cantidad = str(request.form.get('cantidad'))
+        valor = str(request.form.get('valor'))
+        glosa = str(request.form.get('glosa'))
+        id_material = str(request.form.get('id_material'))
+        
+        sql = 'update material SET valor_neto ="'+valor+'", glosa ="'+glosa+'" , cantidad="'+cantidad+'" WHERE id = '+id_material
+
+        current_app.logger.debug(sql)
+        with engine.connect() as conn:
+            conn.execute(text(sql))
+            conn.commit()
+
+        return jsonify('success')
+    
+@main.route('/edita_mano_obra',methods=['POST','GET'])
+def edita_mano_obra():
+
+    id_mano_obra = request.args.get('id')
+    
+    
+    with engine.connect() as conn:
+        sql = """select * from mano_obra where id ="""+id_mano_obra
+        mano_obra = conn.execute(text(sql)).fetchone()
+
+
+    return render_template('edita_mano_de_obra.html',mano_obra=mano_obra)
+
+@main.route('/update_mano_obra',methods=['POST','GET'])
+def update_mano_obra():
+    if request.method == 'POST':
+        cantidad = str(request.form.get('cantidad'))
+        glosa = str(request.form.get('glosa'))
+        dias = str(request.form.get('dias'))
+        valor = str(request.form.get('valor'))
+        id_mano_obra = str(request.form.get('id_mano_obra'))
+        
+        sql = 'update mano_obra SET precio ="'+valor+'", glosa ="'+glosa+'" , cantidad="'+cantidad+'", dias="'+dias+'" WHERE id = '+id_mano_obra
+
+        current_app.logger.debug(sql)
+        with engine.connect() as conn:
+            conn.execute(text(sql))
+            conn.commit()
+
+        return jsonify('success')

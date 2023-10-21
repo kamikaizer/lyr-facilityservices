@@ -56,7 +56,49 @@ $(document).ready(function () {
 
   });
 
-  
+  $('#update_materiales').on("submit", function (event) {
+    
+    event.preventDefault();
+    $.ajax({
+      url: "/update_materiales",
+      method: "POST",
+      data: $('#update_materiales').serialize(),
+      beforeSend: function () {
+        $('#update_materiales').val("Inserting");
+      },
+      success: function (data) {
+        if (data == 'success') {
+          alert("Material actualizado");
+          window.close()
+          $("#materiales").load(window.location.href + " #materiales");
+          
+        }
+      }
+    });
+
+  });
+
+  $('#update_mano_obra').on("submit", function (event) {
+    
+    event.preventDefault();
+    $.ajax({
+      url: "/update_mano_obra",
+      method: "POST",
+      data: $('#update_mano_obra').serialize(),
+      beforeSend: function () {
+        $('#update_mano_obra').val("Inserting");
+      },
+      success: function (data) {
+        if (data == 'success') {
+          alert("Mano de Obra actualizada");
+          window.close()
+          $("#div_mano_obra").load(window.location.href + " #div_mano_obra");
+          
+        }
+      }
+    });
+
+  });
 
 
 })

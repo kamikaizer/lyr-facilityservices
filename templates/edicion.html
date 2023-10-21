@@ -147,7 +147,7 @@
                       </div>
                     </td>
                     
-                    <td><button class="btn btn-info w-100" data-toggle="modal" ata-target="#changeRequestModal" data-bs-toggle="modal" data-bs-target="#modalmateriasl">Editar</button></td>
+                    <td><button class="btn btn-info w-100"><a href="javascript:ediciones('edita_materiales?id={{material.id}}')">Editar</a></button></td>
                     <td><button onClick="delete_material({{material.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></td>
 
 
@@ -263,7 +263,7 @@
                         </div>
                       </div>
                     </td>
-                    <td><button class="btn btn-info w-100" data-toggle="modal" ata-target="#changeRequestModal" data-bs-toggle="modal" data-bs-target="#modalmano">Editar</button></td>
+                    <td><button class="btn btn-info w-100"><a href="javascript:ediciones('edita_mano_obra?id={{mano_obra.id}}')">Editar</a></button></td>
                     <td><button onClick="delete_mano_obra({{mano_obra.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></td>
                   </tr>
 
@@ -327,5 +327,6 @@
 
 
 <script src="{{ url_for('static', filename='js/otro.js')}}"></script>
+<script> function ediciones (URL){window.open(URL,"ventana1","width=auto,height=550,scrollbars=auto")}</script>
 
 {% endblock %}
