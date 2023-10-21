@@ -27942,3 +27942,6 @@ pre[class*="language-"] {
   padding: 14px 16px; /* Espacio alrededor del texto */
   font-size: 17px; /* Tamaño del texto */
 }
+.table {
+  text-align: center;
+}
