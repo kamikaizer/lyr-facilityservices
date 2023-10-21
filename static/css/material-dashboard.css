@@ -27945,3 +27945,19 @@ pre[class*="language-"] {
 .table {
   text-align: center;
 }
+.btn-pdf {
+  background-color: #247CEA;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-pdf:hover {
+  background-color: #247CEA;
+  color: #fff;
+}

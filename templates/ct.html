@@ -5,7 +5,8 @@
 {% if error %}
         <p>{{ error }}</p>
     {% endif %}
-<div class="card border-white" style="padding-top: 50px; padding-bottom: 50px;">
+
+<div class="card border-white" style="padding-top: 50px; padding-bottom: 50px; margin-left: 25px; margin-right: 25px;">
     <div class="container text-center">
         <div class="row align-items-start">
           <div class="col">
@@ -13,8 +14,8 @@
           <div class="col">
           </div>
           <div class="col">
-            <img src="{{url_for('static', filename='./img/logo-ct.png')}}" alt="">
-            <h4>Santiago, [fecha]</h4>
+            <img src="{{url_for('static', filename='./img/logo-ct.png')}}" alt="" >
+            <h5>Santiago, [fecha]</h5>
             <p>Cotización N°: {{id_cotizacion}}</p>
         </div>
         </div>
@@ -23,7 +24,7 @@
       <div class="container text-left">
         <div class="row align-items-start">
           <div class="col">
-            <h4>Cotización N° {{id_cotizacion}}</h4>
+            <h5>Cotización N° {{id_cotizacion}}</h5>
             <p>Srs. [Nombre]</p>
           </div>
           <div class="col">
@@ -33,7 +34,7 @@
         </div>
       </div>
 <br>
-<br><br><br>
+
       <div class="container text-left">
         <div>
             <p>Estimado [Nombre]
@@ -41,7 +42,7 @@
           </div>
       </div>
       <br>
-      <br><br><br>
+     
         <div class="container">
             <table class="table table-bordered">
               <thead>
@@ -73,9 +74,7 @@
               </tbody>
             </table>
         </div>
-    <br>
-    <br><br><br>
-
+  
     <div class="container text-left">
         <div class="row align-items-start">
           <div class="col">
@@ -91,7 +90,7 @@
         </div>
       </div>
 
-      <br><br><br>
+      <br>
 
       <div class="container text-left">
           <div class="row align-items-start">
@@ -102,7 +101,7 @@
         </div>
 
         <br><br><br>
-        <br><br><br>
+  
 
         <div class="container text-center">
             <div class="row align-items-start">
@@ -117,5 +116,28 @@
             </div>
           </div>
 </div>
+<br>
+<button id="generar-pdf" class="btn-pdf">Generar PDF</button>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+<script>
+  const generarPDF = () => {
+    const element = document.querySelector(".card");
+    const options = {
+      margin: 0,
+      filename: "cotizacion.pdf",
+      image: { type: "jpeg", quality: 1 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+    };
+
+    html2pdf()
+      .from(element)
+      .set(options)
+      .save();
+  };
+
+  document.querySelector("#generar-pdf").addEventListener("click", generarPDF);
+</script>
 {% endblock %}
