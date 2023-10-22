@@ -80,7 +80,7 @@
           <div class="col">
             <p>El Presupuesto incluye:</p>
             <ul>
-                {{cotizacion.detalle}}
+                {{cotizacion[0].detalle|safe}}
             </ul>
           </div>
           <div class="col">
@@ -126,7 +126,7 @@
     const element = document.querySelector(".card");
     const options = {
       margin: 0,
-      filename: "cotizacion.pdf",
+      filename: "Cotizacion N°{{id_cotizacion}}.pdf",
       image: { type: "jpeg", quality: 1 },
       html2canvas: { scale: 2 },
       jsPDF: { unit: "in", format: "letter", orientation: "portrait" },

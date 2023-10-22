@@ -217,11 +217,12 @@
     </div>
 </div>
 
+<form name="aprobar" id="aprobar" method="POST">
 <div class="card border-white">
   <h5>Detalle</h5>
 
   <div class="card-body">
-    <textarea class="form-control" id="detalle" rows="3"></textarea>  
+    <textarea class="form-control" id="detalle" name="detalle" rows="3"></textarea>  
   </div>
 </div>
 
@@ -260,7 +261,7 @@
 </div>
 
 <br>
-<form name="aprobar" id="aprobar" method="POST">
+
   <input type="hidden" id="cotizacion" name="cotizacion" value="{{datos.id}}">
   <button type="submit" class="btn bg-gradient-info w-100">Guardar</button>
 </form>
