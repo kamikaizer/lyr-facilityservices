@@ -217,6 +217,16 @@
     </div>
 </div>
 
+<div class="card border-white">
+  <h5>Detalle</h5>
+
+  <div class="card-body">
+    <textarea class="form-control" id="detalle" rows="3"></textarea>  
+  </div>
+</div>
+
+
+
 <!-- tarjeta costos -->
 <div class="row">
   <div class="col-md-6 mt-4">
@@ -262,5 +272,11 @@
 
 <script src="{{ url_for('static', filename='js/otro.js')}}"></script>
 <script> function ediciones (URL){window.open(URL,"ventana1","width=auto,height=550,scrollbars=auto")}</script>
-
+<script>
+  ClassicEditor
+      .create( document.querySelector( '#detalle' ) )
+      .catch( error => {
+          console.error( error );
+      } );
+</script>
 {% endblock %}
