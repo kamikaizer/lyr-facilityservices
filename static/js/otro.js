@@ -11,6 +11,8 @@ $(document).ready(function () {
       success: function (data) {
         if (data == 'success') {
           $("#div_materiales").load(window.location.href + " #div_materiales");
+          $("#c1").load(window.location.href + " #c1");
+          $("#c1_bruto").load(window.location.href + " #c1_bruto");
         }
       }
     });
@@ -30,6 +32,9 @@ $(document).ready(function () {
       success: function (data) {
         if (data == 'success') {
           $("#div_mano_obra").load(window.location.href + " #div_mano_obra");
+          $("#totales_mano_obra").load(window.location.href + " #totales_mano_obra");
+          $("#c1").load(window.location.href + " #c1");
+          $("#c1_bruto").load(window.location.href + " #c1_bruto");
         }
       }
     });
@@ -71,6 +76,9 @@ $(document).ready(function () {
           alert("Material actualizado");
           window.close()
           $("#materiales").load(window.location.href + " #materiales");
+          $("#div_totales").load(window.location.href + " #div_totales");
+          $("#c1").load(window.location.href + " #c1");
+          $("#c1_bruto").load(window.location.href + " #c1_bruto");
           
         }
       }
@@ -93,6 +101,9 @@ $(document).ready(function () {
           alert("Mano de Obra actualizada");
           window.close()
           $("#div_mano_obra").load(window.location.href + " #div_mano_obra");
+          $("#totales_mano_obra").load(window.location.href + " #totales_mano_obra");
+          $("#c1").load(window.location.href + " #c1");
+          $("#c1_bruto").load(window.location.href + " #c1_bruto");
           
         }
       }
@@ -129,6 +140,9 @@ function delete_material(id){
       if (data == 'success') {
         alert("Material Eliminado");
         $("#materiales").load(window.location.href + " #materiales");
+        $("#div_totales").load(window.location.href + " #div_totales");
+        $("#c1").load(window.location.href + " #c1");
+        $("#c1_bruto").load(window.location.href + " #c1_bruto");
       }
     }
   });
@@ -145,6 +159,9 @@ function delete_mano_obra(id){
       if (data == 'success') {
         alert("Mano de Obra Eliminada");
         $("#div_mano_obra").load(window.location.href + " #div_mano_obra");
+        $("#totales_mano_obra").load(window.location.href + " #totales_mano_obra");
+        $("#c1").load(window.location.href + " #c1");
+        $("#c1_bruto").load(window.location.href + " #c1_bruto");
       }
     }
   });

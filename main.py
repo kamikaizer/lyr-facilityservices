@@ -247,38 +247,46 @@ def ct():
     with engine.connect() as conn:
         sql_materiales = """select * from material where id_cotizacion="""+id_cotizacion
         materiales = conn.execute(text(sql_materiales)).fetchall()
-
+        sql_cotización = """select * from cotizacion where id="""+id_cotizacion
+        cotizacion = conn.execute(text(sql_cotización)).fetchall()
 
     for mat in materiales:
         precio_total+=mat.valor_neto *mat.cantidad* 1.19
-    return render_template('ct.html',materiales=materiales,id_cotizacion=id_cotizacion,precio_total=precio_total)
+    return render_template('ct.html',materiales=materiales,id_cotizacion=id_cotizacion,precio_total=precio_total,cotizacion=cotizacion)
 
 @main.route('/edicion',methods=['POST','GET'])
 def edicion():
     id = request.args.get('id')
+    valor=0
+    valor_obra = 0
     with engine.connect() as conn:
         sql1 = """select * from cotizacion where id= """+id
         datos = conn.execute(text(sql1)).fetchone()
         sql1 = """select * from material where id_cotizacion= """+id
         materiales = conn.execute(text(sql1)).fetchall()
-        sql1 = """select sum(valor_neto) as 'valor' from material where id_cotizacion= """+id
-        valor = conn.execute(text(sql1)).fetchone()
-        if valor[0] is None:
+        sql1 = """select valor_neto,cantidad from material where id_cotizacion= """+id
+        valores = conn.execute(text(sql1)).fetchall()
+        if valores is None:
             valor = 0
         else:
-            valor = float(valor[0])
+            for i in valores:
+                val=float(i.cantidad*float(i.valor_neto))
+                valor+=val
+                
 
 
         sql1 = """select * from cotizacion where id= """+id
         datos = conn.execute(text(sql1)).fetchone()
         sql1 = """select * from mano_obra where id_cotizacion= """+id
         manos_obra = conn.execute(text(sql1)).fetchall()
-        sql1 = """select sum(valor_neto) as 'valor' from mano_obra where id_cotizacion= """+id
-        valor_obra = conn.execute(text(sql1)).fetchone()
-        if valor_obra[0] is None:
+        sql1 = """select valor_neto,cantidad,dias from mano_obra where id_cotizacion= """+id
+        valores_obra = conn.execute(text(sql1)).fetchall()
+        if valores_obra is None:
             valor_obra = 0
         else:
-            valor_obra = float(valor_obra[0])
+            for i in valores_obra:
+                val=float(i.cantidad*i.dias*float(i.valor_neto))
+                valor_obra+=val
         
         current_app.logger.debug(valor)
         return render_template('edicion.html',datos=datos,materiales=materiales,manos_obra=manos_obra,valor=valor,valor_obra=valor_obra)
@@ -343,11 +351,12 @@ def aprobar_cotizacion():
     if request.method == 'POST':
         
         cotizacion = request.form.get('cotizacion')
+        detalle = request.form.get('detalle')
 
 
             
 
-        sql = """update cotizacion set estado = 1 where id = """+cotizacion+";"
+        sql = 'update cotizacion set estado = 1, detalle="'+detalle+'" where id = '+cotizacion
     
         with engine.connect() as conn:
             conn.execute(text(sql))
@@ -503,8 +512,9 @@ def update_mano_obra():
         dias = str(request.form.get('dias'))
         valor = str(request.form.get('valor'))
         id_mano_obra = str(request.form.get('id_mano_obra'))
+        valor_neto=str(int(cantidad)*int(dias)*float(valor))
         
-        sql = 'update mano_obra SET precio ="'+valor+'", glosa ="'+glosa+'" , cantidad="'+cantidad+'", dias="'+dias+'" WHERE id = '+id_mano_obra
+        sql = 'update mano_obra SET precio ="'+valor+'", glosa ="'+glosa+'" , cantidad="'+cantidad+'", dias="'+dias+'",valor_neto="'+valor_neto+'" WHERE id = '+id_mano_obra
 
         current_app.logger.debug(sql)
         with engine.connect() as conn:

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
   <style>
     body {
@@ -13,13 +14,13 @@
   </style>
   <body>
 
-
+    <form id="update_materiales" name="update_materiales" method="POST">
   <div class="card">
     <div class="card-header">
       <h1>Edición del Material N°{{materiales.id}}</h1>
     </div>
     <div class="card-body">
-      <form id="update_materiales" name="update_materiales" method="POST">
+      
         <div class="mb-3">
           <label for="formGroupExampleInput" class="form-label">Cantidad</label>
           <input type="text" id="cantidad" name="cantidad" class="form-control" placeholder="Cantidad" aria-label="Cantidad" value="{{materiales.cantidad}}">
@@ -34,13 +35,15 @@
         </div>
         <input type="hidden" name="id_material" id="id_material" value="{{materiales.id}}">
         <button type="submit" class="btn btn-primary">Guardar</button>
-      
+      </div>
+    </div>
       
       
       </form>      
-    </div>
-  </div>
+    
+  
 
 </body>
 </html>
 <script src="{{ url_for('static', filename='js/otro.js')}}"></script>
+
