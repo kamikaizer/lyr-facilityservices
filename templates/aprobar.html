@@ -22,9 +22,10 @@
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Numero</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Rut Cliente</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Fecha Emisión</th>
+                      <th scope="col">N° Cotización</th>
+                      <th scope="col">Rut Empresa</th>
+                      <th scope="col">Empresa</th>
+                      <th scope="col">Solicitante</th>
                       <th></th>
                       <th></th>
                       <th></th>
@@ -34,21 +35,10 @@
                   <tbody>
                     {% for dato in datos %}
                     <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-md">{{dato.id}}</h6>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <h6 class="mb-0 text-md">{{dato.rut}}</h6>
-                      </td>
-                      <td>
-                          <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-md">{{dato.fecha}}</h6>
-                            </div>                      
-                      </td>
+                      <th scope="row">{{dato.id}}</th>
+                      <th scope="row">{{dato.rut_empresa}} - {{dato.dv}}</th>
+                      <th scope="row">{{dato.nombre}}</th>
+                      <th scope="row">{{dato.solicitante}}</th>
                       <td style="width: 60px;">      
                         <a class="btn btn-warning w-100" href="/ct?id={{dato.id}}" role="button">ver</a>
                       </td>

@@ -15,7 +15,7 @@
           </div>
           <div class="col">
             <img src="{{url_for('static', filename='./img/logo-ct.png')}}" alt="" >
-            <h5>Santiago, [fecha]</h5>
+            <h5>Santiago, {{cotizacion[0].fecha}}</h5>
             <p>Cotiz.: {{id_cotizacion}}/2023</p>
         </div>
         </div>
@@ -25,7 +25,7 @@
         <div class="row align-items-start">
           <div class="col">
             <h5>Solicitud de Cotización</h5>
-            <p>Srs. [Nombre]</p>
+            <p>Srs. {{cotizacion[0].nombre}}</p>
           </div>
           <div class="col">
           </div>
@@ -37,7 +37,7 @@
 
       <div class="container text-left">
         <div>
-            <p>Estimado [Nombre]
+            <p>Estimado {{cotizacion[0].solicitante}}
                <br> A continuación, presentamos detalle de la cotización según requerimiento:</p>
           </div>
       </div>

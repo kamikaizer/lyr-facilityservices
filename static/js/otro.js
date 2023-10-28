@@ -19,6 +19,28 @@ $(document).ready(function () {
 
   });
 
+
+
+    $('#datos_cotizacion').on("submit", function (event) {
+      event.preventDefault();
+      $.ajax({
+        url: "/datos_cotizacion",
+        method: "POST",
+        data: $('#datos_cotizacion').serialize(),
+        beforeSend: function () {
+          $('#datos_cotizacion').val("Inserting");
+        },
+        success: function (data) {
+          if (data == 'success') {
+            alert("Cotización agregada al panel de edición");
+            window.location.href = 'crud'
+          }
+        }
+      });
+  
+    });
+
+
   $('#mano_obra').on("submit", function (event) {
     
     event.preventDefault();

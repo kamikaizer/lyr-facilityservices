@@ -203,14 +203,14 @@ def ingreso():
 @main.route('/crud')
 def crud():
     with engine.connect() as conn:
-        sql1 = """select * from cotizacion where estado = 0 """
+        sql1 = """select * from cotizacion cot inner join clientes cli on cli.rut=cot.rut_empresa where cot.estado = 0 """
         datos = conn.execute(text(sql1)).fetchall()
         return render_template('crud.html',datos=datos)
 
 @main.route('/aprobar')
 def aprobar():
     with engine.connect() as conn:
-        sql1 = """select * from cotizacion where estado = 1"""
+        sql1 = """select * from cotizacion  cot inner join clientes cli on cli.rut=cot.rut_empresa where cot.estado = 1"""
         datos = conn.execute(text(sql1)).fetchall()
         return render_template('aprobar.html',datos=datos)
 
@@ -247,7 +247,7 @@ def ct():
     with engine.connect() as conn:
         sql_materiales = """select * from material where id_cotizacion="""+id_cotizacion
         materiales = conn.execute(text(sql_materiales)).fetchall()
-        sql_cotización = """select * from cotizacion where id="""+id_cotizacion
+        sql_cotización = """select * from cotizacion cot inner join clientes cli on cot.rut_empresa=cli.rut where id="""+id_cotizacion
         cotizacion = conn.execute(text(sql_cotización)).fetchall()
 
     for mat in materiales:
@@ -260,7 +260,7 @@ def edicion():
     valor=0
     valor_obra = 0
     with engine.connect() as conn:
-        sql1 = """select * from cotizacion where id= """+id
+        sql1 = """select * from cotizacion cot inner join clientes cli on cot.rut_empresa=cli.rut where id= """+id
         datos = conn.execute(text(sql1)).fetchone()
         sql1 = """select * from material where id_cotizacion= """+id
         materiales = conn.execute(text(sql1)).fetchall()
@@ -273,10 +273,6 @@ def edicion():
                 val=float(i.cantidad*float(i.valor_neto))
                 valor+=val
                 
-
-
-        sql1 = """select * from cotizacion where id= """+id
-        datos = conn.execute(text(sql1)).fetchone()
         sql1 = """select * from mano_obra where id_cotizacion= """+id
         manos_obra = conn.execute(text(sql1)).fetchall()
         sql1 = """select valor_neto,cantidad,dias from mano_obra where id_cotizacion= """+id
@@ -352,11 +348,11 @@ def aprobar_cotizacion():
         
         cotizacion = request.form.get('cotizacion')
         detalle = request.form.get('detalle')
-
+        hoy = str(date.today() )
 
             
 
-        sql = 'update cotizacion set estado = 1, detalle="'+detalle+'" where id = '+cotizacion
+        sql = 'update cotizacion set estado = 1, detalle="'+detalle+'",fecha="'+hoy+'" where id = '+cotizacion
     
         with engine.connect() as conn:
             conn.execute(text(sql))
@@ -407,23 +403,52 @@ def ingreso_factura():
 def crud_factura():
     return render_template('crud_factura.html')
 
-@main.route('/ingreso_cotizacion')
+@main.route('/ingreso_cotizacion',methods=['POST','GET'])
 def ingreso_cotizacion():
+    sql1 = """select * from clientes"""
+    with engine.connect() as conn:
+        clientes=conn.execute(text(sql1)).fetchall()
+    current_app.logger.debug(clientes)
+    # sql = """
+    #             INSERT INTO cotizacion
+    #             (estado)
+    #             VALUES(0);
+
+    #             """
+    
+    # with engine.connect() as conn:
+    #     conn.execute(text(sql))
+    #     conn.commit()
+    #     sql1 = """select max(id) from cotizacion"""
+    #     id_max = conn.execute(text(sql1)).fetchone()[0]
+
+    return render_template('ingreso_cotizacion.html',clientes=clientes)
+
+@main.route('/datos_cotizacion',methods=['POST','GET'])
+def datos_cotizacion():
+    empresa = str(request.form.get('empresa'))
+    solicitante = str(request.form.get('solicitante'))
+
+    current_app.logger.debug(empresa)
+    current_app.logger.debug(solicitante)
+
+
+    values = { 'empresa':empresa, 'solicitante':solicitante}
+            
     
     sql = """
                 INSERT INTO cotizacion
-                (estado)
-                VALUES(0);
+                (estado,rut_empresa,solicitante)
+                VALUES(0, :empresa, :solicitante);
 
                 """
     
     with engine.connect() as conn:
-        conn.execute(text(sql))
+        conn.execute(text(sql),values)
         conn.commit()
-        sql1 = """select max(id) from cotizacion"""
-        id_max = conn.execute(text(sql1)).fetchone()[0]
 
-    return render_template('ingreso_cotizacion.html',id_max=id_max)
+    return jsonify('success')
+
 
 @main.route('/delete_cotizacion',methods=['POST','GET'])
 def delete_cotizacion():
