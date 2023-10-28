@@ -64,8 +64,8 @@
               </div>
 
               <div class="col">
-                <button type="submit" class="btn bg-gradient-info w-100">Agregar</button>
-              </div>
+                <button type="submit" class="btn bg-gradient-info w-50">Agregar</button>
+              </div> 
 
             </div>
           </form>
@@ -111,8 +111,8 @@
                     <td><h6 class="mb-0 text-sm">{{material.valor_neto*material.cantidad* 0.19| float}}</h6></td>
                     <td><h6 class="mb-0 text-sm">{{material.valor_neto *material.cantidad* 1.19 |float}}</h6></td>
                     
-                    <td><button class="btn btn-info w-100"><a href="javascript:ediciones('edita_materiales?id={{material.id}}')" style="color: black; text-decoration: none;">Editar</a></button></td>
-                    <td><button onClick="delete_material({{material.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></td>
+                    <td style="width: 50px;"><button class="btn btn-info w-100"><a href="javascript:ediciones('edita_materiales?id={{material.id}}')" style="color: black; text-decoration: none;">Editar</a></button></td>
+                    <td style="width: 50px;"><button onClick="delete_material({{material.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></td>
 
 
                   </tr>
@@ -197,8 +197,8 @@
                     <td><h6 class="mb-0 text-sm">{{mano_obra.precio}}</h6></td>
                     <td><h6 class="mb-0 text-sm">{{mano_obra.dias}}</h6></td>
                     <td><h6 class="mb-0 text-sm">{{mano_obra.valor_neto}}</h6></td>
-                    <td><button class="btn btn-info w-100"><a href="javascript:ediciones('edita_mano_obra?id={{mano_obra.id}}')"  style="color: black; text-decoration: none;">Editar</a></button></td>
-                    <td><button onClick="delete_mano_obra({{mano_obra.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></td>
+                    <td style="width: 50px;"><button class="btn btn-info w-100"><a href="javascript:ediciones('edita_mano_obra?id={{mano_obra.id}}')"  style="color: black; text-decoration: none;">Editar</a></button></td>
+                    <td style="width: 50px;"><button onClick="delete_mano_obra({{mano_obra.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></td>
                   </tr>
 
                   {% endfor %}

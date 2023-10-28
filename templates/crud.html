@@ -36,9 +36,9 @@
             <th scope="row">{{dato.fecha}}</th>
             <!-- <th scope="row">{{dato.tipo}}</th> -->
             <!-- <th scope="row">{{dato.detalle}}</th> -->
-            <th><a class="btn btn-warning w-100" href="/ct?id={{dato.id}}" role="button">ver</a></th>
-            <th><a href="/edicion?id={{dato.id}}"  class="btn btn-info w-100 " > <span class="iconify" data-icon="bx:edit" style="color: black; text-decoration: none; " data-width=" 26" data-height="26"></span>&nbsp; Editar</a></th>
-            <th><button onClick="delete_cotizacion({{dato.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></th>
+            <th style="width: 50px;"><a class="btn btn-warning w-100" href="/ct?id={{dato.id}}" role="button">ver</a></th>
+            <th style="width: 50px;"><a href="/edicion?id={{dato.id}}"  class="btn btn-info w-100 " > <span class="iconify" data-icon="bx:edit" style="color: black; text-decoration: none; " data-width=" 26" data-height="26"></span>&nbsp; Editar</a></th>
+            <th style="width: 50px;"><button onClick="delete_cotizacion({{dato.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></th>
           </tr>
           {% endfor %}
         </tbody>
