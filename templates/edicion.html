@@ -8,7 +8,7 @@
 <!-- tarjeta de datos ingresados anteriormente -->
 <div class="card border-white">
   <div class="card-body">
-    <H1>Edición de Cotización N°{{datos.id}}  [nombre Empresa, Solicitante]</H1>
+    <H1 style="text-align: center;">Edición de Cotización N°{{datos.id}}  [nombre Empresa, Solicitante]</H1>
   </div>
 </div>
 <br>
@@ -218,11 +218,10 @@
 </div>
 
 <form name="aprobar" id="aprobar" method="POST">
-<div class="card border-white">
-  <h5>Detalle</h5>
-
-  <div class="card-body">
-    <textarea class="form-control" id="detalle" name="detalle" rows="3"></textarea>  
+  <div class="card border-white">
+    <div class="card-body">
+      <h3>Detalle:</h3>
+      <textarea class="form-control" id="detalle" name="detalle" rows="3"></textarea>  
   </div>
 </div>
 
