@@ -106,10 +106,10 @@
                     </td> -->
                     <td><h6 class="mb-0 text-sm">{{material.cantidad}}</h6></td>
                     <td><h6 class="mb-0 text-sm">{{material.glosa}}</h6></td>
-                    <td><h6 class="mb-0 text-sm">$ {{material.valor_neto}}</h6></td>
-                    <td><h6 class="mb-0 text-sm">{{material.valor_neto *material.cantidad |float}}</h6></td>
-                    <td><h6 class="mb-0 text-sm">{{material.valor_neto*material.cantidad* 0.19| float}}</h6></td>
-                    <td><h6 class="mb-0 text-sm">{{material.valor_neto *material.cantidad* 1.19 |float}}</h6></td>
+                    <td><h6 class="mb-0 text-sm">${{("{:,}".format(material.valor_neto)).replace('.0','').replace(',','.')}}</h6></td>
+                    <td><h6 class="mb-0 text-sm">${{("{:,}".format(material.valor_neto *material.cantidad |float)).replace('.0','').replace(',','.')}}</h6></td>
+                    <td><h6 class="mb-0 text-sm">${{("{:,}".format(material.valor_neto*material.cantidad* 0.19|float)).replace('.0','').replace(',','.')}}</h6></td>
+                    <td><h6 class="mb-0 text-sm">${{("{:,}".format(material.valor_neto *material.cantidad* 1.19 |float)).replace('.0','').replace(',','.')}}</h6></td>
                     
                     <td style="width: 50px;"><button class="btn btn-info w-100"><a href="javascript:ediciones('edita_materiales?id={{material.id}}')" style="color: black; text-decoration: none;">Editar</a></button></td>
                     <td style="width: 50px;"><button onClick="delete_material({{material.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></td>
@@ -124,13 +124,13 @@
             <div class="text-center card-body pt-4 p-3 bg-gray-100">
               <div class="row align-items-start" id="div_totales" name="div_totales">
                 <div class="col">
-                  <h5>Suma Valor Neto $ {{valor}}</h5>
+                  <h5>Suma Valor Neto ${{("{:,}".format(valor)).replace('.0','').replace(',','.')}}</h5>
                 </div>
                 <div class="col">
-                  <h5>Suma IVA $ {{valor * 0.19}}</h5>
+                  <h5>Suma IVA ${{("{:,}".format(valor * 0.19)).replace('.0','').replace(',','.')}}</h5>
                 </div>
                 <div class="col">
-                  <h5>Suma Valor Total $ {{valor * 1.19}}</h5>
+                  <h5>Suma Valor Total ${{("{:,}".format(valor * 1.19)).replace('.0','').replace(',','.')}}</h5>
                 </div>
               </div>
             </div>
@@ -194,9 +194,9 @@
                   <tr>
                     <td><h6 class="mb-0 text-sm">{{mano_obra.cantidad}} </h6></td>
                     <td><h6 class="mb-0 text-sm">{{mano_obra.glosa}} </h6></td>
-                    <td><h6 class="mb-0 text-sm">{{mano_obra.precio}}</h6></td>
+                    <td><h6 class="mb-0 text-sm">${{("{:,}".format(mano_obra.precio)).replace('.0','').replace(',','.')}}</h6></td>
                     <td><h6 class="mb-0 text-sm">{{mano_obra.dias}}</h6></td>
-                    <td><h6 class="mb-0 text-sm">{{mano_obra.valor_neto}}</h6></td>
+                    <td><h6 class="mb-0 text-sm">${{("{:,}".format(mano_obra.valor_neto)).replace('.0','').replace(',','.')}}</h6></td>
                     <td style="width: 50px;"><button class="btn btn-info w-100"><a href="javascript:ediciones('edita_mano_obra?id={{mano_obra.id}}')"  style="color: black; text-decoration: none;">Editar</a></button></td>
                     <td style="width: 50px;"><button onClick="delete_mano_obra({{mano_obra.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></td>
                   </tr>
@@ -207,7 +207,7 @@
             </div>
 
             <div class="card-body pt-4 p-3 bg-gray-100">
-              <h1 id="totales_mano_obra">Total Neto $ {{valor_obra}}</h1>
+              <h1 id="totales_mano_obra">Total Neto ${{("{:,}".format(valor_obra)).replace('.0','').replace(',','.')}}</h1>
             </div>
 
 
@@ -240,7 +240,7 @@
         </div>
       </div>
       <div class="card-body pt-4 p-3">
-        <h1 id="c1">$ {{valor_obra+valor }}</h1>
+        <h1 id="c1">$ {{("{:,}".format(valor_obra+valor)).replace('.0','').replace(',','.')}}</h1>
       </div>
     </div>
   </div>
@@ -254,7 +254,7 @@
         </div>
       </div>
       <div class="card-body pt-4 p-3">
-        <h1 id="c1_bruto">$ {{valor_obra+valor*1.19 }}</h1>
+        <h1 id="c1_bruto">$ {{("{:,}".format(valor_obra+valor*1.19)).replace('.0','').replace(',','.')}}</h1>
       </div>
     </div>
   </div>

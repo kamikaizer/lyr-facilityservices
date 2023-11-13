@@ -58,8 +58,8 @@
                 <tr>
                   <td>{{mat.cantidad}}</td>
                   <td>{{mat.glosa}}</td>
-                  <td>{{mat.valor_neto *mat.cantidad* 1.19 |float}}</td> 
-                  <td>{{mat.valor_neto*mat.cantidad* 0.19| float + mat.valor_neto *mat.cantidad* 1.19 |float}}</td>
+                  <td>${{("{:,}".format(mat.valor_neto *mat.cantidad* 1.19 |float)).replace('.0','').replace(',','.')}}</td> 
+                  <td>${{("{:,}".format(mat.valor_neto*mat.cantidad* 0.19| float + mat.valor_neto *mat.cantidad* 1.19 |float)).replace('.0','').replace(',','.')}}</td>
                 </tr>
                
                 {%endfor%}
@@ -69,7 +69,7 @@
                   <th colspan="2 border"></th>
                   <!-- <th></th> -->
                   <th class="table-active">Valor Total:</th>
-                  <th class="table-active">{{precio_total}}</th>
+                  <th class="table-active">${{("{:,}".format(precio_total)).replace('.0','').replace(',','.')}}</th>
               </tr>
               </tbody>
             </table>
@@ -110,11 +110,15 @@
               <div class="col">
                 <h3>Christopher Lara</h3>
                 <p>Operations Supervisor</p>
+                
               </div>
               <div class="col">
             </div>
             </div>
           </div>
+          <center><a href="https://lyr-facilityservices.cl/">https://lyr-facilityservices.cl/</a>
+                <a href="mailto:contacto@lyr-facilityservices.cl">contacto@lyr-facilityservices.cl</a></center>
+          
 </div>
 <br>
 <button id="generar-pdf" class="btn-pdf">Descargar PDF</button>

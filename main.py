@@ -17,7 +17,7 @@ from datetime import *
 # def conn_():
 #     conn = pyodbc.connect('Driver={SQL Server};'
 #                       'Server=clloforense03p;'
-#                       'Database=PBServforenses;'
+#                       'Database=PBServforenses;'zz
 #                       'UID=Support03;'
 #                       "PWD=GajNH6t$'W{,:8R7;"
 #                       'Trusted_Connection=no;')
@@ -28,6 +28,7 @@ from sqlalchemy.sql import text
 import pandas as pd
 
 url = 'mysql+mysqlconnector://root:@localhost:3306/prueba'
+
 engine = sqlalchemy.create_engine(url)
 
 
@@ -275,13 +276,13 @@ def edicion():
                 
         sql1 = """select * from mano_obra where id_cotizacion= """+id
         manos_obra = conn.execute(text(sql1)).fetchall()
-        sql1 = """select valor_neto,cantidad,dias from mano_obra where id_cotizacion= """+id
+        sql1 = """select valor_neto from mano_obra where id_cotizacion= """+id
         valores_obra = conn.execute(text(sql1)).fetchall()
         if valores_obra is None:
             valor_obra = 0
         else:
             for i in valores_obra:
-                val=float(i.cantidad*i.dias*float(i.valor_neto))
+                val=float(i.valor_neto)
                 valor_obra+=val
         
         current_app.logger.debug(valor)
