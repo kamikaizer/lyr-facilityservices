@@ -144,9 +144,9 @@ def login():
             return redirect('/dashboard')
         else:
             error = 'Usuario o contraseña incorrectos.'
-            return render_template('/login.html', error=error)
+            return render_template('/index.html', error=error)
 
-    return render_template('/login.html')
+    return render_template('/index.html')
 
 # @auth.route('/register', methods=['GET', 'POST'])
 # def register():
