@@ -133,8 +133,8 @@
     </a>
   </li> -->
 
-<hr>
-      <li class="nav-item">
+
+      <!-- <li class="nav-item">
         <a class="nav-link text-dark " href="documentos">
   
           <div class="text-dark text-center me-2 d-flex align-items-center justify-content-center">
@@ -143,7 +143,8 @@
   
           <span class="nav-link-text ms-1">Documentos</span>
         </a>
-      </li>
+      </li> -->
+      {% if  session['role'] =='2' or  session['role'] =='1' %}
 <hr>
       <li class="nav-item">
         <a class="nav-link text-dark " href="rrhh">
@@ -179,6 +180,7 @@
 
   
     </ul>
+    {%endif%}
 
   </div>
 

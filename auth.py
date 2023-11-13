@@ -5,42 +5,57 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 import mysql.connector
+import sqlalchemy
+from sqlalchemy.sql import text
 # from flaskr.db import get_db
 import hashlib
 
 
 
+url = 'mysql+mysqlconnector://root:@localhost:3306/prueba'
 
+engine = sqlalchemy.create_engine(url)
 auth = Blueprint('auth', __name__)
 
-# @bp.route('/register', methods=('GET', 'POST'))
-# def register():
-#     if request.method == 'POST':
-#         username = request.form['username']
-#         password = request.form['password']
-#         db = get_db()
-#         error = None
+@auth.route('/register', methods=('GET', 'POST'))
+def register():
+    return render_template('auth/register.html')
 
-#         if not username:
-#             error = 'Username is required.'
-#         elif not password:
-#             error = 'Password is required.'
+@auth.route('/insert_register',methods=('GET','POST'))
+def insert_register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        rol = request.form['rol']
+        current_app.logger.debug(username)
+        current_app.logger.debug(password)
+        contraseña=hashlib.sha256(password.encode()).hexdigest()
 
-#         if error is None:
-#             try:
-#                 db.execute(
-#                     "INSERT INTO user (username, password) VALUES (?, ?)",
-#                     (username, generate_password_hash(password)),
-#                 )
-#                 db.commit()
-#             except db.IntegrityError:
-#                 error = f"User {username} is already registered."
-#             else:
-#                 return redirect(url_for("auth.login"))
+        error = None
+        current_app.logger.debug('entre0')
+        if not username:
+            error = 'Username is required.'
+        elif not password:
+            error = 'Password is required.'
 
-#         flash(error)
-
-#     return render_template('auth/register.html')
+        if error is None:
+            try:
+                current_app.logger.debug('entre')
+                values = { 'username':username, 'contraseña':contraseña,'rol':rol}
+                sql = """
+                INSERT INTO users(username, password,role)
+                  VALUES(:username, :contraseña, :rol);
+                  """
+    
+                with engine.connect() as conn:
+                    conn.execute(text(sql),values)
+                    conn.commit()
+                return render_template('/login.html')
+            except:
+                error = f"User {username} is already registered."
+                return error
+        else:
+            return redirect(url_for("auth.login"))
 
 # @bp.route('/login', methods=('GET', 'POST'))
 # def login():
@@ -118,7 +133,7 @@ def login():
 
         if user:
             session['username'] = username
-            # session['nombre'] = user[4]+" "+user[5]
+            session['role'] = user[3]
             # session['fecha'] = user[8]
             # session['cargo'] = user[9]
             # current_app.logger.debug(session['nombre'])
@@ -133,46 +148,46 @@ def login():
 
     return render_template('/login.html')
 
-@auth.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        current_app.logger.debug(request)
-        name = request.form['name']
-        apellido = request.form['apellido']
-        cargo = request.form['cargo']
-        correo = request.form['correo']
-        telefono = request.form['telefono']
-        fecha = request.form['fecha']
+# @auth.route('/register', methods=['GET', 'POST'])
+# def register():
+#     if request.method == 'POST':
+#         current_app.logger.debug(request)
+#         name = request.form['name']
+#         apellido = request.form['apellido']
+#         cargo = request.form['cargo']
+#         correo = request.form['correo']
+#         telefono = request.form['telefono']
+#         fecha = request.form['fecha']
 
-        role = 'user'  # Por defecto, todos los usuarios se registran como 'user'
-        password = name+"."+apellido
-        username = password
-        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+#         role = 'user'  # Por defecto, todos los usuarios se registran como 'user'
+#         password = name+"."+apellido
+#         username = password
+#         hashed_password = hashlib.sha256(password.encode()).hexdigest()
         
-        db = mysql.connector.connect(
-        host='localhost',
-        user='root',
-        password='',
-        database='prueba'
-        )
-        # Verifica si el usuario maestro ya existe
-        cursor = db.cursor()
-        cursor.execute("SELECT * FROM users WHERE role='master'")
-        master_user = cursor.fetchone()
+#         db = mysql.connector.connect(
+#         host='localhost',
+#         user='root',
+#         password='',
+#         database='prueba'
+#         )
+#         # Verifica si el usuario maestro ya existe
+#         cursor = db.cursor()
+#         cursor.execute("SELECT * FROM users WHERE role='master'")
+#         master_user = cursor.fetchone()
 
-        if master_user:
-            role = 'user'  # Si el usuario maestro existe, registra nuevos usuarios como 'user'
-        else:
-            role = 'master'  # Si el usuario maestro no existe, registra el nuevo usuario como 'master'
+#         if master_user:
+#             role = 'user'  # Si el usuario maestro existe, registra nuevos usuarios como 'user'
+#         else:
+#             role = 'master'  # Si el usuario maestro no existe, registra el nuevo usuario como 'master'
 
-        # Inserta el nuevo usuario en la base de datos
+#         # Inserta el nuevo usuario en la base de datos
         
-        cursor.execute("""INSERT INTO users (username, password, role,nombre, apellido, correo, telefono,fecha,cargo) 
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)""", (username, hashed_password, role,name,apellido,correo,telefono,fecha,cargo))
-        db.commit()
-        cursor.close()
+#         cursor.execute("""INSERT INTO users (username, password, role,nombre, apellido, correo, telefono,fecha,cargo) 
+#         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)""", (username, hashed_password, role,name,apellido,correo,telefono,fecha,cargo))
+#         db.commit()
+#         cursor.close()
 
-        return jsonify('success')
+#         return jsonify('success')
 
 @auth.route('/dashboard')
 def dashboard():

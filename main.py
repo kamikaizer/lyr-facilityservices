@@ -2,6 +2,7 @@ import io
 # import pyodbc
 # from flask import make_response 
 from flask import Blueprint,session, render_template, redirect,url_for,request,flash,jsonify,json,send_file,current_app
+
 # from flask_ldap3_login import LDAP3LoginManager
 # from flask_login import LoginManager,login_required, login_user, UserMixin, current_user, logout_user
 # from flask_ldap3_login.forms import LDAPLoginForm
