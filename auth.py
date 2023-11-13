@@ -50,7 +50,7 @@ def insert_register():
                 with engine.connect() as conn:
                     conn.execute(text(sql),values)
                     conn.commit()
-                return render_template('/login.html')
+                return render_template('/index.html')
             except:
                 error = f"User {username} is already registered."
                 return error
