@@ -19,7 +19,7 @@
 
             <div class="card-body px-0 pb-2">
               <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0">
+                <table class="table align-items-center mb-0" name="aprobar_cot" id="aprobar_cot">
                   <thead>
                     <tr>
                       <th scope="col">N° Cotización</th>
@@ -43,12 +43,13 @@
                         <a class="btn btn-warning w-100" href="/ct?id={{dato.id}}" role="button">ver</a>
                       </td>
                       <td style="width: 60px;">      
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#exampleModal{{ dato.id }}">
                           O.Compra
                         </button>
                       </td>
                       <td style="width: 60px;">      
-                        <button type="submit" class="btn bg-gradient-danger w-100">Rechazado</button>
+                        <button onClick="rechazo_cotizacion({{dato.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Rechazado</button>
+
                     </td>
                     </tr>
                     {% endfor %}
@@ -61,29 +62,36 @@
       </div>
 
 
-  <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Ingreso de Orden de compra</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="col-12">
-          <label for="oc" class="form-label">Orden de compra</label>
-          <input type="number" class="form-control" id="oc">
+      {% for dato in datos %}
+        <!-- Modal -->
+      <div class="modal fade" id="exampleModal{{ dato.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ dato.id }}" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel{{ dato.id }}">Ingreso de Orden de compra</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="insert_oc" name="insert_oc" method="POST" action="/insert_oc?id={{dato.id}}">
+            <div class="modal-body">
+              
+              <div class="col-12">
+                <label for="oc" class="form-label">Orden de compra (dejar en blanco si no tiene)</label>
+                <input type="number" class="form-control" id="oc" name="oc">
+
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+          </form>
+          </div>
+        
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar</button>
-      </div>
-    </div>
-  </div>
-</div>
-  
+
+      {% endfor %}
     </div>
 
-
+    <script src="{{ url_for('static', filename='js/otro.js')}}"></script>
 {% endblock %}

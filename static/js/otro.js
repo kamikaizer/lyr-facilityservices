@@ -83,6 +83,26 @@ $(document).ready(function () {
 
   });
 
+  // $('#insert_oc').on("submit", function (event) {
+    
+  //   event.preventDefault();
+  //   $.ajax({
+  //     url: "/insert_oc",
+  //     method: "POST",
+  //     data: $('#insert_oc').serialize(),
+  //     beforeSend: function () {
+  //       $('#insert_oc').val("Inserting");
+  //     },
+  //     success: function (data) {
+  //       if (data == 'success') {
+  //         alert("Orden de compra agregada");
+  //         window.location.href = 'aprobar'
+  //       }
+  //     }
+  //   });
+
+  // });
+
   $('#update_materiales').on("submit", function (event) {
     
     event.preventDefault();
@@ -146,6 +166,22 @@ function delete_cotizacion(id){
         if (data == 'success') {
           alert("Cotización Eliminada");
           $("#cotizaciones").load(window.location.href + " #cotizaciones");
+        }
+      }
+    });
+    }
+  }
+
+  function rechazo_cotizacion(id){
+    if(confirm('¿Seguro que desea eliminar la cotización N°'+id+'?')){
+      event.preventDefault();
+    $.ajax({
+      url: "/delete_cotizacion?id="+id,
+      method: "POST",
+      success: function (data) {
+        if (data == 'success') {
+          alert("Cotización Rechazada");
+          $("#aprobar_cot").load(window.location.href + " #aprobar_cot");
         }
       }
     });

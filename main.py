@@ -209,12 +209,35 @@ def crud():
         datos = conn.execute(text(sql1)).fetchall()
         return render_template('crud.html',datos=datos)
 
-@main.route('/aprobar')
+@main.route('/aprobar',methods=['POST','GET'])
 def aprobar():
     with engine.connect() as conn:
-        sql1 = """select * from cotizacion  cot inner join clientes cli on cli.rut=cot.rut_empresa where cot.estado = 1"""
+        sql1 = """select * from cotizacion  cot inner join clientes cli on cli.rut=cot.rut_empresa where cot.estado = 1 and orden_compra is NULL"""
         datos = conn.execute(text(sql1)).fetchall()
         return render_template('aprobar.html',datos=datos)
+    
+@main.route('/insert_oc',methods=['POST','GET'])
+def insert_oc():
+    try:
+        oc = request.form.get('oc')
+    except:
+        oc = None
+    id_cotizacion = request.args.get('id')
+    current_app.logger.debug(oc)
+    current_app.logger.debug(id_cotizacion)
+    if(oc):
+        sql = "UPDATE prueba.cotizacion SET orden_compra ="+oc+" where id="+id_cotizacion
+    else:
+        sql = "UPDATE prueba.cotizacion SET orden_compra =-1 where id="+id_cotizacion
+
+    
+    with engine.connect() as conn:
+        conn.execute(text(sql))
+        conn.commit()
+        sql1 = """select * from cotizacion  cot inner join clientes cli on cli.rut=cot.rut_empresa where cot.estado = 1 and orden_compra is NULL"""
+        datos = conn.execute(text(sql1)).fetchall()
+        return render_template('aprobar.html',datos=datos)
+        
 
 @main.route('/panel')
 def panel():
@@ -223,7 +246,7 @@ def panel():
 @main.route('/perfil',methods=['POST','GET'])
 def perfil():
     with engine.connect() as conn:
-        sql1 = """select * from sol_vacaciones where username = '"""+session['nombre']+"';"
+        sql1 = """select * from sol_vacaciones where username = '"""+session['username']+"';"
         datos = conn.execute(text(sql1)).fetchall()
     
     return render_template('perfil.html',datos=datos)

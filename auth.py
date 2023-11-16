@@ -50,7 +50,7 @@ def insert_register():
                 with engine.connect() as conn:
                     conn.execute(text(sql),values)
                     conn.commit()
-                return render_template('/index.html')
+                return render_template('/login.html')
             except:
                 error = f"User {username} is already registered."
                 return error
@@ -144,9 +144,9 @@ def login():
             return redirect('/dashboard')
         else:
             error = 'Usuario o contraseña incorrectos.'
-            return render_template('/index.html', error=error)
+            return render_template('/login.html', error=error)
 
-    return render_template('/index.html')
+    return render_template('/login.html')
 
 # @auth.route('/register', methods=['GET', 'POST'])
 # def register():
