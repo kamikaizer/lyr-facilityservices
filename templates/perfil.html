@@ -10,7 +10,7 @@
 
         <div class="card border-white">
           <div class="card-title pb-0 px-3">
-            <h6 class="mb-0">Datos Empleado</h6>
+            <h4 class="mb-0">Datos Empleado</h4>
           </div>
           <div class="card-body pt-4 p-3">
             <ul class="list-group">
@@ -71,7 +71,7 @@
             <div class="card-title pb-0 p-3">
               <div class="row">
                 <div class="col-6 d-flex align-items-center">
-                  <h6 class="mb-0">Ultimas Liquidaciones</h6>
+                  <h4 class="mb-0">Ultimas Liquidaciones</h4>
                 </div>
                 <div class="col-6 text-end">
                   <button class="btn btn-outline-primary btn-sm mb-0">Ver todo</button>
@@ -99,7 +99,13 @@
           <div class="card border-white">
             <div class="card-title pb-0 px-3">
               <h6 class="mb-0">Vacaciones</h6>
+              <div class="ms-auto text-end">
+                <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#vacationRequestModal">
+                  Solicitar Vacaciones
+                </button>
+              </div>
             </div>
+            
             <div id="vacaciones" name="vacaciones" class="card-body pt-4 p-3">
               <ul class="list-group">
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
@@ -109,11 +115,7 @@
                     <span class="mb-2 text-xs">Fecha Fin: <span class="text-dark font-weight-bold ms-sm-2">dd/mm/aaaa</span></span>
                     <span class="mb-2 text-xs">Cantidad de días habiles: <span class="text-dark ms-sm-2 font-weight-bold">xxx</span></span>
                   </div>
-                  <div class="ms-auto text-end">
-                    <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#vacationRequestModal">
-                      Solicitar Vacaciones
-                    </button>
-                  </div>
+
                 </li>
               </ul>
             </div>
@@ -124,7 +126,7 @@
             <div class="card-title pb-0 px-3">
               <div class="row">
                 <div class="col-md-6">
-                  <h6 class="mb-0">Documentos</h6>
+                  <h4 class="mb-0">Documentos</h4>
                 </div>
               </div>
             </div>
@@ -171,7 +173,7 @@
           <div class="form-group">
             <label for="reason">Motivo</label>
             <textarea name="reason" id="reason" class="form-control" rows="3"></textarea>
-          </div>
+          </div><br>
           <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
         </form>
       </div>
