@@ -19,53 +19,62 @@
           </div>
 
           <br>
+          <form method="POST" action="/usuarios">
           <div class="card-body px-0 pb-2">
             <div class="table-responsive p-0">
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre Apellido</th>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Cargo</th>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">01</th>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">02</th>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">03</th>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">04</th>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">05</th>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">06</th>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">07</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Control Total</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Cotizaciones</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">RR.HH</th>
+
                   </tr>
                 </thead>
                 <tbody>
+                  {%for i in datos%}
                   <tr>
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">nombre 01</h6>
+                          <h6 class="mb-0 text-sm">{{i.username}}</h6>
                         </div>
                       </div>
                     </td>
-                    <td>
+                    <!-- <td>
                       <p class="text-xs text-secondary mb-0">Cargo</p>
-                    </td>
-                    <td><input type="checkbox"></td>
-                    <td><input type="checkbox"></td>
-                    <td><input type="checkbox"></td>
-                    <td><input type="checkbox"></td>
-                    <td><input type="checkbox"></td>
-                    <td><input type="checkbox"></td>
-                    <td><input type="checkbox"></td>
+                    </td> -->
+                    <td><input type="checkbox" {% if i.role == '1' %}checked{% endif %} name="CT-{{ i.id }}" id="CT-{{ i.id }}" class="checkbox-group" data-group="{{ i.id }}"></td>
+                    <td><input type="checkbox" {% if i.role == '2' %}checked{% endif %} name="COT-{{ i.id }}" id="COT-{{ i.id }}" class="checkbox-group" data-group="{{ i.id }}"></td>
+                    <td><input type="checkbox" {% if i.role == '3' %}checked{% endif %} name="RRHH-{{ i.id }}" id="RRHH-{{ i.id }}" class="checkbox-group" data-group="{{ i.id }}"></td>
+
                   </tr>
+                  {%endfor%}
                 </tbody>
               </table>
             </div>
           </div>
+          <button type="submit" class="btn bg-gradient-info w-100">Guardar</button>
+        </form>
         </div>
-        <button type="submit" class="btn bg-gradient-info w-100">Guardar</button>
+        
       </div>
     </div>
 
 
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('.checkbox-group').change(function () {
+      if ($(this).is(':checked')) {
+        // Desmarcar los otros checkboxes del mismo grupo
+        var group = $(this).data('group');
+        $('.checkbox-group[data-group="' + group + '"]').not(this).prop('checked', false);
+      }
+    });
+  });
+</script>
 
 {% endblock %}

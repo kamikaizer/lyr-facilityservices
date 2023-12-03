@@ -18,9 +18,9 @@
         </div>
 
         <br>
-        <form name="mano_obra" id="mano_obra" method="POST">
-          <div class="row"  id="f2">
-            <input type="hidden" id="cotizacion" name="cotizacion" value="">
+        <form name="agrega_clientes" id="agrega_clientes" method="POST">
+          <div class="row"  id="f3">
+            
             <div class="col">
               <input type="text" id="nombre" name="nombre" class="form-control" min="1" placeholder="Nombre Cliente" aria-label="nombre" required>
             </div>
@@ -28,11 +28,12 @@
               <input type="number" id="rut" name="rut" class="form-control" min="1" placeholder="Rut" aria-label="rut" required>
             </div>
             <div class="col-1">
-              <input type="number" id="dv" name="dv" class="form-control" min="1" placeholder="Dv" aria-label="dv" required>
+              <input type="text" id="dv" name="dv" class="form-control" min="1" placeholder="Dv" aria-label="dv" required>
             </div>
-            <div class="col">
+            
+            <!-- <div class="col">
               <input type="text" id="giro" name="giro" class="form-control" min="1" placeholder="Giro" aria-label="giro" required>
-            </div>
+            </div> -->
             
             <div class="col">
               <button type="submit" class="btn bg-gradient-info w-100">Agregar</button>
@@ -40,36 +41,45 @@
           </div>
         </form>
         <br>
-        <div class="card-body px-0 pb-2" name="div_mano_obra" id="div_mano_obra">
+        <div class="card-body px-0 pb-2" name="div_cliente" id="div_cliente">
           <div class="table-responsive p-0">
             <table class="table align-items-center mb-0">
               <thead>
                 <tr>
+                  <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">ID</th>
                   <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre Cliente</th>
                   <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Rut</th>
-                  <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Giro</th>
-                  <th></th>
+                  <!-- <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Giro</th> -->
+                  <!-- <th></th> -->
                   <th></th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
+                {%for i in clientes%}
                 <tr>
                   <td>
                     <div class="d-flex px-2 py-1">
                       <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">xxxx</h6>
+                        <h6 class="mb-0 text-sm">{{i.id}}</h6>
                       </div>
                     </div>
                   </td>
                   <td>
                     <div class="d-flex px-2 py-1">
                       <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">xxxxxx</h6>
+                        <h6 class="mb-0 text-sm">{{i.nombre}}</h6>
                       </div>
                     </div>
                   </td>
                   <td>
+                    <div class="d-flex px-2 py-1">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">{{i.rut}} - {{i.dv}}</h6>
+                      </div>
+                    </div>
+                  </td>
+                  <!-- <td>
                     <div class="d-flex px-2 py-1">
                       <div class="d-flex flex-column justify-content-center">
                         <h6 class="mb-0 text-sm">xxxxxxx</h6>
@@ -82,48 +92,35 @@
                         <h6 class="mb-0 text-sm">xxxxxxx</h6>
                       </div>
                     </div>
-                  </td>
-                  <td><button class="btn btn-info w-100" data-toggle="modal" ata-target="#changeRequestModal" data-bs-toggle="modal" data-bs-target="#modalcliente">Editar</button></td>
-                  <td><button class="btn btn-danger w-100" data-toggle="modal" ata-target="#changeRequestModal">Eliminar</button></td>
+                  </td> -->
+                  <td style="width: 50px;"><button class="btn btn-info w-100"><a href="javascript:ediciones('edita_cliente?id={{i.id}}')"  style="color: black; text-decoration: none;">Editar</a></button></td>
+
+                  <td style="width: 50px;"><button onClick="delete_cliente({{i.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></td>
                 </tr>
+                {%endfor%}
 
               </tbody>
             </table>
           </div>
 
-<!-- Modal cliente -->
-<div class="modal fade" id="modalcliente" tabindex="-1" aria-labelledby="modalcliente" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="modalcliente">Editor de Cliente</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
 
-        <div class="mb-3">
-          <label for="formGroupExampleInput" class="form-label">NOMBRE CLIENTE</label>
-          <input type="text" class="form-control" id="formGroupExampleInput" >
-        </div>
-        <div class="mb-3">
-          <label for="formGroupExampleInput2" class="form-label">RUT</label>
-          <input type="text" class="form-control" id="formGroupExampleInput2">
-        </div>
-        <div class="mb-3">
-          <label for="formGroupExampleInput2" class="form-label">GIRO</label>
-          <input type="text" class="form-control" id="formGroupExampleInput2">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Guardar</button>
-      </div>
-    </div>
-  </div>
-</div>
 
         </div>
       </div>
     </div>
   </div>
 </div>
+<script src="{{ url_for('static', filename='js/otro.js')}}"></script>
+<script>
+  function ediciones(URL) {
+    var ventana = window.open(URL, "ventana1", "width=850,height=650,scrollbars=auto");
+  
+    // Define una función que se ejecutará cuando la ventana se cierre
+    ventana.onunload = function() {
+      // Carga los elementos en la página emisora cuando la ventana se cierre
+      $("#div_clientes").load(window.location.href + " #div_clientes");
+    };
+  }
+  </script>
+
 {% endblock %}

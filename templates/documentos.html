@@ -19,38 +19,37 @@
     
               <div class="card-body px-0 pb-2">
                 <div class="table-responsive p-0">
-                  <table class="table align-items-center mb-0">
+                  <table class="table align-items-center mb-0" name="aprobar_cot" id="aprobar_cot">
                     <thead>
                       <tr>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Numero</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nombre</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Fecha Emisión</th>
-                        <th style="width: 60px;"></th>
+                        <th scope="col">N° Cotización</th>
+                        <th scope="col">Rut Empresa</th>
+                        <th scope="col">Empresa</th>
+                        <th scope="col">Solicitante</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+  
                       </tr>
                     </thead>
                     <tbody>
+                      {% for dato in datos %}
                       <tr>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">xxxx</h6>
-                            </div>
-                          </div>
+                        <th scope="row">{{dato.id}}</th>
+                        <th scope="row">{{dato.rut_empresa}} - {{dato.dv}}</th>
+                        <th scope="row">{{dato.nombre}}</th>
+                        <th scope="row">{{dato.solicitante}}</th>
+                        <td style="width: 60px;">      
+                          <a class="btn btn-warning w-100" href="/ct?id={{dato.id}}" role="button">Ver</a>
                         </td>
-                        <td>
-                          <p class="text-xs text-secondary mb-0">xxxxx</p>
-                        </td>
-                        <td>
-                            <div class="d-flex flex-column justify-content-center">
-                                <h6 class="mb-0 text-sm">xxxx</h6>
-                              </div>                      
-                        </td>
-                        <td>      
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <td style="width: 60px;">      
+                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{ dato.id }}">
                             Agregar Factura
                           </button>
+  
                       </td>
                       </tr>
+                      {% endfor %}
                     </tbody>
                   </table>
                 </div>
@@ -58,28 +57,39 @@
             </div>
           </div>
         </div>
+  
+  
 
-      <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Ingreso de Factura</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="col-12">
-          <label for="factura" class="form-label">N° de Factura</label>
-          <input type="numbre" class="form-control" id="factura">
+
+{% for dato in datos %}
+        <!-- Modal -->
+      <div class="modal fade" id="exampleModal{{ dato.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ dato.id }}" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel{{ dato.id }}">Ingreso de Factura</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="insert_factura" name="insert_factura" method="POST" action="/insert_factura?id={{dato.id}}">
+            <div class="modal-body">
+              
+              <div class="col-12">
+                <label for="factura" class="form-label">N° de Factura</label>
+                <input type="number" class="form-control" id="factura" name="factura" required>
+
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+          </form>
+          </div>
+        
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar</button>
-      </div>
-    </div>
-  </div>
-</div>
+
+      {% endfor %}
     
       </div>
 

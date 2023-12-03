@@ -27,8 +27,17 @@ from datetime import *
 import sqlalchemy
 from sqlalchemy.sql import text
 import pandas as pd
+try:
+    url = 'mysql+mysqlconnector://root:@localhost:3306/prueba'
+except:
+    username = 'criss0106'
+    password = 'lyrfacilityservices'
+    host = 'criss0106.mysql.pythonanywhere-services.com'
+    port = '3306'
+    database = 'criss0106$prueba'
 
-url = 'mysql+mysqlconnector://root:@localhost:3306/prueba'
+    # Construye la URL de conexión
+    url = f'mysql+mysqlconnector://{username}:{password}@{host}:{port}/{database}'
 
 engine = sqlalchemy.create_engine(url)
 
@@ -200,7 +209,33 @@ def return_equipment_route(equipment_id):
 
 @main.route('/agregar')
 def ingreso():
-    return render_template('ingreso.html')
+    with engine.connect() as conn:
+        sql = """select * from clientes"""
+        clientes = conn.execute(text(sql)).fetchall()
+    return render_template('ingreso.html',clientes=clientes)
+
+@main.route('/agrega_clientes', methods=['POST'])
+def agrega_clientes():
+    if request.method == 'POST':
+        nombre = request.form.get('nombre')
+        rut = request.form.get('rut')
+        dv = request.form.get('dv')
+
+
+        values = {'nombre':nombre, 'rut':rut, 'dv':dv}
+            
+
+        sql = """
+                INSERT INTO prueba.clientes(nombre, rut, dv)
+                VALUES(:nombre, :rut, :dv);
+
+                """
+    
+        with engine.connect() as conn:
+            conn.execute(text(sql),values)
+            conn.commit()
+
+        return jsonify('success')
 
 @main.route('/crud')
 def crud():
@@ -237,11 +272,59 @@ def insert_oc():
         sql1 = """select * from cotizacion  cot inner join clientes cli on cli.rut=cot.rut_empresa where cot.estado = 1 and orden_compra is NULL"""
         datos = conn.execute(text(sql1)).fetchall()
         return render_template('aprobar.html',datos=datos)
+    
+
+@main.route('/insert_factura',methods=['POST','GET'])
+def insert_factura():
+    try:
+        factura = request.form.get('factura')
+    except:
+        factura = None
+    id_cotizacion = request.args.get('id')
+
+    sql = "UPDATE prueba.cotizacion SET factura ="+factura+" where id="+id_cotizacion
+
+    
+    with engine.connect() as conn:
+        conn.execute(text(sql))
+        conn.commit()
+        sql1 = """select * from cotizacion  cot inner join clientes cli on cli.rut=cot.rut_empresa where cot.estado = 1 and factura is NULL"""
+        datos = conn.execute(text(sql1)).fetchall()
+        return render_template('documentos.html',datos=datos)
         
 
 @main.route('/panel')
 def panel():
-    return render_template('panel.html')
+    with engine.connect() as conn:
+        sql1 = """select * from users"""
+        datos = conn.execute(text(sql1)).fetchall()
+    return render_template('panel.html',datos=datos)
+
+@main.route('/usuarios',methods=['POST','GET'])
+def usuarios():
+    current_app.logger.debug(request.form)
+    checkbox_data = request.form
+
+    for key, value in checkbox_data.items():
+        print(f"Checkbox {key} está {'marcado' if value == 'on' else 'desmarcado'}")
+        partes = str(key).split('-')
+        current_app.logger.debug(partes)
+        if (partes[0] == 'CT'):
+            rol=1
+        elif (partes[0] == 'COT'):
+            rol=2
+        else:
+            rol=3
+
+        sql = 'update users set role = '+str(rol)+' where id = '+str(partes[1])
+    
+        with engine.connect() as conn:
+            conn.execute(text(sql))
+            conn.commit()
+    with engine.connect() as conn:
+        sql1 = """select * from users"""
+        datos = conn.execute(text(sql1)).fetchall()
+    return render_template('panel.html',datos=datos)
 
 @main.route('/perfil',methods=['POST','GET'])
 def perfil():
@@ -418,7 +501,10 @@ def sol_vacaciones():
 
 @main.route('/documentos')
 def documentos():
-    return render_template('documentos.html')
+    with engine.connect() as conn:
+        sql1 = """select * from cotizacion  cot inner join clientes cli on cli.rut=cot.rut_empresa where cot.estado = 1 and factura is null"""
+        datos = conn.execute(text(sql1)).fetchall()
+    return render_template('documentos.html',datos=datos)
 
 @main.route('/ingreso_factura')
 def ingreso_factura():
@@ -430,10 +516,7 @@ def crud_factura():
 
 @main.route('/ingreso_cotizacion',methods=['POST','GET'])
 def ingreso_cotizacion():
-    sql1 = """select * from clientes"""
-    with engine.connect() as conn:
-        clientes=conn.execute(text(sql1)).fetchall()
-    current_app.logger.debug(clientes)
+    
     # sql = """
     #             INSERT INTO cotizacion
     #             (estado)
@@ -441,7 +524,9 @@ def ingreso_cotizacion():
 
     #             """
     
-    # with engine.connect() as conn:
+    with engine.connect() as conn:
+        sql = """select * from clientes"""
+        clientes = conn.execute(text(sql)).fetchall()
     #     conn.execute(text(sql))
     #     conn.commit()
     #     sql1 = """select max(id) from cotizacion"""
@@ -511,6 +596,18 @@ def delete_mano_obra():
 
     return jsonify('success')
 
+@main.route('/delete_cliente',methods=['POST','GET'])
+def delete_cliente():
+
+    rut = request.args.get('id')
+    sql = """delete from clientes where rut ="""+rut
+    
+    with engine.connect() as conn:
+        conn.execute(text(sql))
+        conn.commit()
+
+    return jsonify('success')
+
 @main.route('/edita_materiales',methods=['POST','GET'])
 def edita_materiales():
 
@@ -554,6 +651,19 @@ def edita_mano_obra():
 
     return render_template('edita_mano_de_obra.html',mano_obra=mano_obra)
 
+@main.route('/edita_cliente',methods=['POST','GET'])
+def edita_cliente():
+
+    id = request.args.get('id')
+    
+    
+    with engine.connect() as conn:
+        sql = """select * from clientes where id ="""+id
+        datos_cliente = conn.execute(text(sql)).fetchone()
+
+
+    return render_template('edita_cliente.html',datos_cliente=datos_cliente)
+
 @main.route('/update_mano_obra',methods=['POST','GET'])
 def update_mano_obra():
     if request.method == 'POST':
@@ -565,6 +675,24 @@ def update_mano_obra():
         valor_neto=str(int(cantidad)*int(dias)*float(valor))
         
         sql = 'update mano_obra SET precio ="'+valor+'", glosa ="'+glosa+'" , cantidad="'+cantidad+'", dias="'+dias+'",valor_neto="'+valor_neto+'" WHERE id = '+id_mano_obra
+
+        current_app.logger.debug(sql)
+        with engine.connect() as conn:
+            conn.execute(text(sql))
+            conn.commit()
+
+        return jsonify('success')
+
+@main.route('/update_cliente',methods=['POST','GET'])
+def update_cliente():
+    if request.method == 'POST':
+        id_cliente = request.form.get('id_cliente')
+        rut = request.form.get('rut')
+        dv = request.form.get('dv')
+        nombre = request.form.get('nombre')
+
+        
+        sql = 'update clientes SET rut ="'+rut+'", dv ="'+dv+'" , nombre="'+nombre+'" WHERE id = '+id_cliente
 
         current_app.logger.debug(sql)
         with engine.connect() as conn:

@@ -63,6 +63,26 @@ $(document).ready(function () {
 
   });
 
+  $('#agrega_clientes').on("submit", function (event) {
+    
+    event.preventDefault();
+    $.ajax({
+      url: "/agrega_clientes",
+      method: "POST",
+      data: $('#agrega_clientes').serialize(),
+      beforeSend: function () {
+        $('#agrega_clientes').val("Inserting");
+      },
+      success: function (data) {
+        if (data == 'success') {
+          $("#div_cliente").load(window.location.href + " #div_cliente");
+
+        }
+      }
+    });
+
+  });
+
   $('#aprobar').on("submit", function (event) {
     
     event.preventDefault();
@@ -153,6 +173,27 @@ $(document).ready(function () {
 
   });
 
+  $('#update_cliente').on("submit", function (event) {
+    
+    event.preventDefault();
+    $.ajax({
+      url: "/update_cliente",
+      method: "POST",
+      data: $('#update_cliente').serialize(),
+      beforeSend: function () {
+        $('#update_cliente').val("Inserting");
+      },
+      success: function (data) {
+        if (data == 'success') {
+          alert("Cliente actualizado");
+          window.close()
+          $("#div_cliente").load(window.location.href + " #div_cliente");
+        }
+      }
+    });
+
+  });
+
 
 })
 
@@ -220,6 +261,23 @@ function delete_mano_obra(id){
         $("#totales_mano_obra").load(window.location.href + " #totales_mano_obra");
         $("#c1").load(window.location.href + " #c1");
         $("#c1_bruto").load(window.location.href + " #c1_bruto");
+      }
+    }
+  });
+  }
+}
+
+function delete_cliente(id){
+  if(confirm('¿Seguro que desea eliminar el cliente N° '+id+'?')){
+    event.preventDefault();
+  $.ajax({
+    url: "/delete_cliente?id="+id,
+    method: "POST",
+    success: function (data) {
+      if (data == 'success') {
+        alert("Cliente eliminado");
+        $("#div_cliente").load(window.location.href + " #div_cliente");
+
       }
     }
   });

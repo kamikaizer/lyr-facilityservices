@@ -11,8 +11,17 @@ from sqlalchemy.sql import text
 import hashlib
 
 
+try:
+    url = 'mysql+mysqlconnector://root:@localhost:3306/prueba'
+except:
+    username = 'criss0106'
+    password = 'lyrfacilityservices'
+    host = 'criss0106.mysql.pythonanywhere-services.com'
+    port = '3306'
+    database = 'criss0106$prueba'
 
-url = 'mysql+mysqlconnector://root:@localhost:3306/prueba'
+    # Construye la URL de conexión
+    url = f'mysql+mysqlconnector://{username}:{password}@{host}:{port}/{database}'
 
 engine = sqlalchemy.create_engine(url)
 auth = Blueprint('auth', __name__)
