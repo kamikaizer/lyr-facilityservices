@@ -700,3 +700,6 @@ def update_cliente():
             conn.commit()
 
         return jsonify('success')
+@main.route('/historico')
+def historico():
+    return render_template('historico.html')
