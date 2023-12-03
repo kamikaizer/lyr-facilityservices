@@ -6,7 +6,16 @@
         <p>{{ error }}</p>
     {% endif %}
     <div class="row">
-      <div class="col-xl-12">
+      <div class="col-xl-2">
+
+        <div class="card border-white">
+          <div class="card-title pb-0 px-3">
+            <h4 class="mb-0">[aqui va la foto]</h4>
+          </div>
+
+        </div>
+    </div>
+      <div class="col-xl-10">
 
         <div class="card border-white">
           <div class="card-title pb-0 px-3">
@@ -16,9 +25,11 @@
             <ul class="list-group">
               <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                 <div class="d-flex flex-column">
-                  <h6 class="mb-3 text-sm">Nombre: <span class="text-dark font-weight-bold ms-sm-2">{{ session['nombre'] }}</span></h6>
-                  <span class="mb-2 text-md">Fecha Contrato: <span class="text-dark font-weight-bold ms-sm-2">{{ session['fecha'] }}</span></span>
+                  <span class="mb-2 text-md">Nombre: <span class="text-dark font-weight-bold ms-sm-2"></span></span>
+                  <span class="mb-2 text-md">Rut: <span class="text-dark font-weight-bold ms-sm-2"></span></span>
+                  <span class="mb-2 text-md">Fecha de Nacimiento: <span class="text-dark ms-sm-2 font-weight-bold"></span></span>
                   <span class="mb-2 text-md">Cargo: <span class="text-dark ms-sm-2 font-weight-bold">{{ session['cargo'] }}</span></span>
+
                 </div>
               </li>
             </ul>
@@ -33,7 +44,7 @@
 
             <div class="col-xl-12">
               <div class="row">
-                <div class="col-md-6 col-6">
+                <!-- <div class="col-md-6 col-6">
                   <div class="card border-white">
                     <div class="card-title mx-4 p-3 text-center">
                       <div class="icon icon-shape icon-lg bg-gradient-info shadow text-center border-radius-lg">
@@ -46,8 +57,8 @@
                       <h5 class="mb-0">$ xxxxxxx</h5>
                     </div>
                   </div>
-                </div>
-                <div class="col-md-6 col-6">
+                </div> -->
+                <div class="col-md-12 col-12">
                   <div class="card border-white">
                     <div class="card-title mx-4 p-3 text-center">
                       <div class="icon icon-shape icon-lg bg-gradient-info shadow text-center border-radius-lg">

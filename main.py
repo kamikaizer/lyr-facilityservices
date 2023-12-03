@@ -572,3 +572,7 @@ def update_mano_obra():
             conn.commit()
 
         return jsonify('success')
+
+@main.route('/historico')
+def historico():
+    return render_template('historico.html')

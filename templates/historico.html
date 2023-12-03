@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+
+
+
+    <div class="container-fluid py-4">
+        <div class="row">
+          <div class="col-12">
+            <div class="card my-4 border-white">
+              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="bg-gradient-info shadow-info border-radius-lg pt-4 pb-3">
+                  <h6 class="text-white text-capitalize ps-3">Cotizaciones Finalizadas</h6>
+                </div>
+              </div>
+              <div>
+                  <div class="container-fluid">
+                    <form class="d-flex" role="search">
+                      <div class="row g-3">
+                        <div class="row g-3">
+                          <div class="col-sm-7">
+                            <input type="text" class="form-control" aria-label="">
+                          </div>
+                          <div class="col-sm">
+                            <button class="btn btn-outline-primary" type="submit">Buscar</button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+
+              </div>
+              <div class="card-body px-0 pb-2">
+                <div class="table-responsive p-0">
+                  <table class="table align-items-center mb-0">
+                    <thead>
+                      <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Numero</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nombre</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Orden de Compra</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Factura</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Fecha Emisión</th>
+                        <th style="width: 60px;"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="d-flex px-2 py-1">
+                            <div class="d-flex flex-column justify-content-center">
+                              <h6 class="mb-0 text-sm">xxxx</h6>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <p class="text-xs text-secondary mb-0">xxxxx</p>
+                        </td>
+                        <td>
+                            <div class="d-flex flex-column justify-content-center">
+                                <h6 class="mb-0 text-sm">xxxx</h6>
+                              </div>                      
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td>      
+                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Ver
+                          </button>
+                      </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Ingreso de Factura</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="col-12">
+          <label for="factura" class="form-label">N° de Factura</label>
+          <input type="numbre" class="form-control" id="factura">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+    
+      </div>
+
+
+
+{% endblock %}
