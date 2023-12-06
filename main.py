@@ -174,7 +174,7 @@ def index():
     
 #     with engine.connect() as conn:
 #         conn.execute(text(sql),values)
-#         conn.commit()
+#         #conn.commit()
 #         flash(f'Se a creado una nueva cotización.')
 
 #     return redirect(url_for('main.index'))
@@ -233,7 +233,7 @@ def agrega_clientes():
     
         with engine.connect() as conn:
             conn.execute(text(sql),values)
-            conn.commit()
+            #conn.commit()
 
         return jsonify('success')
 
@@ -268,7 +268,7 @@ def insert_oc():
     
     with engine.connect() as conn:
         conn.execute(text(sql))
-        conn.commit()
+        #conn.commit()
         sql1 = """select * from cotizacion  cot inner join clientes cli on cli.rut=cot.rut_empresa where cot.estado = 1 and orden_compra is NULL"""
         datos = conn.execute(text(sql1)).fetchall()
         return render_template('aprobar.html',datos=datos)
@@ -287,7 +287,7 @@ def insert_factura():
     
     with engine.connect() as conn:
         conn.execute(text(sql))
-        conn.commit()
+        #conn.commit()
         sql1 = """select * from cotizacion  cot inner join clientes cli on cli.rut=cot.rut_empresa where cot.estado = 1 and factura is NULL"""
         datos = conn.execute(text(sql1)).fetchall()
         return render_template('documentos.html',datos=datos)
@@ -320,7 +320,7 @@ def usuarios():
     
         with engine.connect() as conn:
             conn.execute(text(sql))
-            conn.commit()
+            #conn.commit()
     with engine.connect() as conn:
         sql1 = """select * from users"""
         datos = conn.execute(text(sql1)).fetchall()
@@ -418,7 +418,7 @@ def material():
     
         with engine.connect() as conn:
             conn.execute(text(sql),values)
-            conn.commit()
+            #conn.commit()
 
         return jsonify('success')
     
@@ -446,7 +446,7 @@ def mano_obra():
     
         with engine.connect() as conn:
             conn.execute(text(sql),values)
-            conn.commit()
+            #conn.commit()
 
         return jsonify('success')
 
@@ -464,7 +464,7 @@ def aprobar_cotizacion():
     
         with engine.connect() as conn:
             conn.execute(text(sql))
-            conn.commit()
+            #conn.commit()
 
         return jsonify('success')
     
@@ -494,7 +494,7 @@ def sol_vacaciones():
     
         with engine.connect() as conn:
             conn.execute(text(sql),values)
-            conn.commit()
+            #conn.commit()
 
         return redirect(url_for('main.perfil'))
         
@@ -528,7 +528,7 @@ def ingreso_cotizacion():
         sql = """select * from clientes"""
         clientes = conn.execute(text(sql)).fetchall()
     #     conn.execute(text(sql))
-    #     conn.commit()
+    #     #conn.commit()
     #     sql1 = """select max(id) from cotizacion"""
     #     id_max = conn.execute(text(sql1)).fetchone()[0]
 
@@ -555,7 +555,7 @@ def datos_cotizacion():
     
     with engine.connect() as conn:
         conn.execute(text(sql),values)
-        conn.commit()
+        #conn.commit()
 
     return jsonify('success')
 
@@ -568,7 +568,7 @@ def delete_cotizacion():
     
     with engine.connect() as conn:
         conn.execute(text(sql))
-        conn.commit()
+        #conn.commit()
 
     return jsonify('success')
 
@@ -580,7 +580,7 @@ def delete_material():
     
     with engine.connect() as conn:
         conn.execute(text(sql))
-        conn.commit()
+        #conn.commit()
 
     return jsonify('success')
 
@@ -592,7 +592,7 @@ def delete_mano_obra():
     
     with engine.connect() as conn:
         conn.execute(text(sql))
-        conn.commit()
+        #conn.commit()
 
     return jsonify('success')
 
@@ -604,7 +604,7 @@ def delete_cliente():
     
     with engine.connect() as conn:
         conn.execute(text(sql))
-        conn.commit()
+        #conn.commit()
 
     return jsonify('success')
 
@@ -634,7 +634,7 @@ def update_materiales():
         current_app.logger.debug(sql)
         with engine.connect() as conn:
             conn.execute(text(sql))
-            conn.commit()
+            #conn.commit()
 
         return jsonify('success')
     
@@ -679,7 +679,7 @@ def update_mano_obra():
         current_app.logger.debug(sql)
         with engine.connect() as conn:
             conn.execute(text(sql))
-            conn.commit()
+            #conn.commit()
 
         return jsonify('success')
 
@@ -697,7 +697,7 @@ def update_cliente():
         current_app.logger.debug(sql)
         with engine.connect() as conn:
             conn.execute(text(sql))
-            conn.commit()
+            #conn.commit()
 
         return jsonify('success')
 @main.route('/historico')
