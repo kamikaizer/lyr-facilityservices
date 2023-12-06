@@ -42,38 +42,29 @@
                     <thead>
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Numero</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Rut Empresa</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nombre</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Orden de Compra</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Factura</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Fecha Emisión</th>
+                        <!-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Fecha Emisión</th> -->
                         <th style="width: 60px;"></th>
                       </tr>
                     </thead>
                     <tbody>
+                      {% for dato in datos %}
                       <tr>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">xxxx</h6>
-                            </div>
-                          </div>
+                        <th scope="row">{{dato.id}}</th>
+                        <th scope="row">{{dato.rut_empresa}} - {{dato.dv}}</th>
+                        <th scope="row">{{dato.nombre}}</th>
+                        <th scope="row">{%if dato.orden_compra == -1%}Sin O.C{%else%}{{dato.orden_compra}}{%endif%}</th>
+                        <th scope="row">{{dato.factura}}</th>
+                        <!-- <th scope="row">{{dato.fecha}}</th> -->
+                        <td style="width: 60px;">      
+                          <a class="btn btn-warning w-100" href="/ct?id={{dato.id}}" role="button">Ver</a>
                         </td>
-                        <td>
-                          <p class="text-xs text-secondary mb-0">xxxxx</p>
-                        </td>
-                        <td>
-                            <div class="d-flex flex-column justify-content-center">
-                                <h6 class="mb-0 text-sm">xxxx</h6>
-                              </div>                      
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td>      
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Ver
-                          </button>
-                      </td>
+
                       </tr>
+                      {% endfor %}
                     </tbody>
                   </table>
                 </div>

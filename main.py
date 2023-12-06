@@ -240,14 +240,14 @@ def agrega_clientes():
 @main.route('/crud')
 def crud():
     with engine.connect() as conn:
-        sql1 = """select * from cotizacion cot inner join clientes cli on cli.rut=cot.rut_empresa where cot.estado = 0 """
+        sql1 = """select cot.id,cot.fecha,cot.detalle,cot.estado,cot.rut_empresa,cot.solicitante,cot.orden_compra,cot.factura,cli.rut ,cli.dv,cli.nombre  from cotizacion  cot inner join clientes cli on cli.rut=cot.rut_empresa  where cot.estado = 0 """
         datos = conn.execute(text(sql1)).fetchall()
         return render_template('crud.html',datos=datos)
 
 @main.route('/aprobar',methods=['POST','GET'])
 def aprobar():
     with engine.connect() as conn:
-        sql1 = """select * from cotizacion  cot inner join clientes cli on cli.rut=cot.rut_empresa where cot.estado = 1 and orden_compra is NULL"""
+        sql1 = """select cot.id,cot.fecha,cot.detalle,cot.estado,cot.rut_empresa,cot.solicitante,cot.orden_compra,cot.factura,cli.rut ,cli.dv,cli.nombre  from cotizacion  cot inner join clientes cli on cli.rut=cot.rut_empresa  where cot.estado = 1 and orden_compra is NULL"""
         datos = conn.execute(text(sql1)).fetchall()
         return render_template('aprobar.html',datos=datos)
     
@@ -355,7 +355,7 @@ def ct():
     with engine.connect() as conn:
         sql_materiales = """select * from material where id_cotizacion="""+id_cotizacion
         materiales = conn.execute(text(sql_materiales)).fetchall()
-        sql_cotización = """select * from cotizacion cot inner join clientes cli on cot.rut_empresa=cli.rut where id="""+id_cotizacion
+        sql_cotización = """select cot.id,cot.fecha,cot.detalle,cot.estado,cot.rut_empresa,cot.solicitante,cot.orden_compra,cot.factura,cli.rut ,cli.dv,cli.nombre  from cotizacion  cot inner join clientes cli on cli.rut=cot.rut_empresa where cot.id="""+id_cotizacion
         cotizacion = conn.execute(text(sql_cotización)).fetchall()
 
     for mat in materiales:
@@ -368,7 +368,7 @@ def edicion():
     valor=0
     valor_obra = 0
     with engine.connect() as conn:
-        sql1 = """select * from cotizacion cot inner join clientes cli on cot.rut_empresa=cli.rut where id= """+id
+        sql1 = """select cot.id,cot.fecha,cot.detalle,cot.estado,cot.rut_empresa,cot.solicitante,cot.orden_compra,cot.factura,cli.rut ,cli.dv,cli.nombre  from cotizacion  cot inner join clientes cli on cli.rut=cot.rut_empresa  where cot.id= """+id
         datos = conn.execute(text(sql1)).fetchone()
         sql1 = """select * from material where id_cotizacion= """+id
         materiales = conn.execute(text(sql1)).fetchall()
@@ -502,7 +502,7 @@ def sol_vacaciones():
 @main.route('/documentos')
 def documentos():
     with engine.connect() as conn:
-        sql1 = """select * from cotizacion  cot inner join clientes cli on cli.rut=cot.rut_empresa where cot.estado = 1 and factura is null"""
+        sql1 = """select cot.id,cot.fecha,cot.detalle,cot.estado,cot.rut_empresa,cot.solicitante,cot.orden_compra,cot.factura,cli.rut ,cli.dv,cli.nombre  from cotizacion  cot inner join clientes cli on cli.rut=cot.rut_empresa  where cot.estado = 1 and factura is null"""
         datos = conn.execute(text(sql1)).fetchall()
     return render_template('documentos.html',datos=datos)
 
@@ -702,4 +702,7 @@ def update_cliente():
         return jsonify('success')
 @main.route('/historico')
 def historico():
-    return render_template('historico.html')
+    with engine.connect() as conn:
+        sql1 = """select cot.id,cot.fecha,cot.detalle,cot.estado,cot.rut_empresa,cot.solicitante,cot.orden_compra,cot.factura,cli.rut ,cli.dv,cli.nombre  from cotizacion  cot inner join clientes cli on cli.rut=cot.rut_empresa where cot.estado = 1 and factura is not null"""
+        datos = conn.execute(text(sql1)).fetchall()
+    return render_template('historico.html',datos=datos)
