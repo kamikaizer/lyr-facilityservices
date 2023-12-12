@@ -26,16 +26,21 @@ except:
 engine = sqlalchemy.create_engine(url)
 auth = Blueprint('auth', __name__)
 
-@auth.route('/register', methods=('GET', 'POST'))
-def register():
-    return render_template('auth/register.html')
+# @auth.route('/register', methods=('GET', 'POST'))
+# def register():
+#     return render_template('auth/register.html')
 
 @auth.route('/insert_register',methods=('GET','POST'))
 def insert_register():
     if request.method == 'POST':
         username = request.form['username']
-        password = request.form['password']
+        nombre = request.form['name']
+        apellido = request.form['apellido']
+        password = request.form['clave']
         rol = request.form['rol']
+        correo = request.form['correo']
+        telefono = request.form['telefono']
+        contrato = request.form['contrato']
         current_app.logger.debug(username)
         current_app.logger.debug(password)
         contraseña=hashlib.sha256(password.encode()).hexdigest()
@@ -50,21 +55,21 @@ def insert_register():
         if error is None:
             try:
                 current_app.logger.debug('entre')
-                values = { 'username':username, 'contraseña':contraseña,'rol':rol}
+                values = { 'username':username, 'contraseña':contraseña,'rol':rol,'nombre':nombre,'apellido':apellido,'correo':correo,'telefono':telefono,'contrato':contrato}
                 sql = """
-                INSERT INTO users(username, password,role)
-                  VALUES(:username, :contraseña, :rol);
+                INSERT INTO users(username, password,role,nombre,apellido,correo,telefono,fecha_contrato)
+                  VALUES(:username, :contraseña, :rol, :nombre, :apellido, :correo, :telefono, :contrato);
                   """
     
                 with engine.connect() as conn:
                     conn.execute(text(sql),values)
-                    #conn.commit()
-                return render_template('/login.html')
+                    conn.commit()
+                return jsonify('success')
             except:
                 error = f"User {username} is already registered."
                 return error
         else:
-            return redirect(url_for("auth.login"))
+            return jsonify('fail')
 
 # @bp.route('/login', methods=('GET', 'POST'))
 # def login():

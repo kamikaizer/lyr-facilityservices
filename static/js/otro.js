@@ -267,6 +267,7 @@ function delete_mano_obra(id){
   }
 }
 
+
 function delete_cliente(id){
   if(confirm('¿Seguro que desea eliminar el cliente N° '+id+'?')){
     event.preventDefault();
