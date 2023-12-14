@@ -20,12 +20,31 @@
 
   <div class="card">
     <div class="card-header">
-      <h1>Edición Usuario N° {{datos.id}}</h1>
+      <div class="container text-center">
+        <div class="row align-items-center">
+          <div class="col">
+            <div class="card" style="height: 200px; width: 200px;">
+              Aqui va la foto
+            </div>
+          </div>
+
+          <div class="col">
+            <h1>Edición usuario: {{datos.username}}</h1>
+          </div>
+        </div>
+      </div>
     </div>
+    
     <div class="card-body">
       <form id="update_users" name="update_users" method="POST">
 
+        <div class="mb-3">
+          <label for="formGroupExampleInput" class="form-label">Foto</label>
 
+          <label for="ejemplo_archivo_1">Adjuntar foto de empleado</label>
+          <input type="file" id="ejemplo_archivo_1">
+
+        </div>
         <div class="mb-3">
           <label for="formGroupExampleInput" class="form-label">Nombre de Usuario</label>
 
@@ -37,6 +56,18 @@
 
           <input type="text" class="form-control" name="name" id="name" placeholder="Nombre" aria-label="Nombre"
             value="{{datos.nombre}}" required>
+        </div>
+        <div class="mb-3">
+          <label for="formGroupExampleInput" class="form-label">Rut</label>
+
+          <input type="text" class="form-control" name="rut" id="rut" placeholder="rut" aria-label="rut"
+            value="" required>
+        </div>
+        <div class="mb-3">
+          <label for="formGroupExampleInput" class="form-label">Fecha Nacimiento</label>
+
+          <input type="date" class="form-control" name="fecha_nac" id="fecha_nac" placeholder="fecha_nac" aria-label="fecha_nac"
+            value="" required>
         </div>
         <div class="mb-3">
           <label for="formGroupExampleInput" class="form-label">Apellido</label>
@@ -73,6 +104,8 @@
             aria-label="First name" value="{{datos.fecha_contrato}}" required>
 
         </div>
+
+        
         <input type="hidden" name="id" id="id" value="{{datos.id}}">
         <!-- <div class="col">
               <input type="text" class="form-control" placeholder="Clave de Acceso" name="clave" id="clave"aria-label="Apellido" value ="{{datos.username}}" required>

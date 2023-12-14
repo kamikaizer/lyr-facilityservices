@@ -31,7 +31,7 @@
             <div class="row" id="form_contrato">
 
               <div class="col">
-                <input type="text" class="form-control" name="username" id="username" placeholder="Nombre de usuario"
+                <input type="text" class="form-control" name="username" id="username" placeholder="Usuario"
                   aria-label="Nombre de usuario" required>
               </div>
               <div class="col">
@@ -41,6 +41,10 @@
               <div class="col">
                 <input type="text" class="form-control" placeholder="Apellido" name="apellido" id="apellido"
                   aria-label="Apellido" required>
+              </div>
+              <div class="col">
+                <input type="number" class="form-control" placeholder="rut" name="rut" id="rut"
+                  aria-label="rut" required>
               </div>
               <div class="col">
                 <select class="form-select" aria-label="Default select example" name="rol" id="rol">
@@ -64,7 +68,7 @@
 
               </div>
               <div class="col">
-                <input type="password" class="form-control" placeholder="Clave de Acceso" name="clave" id="clave"
+                <input type="password" class="form-control" placeholder="Clave" name="clave" id="clave"
                   aria-label="Apellido" required>
 
 
@@ -81,7 +85,6 @@
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">ID</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre / Nombre
                       Usuario</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Cargo</th>
@@ -96,9 +99,6 @@
                 <tbody>
                   {% for dato in datos %}
                   <tr>
-                    <td>
-                      <p class="text-xs text-secondary mb-0">{{dato.id}}</p>
-                    </td>
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div class="d-flex flex-column justify-content-center">
