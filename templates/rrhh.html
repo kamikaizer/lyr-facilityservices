@@ -85,12 +85,10 @@
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre / Nombre
-                      Usuario</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre / Nombre Usuario</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Cargo</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Contacto</th>
-                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha
-                      Contrato</th>
+                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha Contrato</th>
                     <th class="text-secondary opacity-7"></th>
                     <th class="text-secondary opacity-7"></th>
 
@@ -104,7 +102,6 @@
                         <div class="d-flex flex-column justify-content-center">
                           <h6 class="mb-0 text-sm">{{dato.nombre}} {{dato.apellido}}</h6>
                           <p class="text-xs text-secondary mb-0">{{dato.username}}</p>
-
                         </div>
                       </div>
                     </td>
@@ -120,15 +117,8 @@
                     <td>
                       <p class="text-xs text-secondary mb-0">{{dato.fecha_contrato}}</p>
                     </td>
-                    <!-- <td class="align-middle">
-                      <button type="submit" class="btn bg-gradient-info w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button>
-                    </td> -->
-                    <td style="width: 50px;"><button class="btn btn-info w-100"><a
-                          href="javascript:ediciones('edita_users?id={{dato.id}}')"
-                          style="color: black; text-decoration: none;">Editar</a></button></td>
-                    <td><button onClick="delete_user({{dato.id}})" class="btn btn-danger w-100 "> <span class="iconify"
-                          style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></td>
-
+                    <td style="width: 50px;"><button class="btn btn-info w-100"><a href="javascript:ediciones('edita_users?id={{dato.id}}')" style="color: black; text-decoration: none;">Editar</a></button></td>
+                    <td><button onClick="delete_user({{dato.id}})" class="btn btn-danger w-100 "> <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></td>
                   </tr>
                   {% endfor %}
                 </tbody>
@@ -162,13 +152,10 @@
                 <thead>
                   <tr>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre</th>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Fehca Inicio
-                    </th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Fehca Inicio</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Fecha Fin</th>
-                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Motivo
-                    </th>
-                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Aprobador
-                    </th>
+                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Motivo</th>
+                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Aprobador</th>
                     <th class="text-secondary opacity-7"></th>
                     <th class="text-secondary opacity-7"></th>
                   </tr>
@@ -243,11 +230,9 @@
                 <thead>
                   <tr>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre</th>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Tipo de
-                      documento</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Tipo de documento</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"">Adjuntar</th>
                     <th class=" text-secondary opacity-7"></th>
-
                   </tr>
                 </thead>
                 <tbody>
@@ -273,8 +258,7 @@
                       <input type="file" id="ejemplo_archivo_1">
                     </td>
                     <td class="align-middle">
-                      <button type="submit" class="btn bg-gradient-info w-100" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop">Agregar</button>
+                      <button type="submit" class="btn bg-gradient-info w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar</button>
                     </td>
 
                   </tr>
@@ -289,51 +273,6 @@
   </div>
 
 </div>
-
-
-<!-- Modal usuarios
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Edicion Usuarios</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label for="formGroupExampleInput" class="form-label">Nombre</label>
-          <input type="text" class="form-control" id="formGroupExampleInput">
-        </div>
-        <div class="mb-3">
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Cargo</option>
-            <option value="1">xxx</option>
-            <option value="2">yyy</option>
-            <option value="3">zzz</option>
-          </select>
-        </div>
-        <div class="mb-3">
-          <label for="formGroupExampleInput" class="form-label">Mail</label>
-          <input type="mail" class="form-control" id="formGroupExampleInput">
-        </div>
-        <div class="mb-3">
-          <label for="formGroupExampleInput2" class="form-label">Número</label>
-          <input type="number" class="form-control" id="formGroupExampleInput2">
-        </div>
-        <div class="mb-3">
-          <label for="formGroupExampleInput2" class="form-label">Fecha de Contrato</label>
-          <input type="date" class="form-control" id="formGroupExampleInput2">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Guardar</button>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-
-
 
 <script>
   // Simula un clic en el primer tab para mostrarlo al cargar la página
