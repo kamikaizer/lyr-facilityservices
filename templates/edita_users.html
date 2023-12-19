@@ -20,33 +20,51 @@
 
   <div class="card">
     <div class="card-header">
-      <h1>Edición Usuario N° {{datos.id}}</h1>
+      <div class="container text-center">
+        <div class="row align-items-center">
+          <div class="col">
+            <div class="card" style="height: 200px; width: 200px;">
+              Aqui va la foto
+            </div>
+          </div>
+
+          <div class="col">
+            <h1>Edición usuario: {{datos.username}}</h1>
+          </div>
+        </div>
+      </div>
     </div>
+
     <div class="card-body">
       <form id="update_users" name="update_users" method="POST">
 
-
+        <div class="mb-3">
+          <label for="formGroupExampleInput" class="form-label">Foto</label>
+          <label for="ejemplo_archivo_1">Adjuntar foto de empleado</label>
+          <input type="file" id="ejemplo_archivo_1">
+        </div>
         <div class="mb-3">
           <label for="formGroupExampleInput" class="form-label">Nombre de Usuario</label>
-
-          <input type="text" class="form-control" name="username" id="username" placeholder="Nombre de usuario"
-            aria-label="Nombre de usuario" value="{{datos.username}}" required>
+          <input type="text" class="form-control" name="username" id="username" placeholder="Nombre de usuario" aria-label="Nombre de usuario" value="{{datos.username}}" required>
         </div>
         <div class="mb-3">
           <label for="formGroupExampleInput" class="form-label">Nombre</label>
-
-          <input type="text" class="form-control" name="name" id="name" placeholder="Nombre" aria-label="Nombre"
-            value="{{datos.nombre}}" required>
+          <input type="text" class="form-control" name="name" id="name" placeholder="Nombre" aria-label="Nombre" value="{{datos.nombre}}" required>
+        </div>
+        <div class="mb-3">
+          <label for="formGroupExampleInput" class="form-label">Rut</label>
+          <input type="text" class="form-control" name="rut" id="rut" placeholder="rut" aria-label="rut" value="" required>
+        </div>
+        <div class="mb-3">
+          <label for="formGroupExampleInput" class="form-label">Fecha Nacimiento</label>
+          <input type="date" class="form-control" name="fecha_nac" id="fecha_nac" placeholder="fecha_nac" aria-label="fecha_nac" value="" required>
         </div>
         <div class="mb-3">
           <label for="formGroupExampleInput" class="form-label">Apellido</label>
-
-          <input type="text" class="form-control" placeholder="Apellido" name="apellido" id="apellido"
-            aria-label="Apellido" value="{{datos.apellido}}" required>
+          <input type="text" class="form-control" placeholder="Apellido" name="apellido" id="apellido" aria-label="Apellido" value="{{datos.apellido}}" required>
         </div>
         <div class="mb-3">
           <label for="formGroupExampleInput" class="form-label">Cargo</label>
-
           <select class="form-select" aria-label="Default select example" name="rol" id="rol">
             <option disable>Cargo</option>
             <option value="1" {%if datos.role=="1" %}selected {%endif%}>One</option>
@@ -56,23 +74,18 @@
         </div>
         <div class="mb-3">
           <label for="formGroupExampleInput" class="form-label">Mail</label>
-
-          <input type="text" class="form-control" placeholder="Mail" name="correo" id="correo" aria-label="Mail"
-            value="{{datos.correo}}" required>
+          <input type="text" class="form-control" placeholder="Mail" name="correo" id="correo" aria-label="Mail" value="{{datos.correo}}" required>
         </div>
         <div class="mb-3">
           <label for="formGroupExampleInput" class="form-label">Teléfono</label>
-
-          <input type="text" class="form-control" placeholder="Teléfono" name="telefono" id="telefono"
-            aria-label="Teléfono" value="{{datos.telefono}}" required>
+          <input type="text" class="form-control" placeholder="Teléfono" name="telefono" id="telefono" aria-label="Teléfono" value="{{datos.telefono}}" required>
         </div>
         <div class="mb-3">
           <label for="formGroupExampleInput" class="form-label">Fecha Contrato</label>
-
-          <input type="date" class="form-control" name="contrato" id="contrato" placeholder="Fecha de contrato"
-            aria-label="First name" value="{{datos.fecha_contrato}}" required>
-
+          <input type="date" class="form-control" name="contrato" id="contrato" placeholder="Fecha de contrato" aria-label="First name" value="{{datos.fecha_contrato}}" required>
         </div>
+
+
         <input type="hidden" name="id" id="id" value="{{datos.id}}">
         <!-- <div class="col">
               <input type="text" class="form-control" placeholder="Clave de Acceso" name="clave" id="clave"aria-label="Apellido" value ="{{datos.username}}" required>
