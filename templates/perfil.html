@@ -2,6 +2,18 @@
 
 
 {% block content %}
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No hay mensajes flash.</p>
+        {% endif %}
+    {% endwith %}
 {% if error %}
         <p>{{ error }}</p>
     {% endif %}
@@ -25,10 +37,10 @@
             <ul class="list-group">
               <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                 <div class="d-flex flex-column">
-                  <span class="mb-2 text-md">Nombre: <span class="text-dark font-weight-bold ms-sm-2"></span></span>
-                  <span class="mb-2 text-md">Rut: <span class="text-dark font-weight-bold ms-sm-2"></span></span>
-                  <span class="mb-2 text-md">Fecha de Nacimiento: <span class="text-dark ms-sm-2 font-weight-bold"></span></span>
-                  <span class="mb-2 text-md">Cargo: <span class="text-dark ms-sm-2 font-weight-bold">{{ session['cargo'] }}</span></span>
+                  <span class="mb-2 text-md">Nombre: <span class="text-dark font-weight-bold ms-sm-2">{{datos_user[0].nombre}} {{datos_user[0].apellido}}</span></span>
+                  <span class="mb-2 text-md">Rut: <span class="text-dark font-weight-bold ms-sm-2">{{datos_user[0].rut}}</span></span>
+                  <span class="mb-2 text-md">Fecha de Nacimiento: <span class="text-dark ms-sm-2 font-weight-bold">{{datos_user[0].fecha_nacimiento}}</span></span>
+                  <span class="mb-2 text-md">Cargo: <span class="text-dark ms-sm-2 font-weight-bold">{{datos_user[0].role}}</span></span>
 
                 </div>
               </li>
@@ -68,7 +80,7 @@
                     <div class="card-body pt-0 p-3 text-center">
                       <h6 class="text-center mb-0">Saldo de Vacaciones</h6>
                       <hr class="horizontal dark my-3">
-                      <h5 class="mb-0">xx Días</h5>
+                      <h5 class="mb-0">{{dias}} Días</h5>
                     </div>
                   </div>
                 </div>
@@ -175,16 +187,17 @@
           <div class="form-group">
             <input type="hidden" id="id_user" name="id_user" value="{{ session['username'] }}">
             <label for="start_date">Fecha de Inicio</label>
-            <input type="date" name="start_date" id="start_date" class="form-control">
+            <input type="date" name="start_date" id="start_date" class="form-control" required>
           </div>
           <div class="form-group">
             <label for="end_date">Fecha de Fin</label>
-            <input type="date" name="end_date" id="end_date" class="form-control">
+            <input type="date" name="end_date" id="end_date" class="form-control" required>
           </div>
           <div class="form-group">
             <label for="reason">Motivo</label>
-            <textarea name="reason" id="reason" class="form-control" rows="3"></textarea>
+            <textarea name="reason" id="reason" class="form-control" rows="3" required></textarea>
           </div><br>
+          <input type="hidden" name="dias_acumulados" id="dias_acumulados" value="{{dias}}">
           <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
         </form>
       </div>

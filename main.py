@@ -329,10 +329,25 @@ def usuarios():
 @main.route('/perfil',methods=['POST','GET'])
 def perfil():
     with engine.connect() as conn:
+        datos_user = """select * from users where username='"""+session['username']+"';"
+        datos_user = conn.execute(text(datos_user)).fetchall()
         sql1 = """select * from sol_vacaciones where username = '"""+session['username']+"';"
         datos = conn.execute(text(sql1)).fetchall()
+
+    dias_por_mes = 30
+    fecha_actual = datetime.now().date()
+    diferencia = (fecha_actual - datos_user[0].fecha_contrato).days
     
-    return render_template('perfil.html',datos=datos)
+    meses_transcurridos = float(diferencia / dias_por_mes)
+    dias=round(meses_transcurridos*1.25,1)
+    try:
+        dias_pedidos=(datos[0].fechafin-datos[0].fechainicio ).days
+    except:
+        dias_pedidos=0
+
+    current_app.logger.debug(dias_pedidos)
+
+    return render_template('perfil.html',datos=datos,datos_user=datos_user,dias=dias,dias_pedidos=dias_pedidos)
 
 @main.route('/rrhh')
 def rrhh():
@@ -477,7 +492,17 @@ def sol_vacaciones():
         start_date = request.form.get('start_date')
         end_date = request.form.get('end_date')
         reason = request.form.get('reason')
+        dias= request.form.get('dias_acumulados')
+        current_app.logger.debug(float(dias))
+        current_app.logger.debug(end_date)
+        current_app.logger.debug(start_date)
+        start_date=datetime.strptime(start_date, '%Y-%m-%d').date()
+        end_date=datetime.strptime(end_date, '%Y-%m-%d').date()
 
+        if(float(dias) <= (end_date-start_date).days):
+            flash('¡ERROR! Solicitaste mas días de los disponibles.')
+            
+            return redirect(url_for('main.perfil'))
         current_app.logger.debug(request)
 
             
@@ -601,6 +626,18 @@ def delete_user():
 
     id_user = request.args.get('id')
     sql = """delete from users where id ="""+id_user
+    
+    with engine.connect() as conn:
+        conn.execute(text(sql))
+        conn.commit()
+
+    return jsonify('success')
+
+@main.route('/delete_vacaciones',methods=['POST','GET'])
+def delete_vacaciones():
+
+    id_solicitud = request.args.get('id')
+    sql = """delete from sol_vacaciones where id ="""+id_solicitud
     
     with engine.connect() as conn:
         conn.execute(text(sql))

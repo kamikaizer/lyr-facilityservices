@@ -76,3 +76,18 @@ function delete_user(id){
   });
   }
 }
+function delete_vacaciones(id){
+  if(confirm('¿Seguro que desea eliminar las vacaciones N°'+id+'?')){
+    event.preventDefault();
+  $.ajax({
+    url: "/delete_vacaciones?id="+id,
+    method: "POST",
+    success: function (data) {
+      if (data == 'success') {
+        alert("Solicitud de vacaciones eliminada");
+        $("#div_vacaciones").load(window.location.href + " #div_vacaciones");
+      }
+    }
+  });
+  }
+}

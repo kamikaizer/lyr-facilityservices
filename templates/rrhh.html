@@ -144,17 +144,18 @@
           </div>
 
           <div class="card-body px-0 pb-2">
-            <div class="table-responsive p-0">
+            <div class="table-responsive p-0" id="div_vacaciones" name="div_vacaciones">
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Id</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Fehca Inicio
                     </th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Fecha Fin</th>
                     <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Motivo</th>
-                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Aprobador
-                    </th>
+                    <!-- <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Aprobador
+                    </th> -->
                     <th class="text-secondary opacity-7"></th>
                     <th class="text-secondary opacity-7"></th>
                   </tr>
@@ -162,6 +163,13 @@
                 <tbody>
                   {% for dato in datos1 %}
                   <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{dato.id}}</h6>
+                        </div>
+                      </div>
+                    </td>
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div class="d-flex flex-column justify-content-center">
@@ -186,15 +194,13 @@
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">{{dato.detalle}}</span>
                     </td>
-                    <td class="align-middle text-center">
+                    <!-- <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">Aprobado por</span>
-                    </td>
+                    </td> -->
                     <td class="align-middle">
                       <button type="submit" class="btn bg-gradient-info w-100">Aprobar</button>
                     </td>
-                    <td class="align-middle">
-                      <button type="submit" class="btn bg-gradient-danger w-100">Eliminar</button>
-                    </td>
+                    <td ><button onClick="delete_vacaciones({{dato.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></td>
                   </tr>
                   {% endfor %}
                 </tbody>
