@@ -12,30 +12,37 @@
         <div class="card-body">
 
 
-            <form class="row g-3">
+            <form class="row g-3" id="agrega_gastos" method="POST">
                 <div class="col-md-6">
                   <label for="fecha_gasto" class="form-label">Fecha</label>
-                  <input type="date" class="form-control" id="fecha_gasto">
+                  <input type="date" class="form-control" id="fecha_rendicion" name="fecha_rendicion">
                 </div>
                 <div class="col-md-6">
                   <label for="tipo_gasto" class="form-label">Tipo de Gasto</label>
-                  <input type="text" class="form-control" id="tipo_gasto">
+                  <input type="text" class="form-control" id="tipo_gasto" name="tipo_gasto">
                 </div>
                 <div class="col-12">
                   <label for="descripcion_gasto" class="form-label">Descripción</label>
-                  <input type="text" class="form-control" id="descripcion_gasto">
+                  <input type="text" class="form-control" id="descripcion" name="descripcion">
                 </div>
                 <div class="col-12">
                   <label for="empleado_gasto" class="form-label">Empleado</label>
-                  <input type="text" class="form-control" id="empleado_gasto">
+                  <select id="empleado" name="empleado" class="form-control">
+                    <option selected disabled>Seleccione</option>
+                    {%for emp in users%}
+                    
+                    <option value="{{emp.id}}">{{emp.nombre}}</option>
+                    
+                    {%endfor%}
+                  </select>
                 </div>
                 <div class="col-md-12">
                   <label for="monto_gasto" class="form-label">Monto</label>
-                  <input type="number" class="form-control" id="monto_gasto">
+                  <input type="number" class="form-control" id="monto_gasto" name="monto_gasto">
                 </div>
                 <div class="col-md-12">
                     <label for="agregar_comprobante" class="form-label">Comprobante</label>
-                    <input type="file" id="agregar_comprobante">                    
+                    <input type="file" id="archivo" name="archivo">                    
                 </div>
 
                 <div class="col-12">
@@ -76,18 +83,20 @@
               </tr>
             </thead>
             <tbody>
+              {% for dato in gastos %}
               <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <th scope="row">{{dato.fecha_rendicion}}</th>
+                <th scope="row">{{dato.tipo_gasto}}</th>
+                <th scope="row">{{dato.descripcion}}</th>
+                <th scope="row">{{dato.empleado}}</th>
+                <th scope="row">{{dato.monto_gasto}}</th>
                 <td>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         ver
                       </button>
                 </td>
               </tr>
+              {% endfor %}
             </tbody>
           </table>
     </div>
@@ -139,7 +148,7 @@
                  
                     <div class="container">
                         <table class="table table-bordered">
-                          <thead>
+                          <tdead>
                             <tr>
                               <th>Fecha</th>
                               <th>Tipo de Gasto</th>
@@ -212,5 +221,7 @@
     };
   
     document.querySelector("#generar-pdf").addEventListener("click", generarPDF);
+  
   </script>
+<script src="{{ url_for('static', filename='js/otro.js')}}"></script>
 {% endblock %}

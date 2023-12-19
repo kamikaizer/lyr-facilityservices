@@ -755,4 +755,49 @@ def historico():
 
 @main.route('/gastos')
 def gastos():
-    return render_template('gastos.html')
+
+    with engine.connect() as conn:
+        sql = """select * from users"""
+        sql1 = """select ren.id, ren.fecha_rendicion, ren.tipo_gasto, ren.descripcion, ren.empleado, ren.monto_gasto from rendicion ren"""
+        users = conn.execute(text(sql)).fetchall()
+        gastos = conn.execute(text(sql1)).fetchall()
+    return render_template('gastos.html', users=users, gastos=gastos)
+
+@main.route('/agrega_gastos',methods=['POST','GET'])
+def agrega_gastos():
+    fecha_rendicion = str(request.form.get('fecha_rendicion'))
+    tipo_gasto = str(request.form.get('tipo_gasto'))
+    descripcion = str(request.form.get('descripcion'))
+    empleado = str(request.form.get('empleado'))
+    monto_gasto = str(request.form.get('monto_gasto'))
+    try:
+        archivo = str(request.form.get('archivo'))
+    except:
+        archivo = ""
+    
+    current_app.logger.debug(fecha_rendicion)
+    current_app.logger.debug(tipo_gasto)
+    current_app.logger.debug(descripcion)
+    current_app.logger.debug(empleado)
+    current_app.logger.debug(monto_gasto)
+    current_app.logger.debug(archivo)
+
+
+    values = { 'fecha_rendicion':fecha_rendicion, 'tipo_gasto':tipo_gasto , 'descripcion':descripcion, 'empleado':empleado,'monto_gasto':monto_gasto,'archivo':archivo}
+            
+    
+    sql = """
+                INSERT INTO rendicion
+                (fecha_rendicion,tipo_gasto,descripcion,empleado,monto_gasto,archivo)
+                VALUES(:fecha_rendicion, :tipo_gasto, :descripcion, :empleado, :monto_gasto, :archivo);
+
+                """
+    
+    with engine.connect() as conn:
+        conn.execute(text(sql),values)
+        conn.commit()
+
+    return jsonify('success')
+
+
+    
