@@ -3,7 +3,7 @@
 
 <div class="card border-white">
     <div class="card-body">
-      <h1 style="text-align: center;">Rendición de Gastos</h1>
+      <h1 style="text-align: center;">Inventario</h1>
     </div>
   </div>
     
@@ -12,39 +12,27 @@
         <div class="card-body">
 
 
-            <form class="row g-3" id="agrega_gastos" method="POST">
+            <form class="row g-3" id="agrega_inventario" method="POST">
                 <div class="col-md-6">
-                  <label for="fecha_gasto" class="form-label">Fecha</label>
-                  <input type="date" class="form-control" id="fecha_rendicion" name="fecha_rendicion">
+                  <label for="fecha_gasto" class="form-label">Nombre</label>
+                  <input type="text" class="form-control" id="nombre" name="nombre">
                 </div>
-                <div class="col-md-6">
-                  <label for="tipo_gasto" class="form-label">Tipo de Gasto</label>
-                  <input type="text" class="form-control" id="tipo_gasto" name="tipo_gasto">
-                </div>
-                <div class="col-12">
+                <div class="col-6">
                   <label for="descripcion_gasto" class="form-label">Descripción</label>
                   <input type="text" class="form-control" id="descripcion" name="descripcion">
                 </div>
-                <div class="col-12">
-                  <label for="empleado_gasto" class="form-label">Empleado</label>
-                  <select id="empleado" name="empleado" class="form-control">
-                    <option selected disabled>Seleccione</option>
-                    {%for emp in users%}
-                    
-                    <option value="{{emp.id}}">{{emp.nombre}}</option>
-                    
-                    {%endfor%}
-                  </select>
+                <div class="col-md-6">
+                  <label for="tipo_gasto" class="form-label">Valor unitario</label>
+                  <input type="number" class="form-control" id="valor_unitario" name="valor_unitario">
+                </div>
+                <div class="col-md-6">
+                  <label for="tipo_gasto" class="form-label">Cantidad</label>
+                  <input type="number" class="form-control" id="cantidad" name="cantidad">
                 </div>
                 <div class="col-md-12">
-                  <label for="monto_gasto" class="form-label">Monto</label>
-                  <input type="number" class="form-control" id="monto_gasto" name="monto_gasto">
-                </div>
-                <div class="col-md-12">
-                    <label for="agregar_comprobante" class="form-label">Comprobante</label>
+                    <label for="agregar_comprobante" class="form-label">Boleta</label>
                     <input type="file" id="archivo" name="archivo">                    
                 </div>
-
                 <div class="col-12">
                   <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
@@ -57,9 +45,9 @@
         <form class="d-flex justify-content-end" id="buscador_gastos" role="search">
           <div class="row g-3">
             <div class="row g-3">
-              <label for="fecha_fin_busqueda" class="form-label">Seleccionar Fecha</label>
+              <label for="fecha_fin_busqueda" class="form-label">Buscar Producto</label>
               <div class="col-sm-7">
-                <input type="date" class="form-control" aria-label="">
+                <input type="text" class="form-control" aria-label="">
               </div>
               <div class="col-sm">
                 <button class="btn btn-outline-primary" type="submit">Buscar</button>
@@ -75,22 +63,21 @@
         <table class="table">
             <thead>
               <tr>
-                <th>Fecha</th>
-                <th>Tipo de Gasto</th>
+                <th>Nombre</th>
                 <th>Descripción</th>
-                <th>Empleado</th>
-                <th>Monto</th>
-                <th></th>
+                <th>Valor unitario</th>
+                <th>Cantidad</th>
+                <th>Valor Total</th>
               </tr>
             </thead>
             <tbody>
-              {% for dato in gastos %}
+              {% for dato in inventario %}
               <tr>
-                <th scope="row">{{dato.fecha_rendicion}}</th>
-                <th scope="row">{{dato.tipo_gasto}}</th>
+                <th scope="row">{{dato.nombre}}</th>
                 <th scope="row">{{dato.descripcion}}</th>
-                <th scope="row">{{dato.empleado}}</th>
-                <th scope="row">{{dato.monto_gasto}}</th>
+                <th scope="row">{{dato.valor_unitario}}</th>
+                <th scope="row">{{dato.cantidad}}</th>
+                <th scope="row">{{dato.valor_total}}</th>
                 <td>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         ver
@@ -124,7 +111,6 @@
                     </div>
                     </div>
                   </div>
-            
                   <div class="container text-center">
                     <div class="row align-items-start">
                       <div class="col">

@@ -783,6 +783,8 @@ def update_cliente():
             conn.commit()
 
         return jsonify('success')
+
+
 @main.route('/historico')
 def historico():
     with engine.connect() as conn:
@@ -836,5 +838,58 @@ def agrega_gastos():
 
     return jsonify('success')
 
+@main.route('/Inventario')
+def Inventario():
 
+    with engine.connect() as conn:
+        sql = """select * from users"""
+        sql1 = """select inv.id, inv.nombre, inv.descripcion, inv.valor_unitario, inv.cantidad from inventario inv"""
+        users = conn.execute(text(sql)).fetchall()
+        inventario = conn.execute(text(sql1)).fetchall()
+    return render_template('inventario.html', users=users, inventario=inventario)
+
+@main.route('/agrega_inventario',methods=['POST','GET'])
+def agrega_inventario():
+    nombre = str(request.form.get('nombre'))
+    descripcion = str(request.form.get('descripcion'))
+    valor_unitario = str(request.form.get('valor_unitario'))
+    cantidad = str(request.form.get('cantidad'))
+    try:
+        archivo = str(request.form.get('archivo'))
+    except:
+        archivo = ""
     
+    current_app.logger.debug(nombre)
+    current_app.logger.debug(descripcion)
+    current_app.logger.debug(valor_unitario)
+    current_app.logger.debug(cantidad)
+    current_app.logger.debug(archivo)
+
+
+    values = { 'nombre':nombre,'descripcion':descripcion,'valor_unitario':valor_unitario,'cantidad':cantidad,'archivo':archivo}
+            
+    
+    sql = """
+                INSERT INTO inventario
+                (nombre,descripcion,valor_unitario,cantidad,archivo)
+                VALUES(:nombre,:descripcion,:valor_unitario,:cantidad,:archivo);
+
+                """
+    
+    with engine.connect() as conn:
+        conn.execute(text(sql),values)
+        conn.commit()
+
+    return jsonify('success')
+
+
+@main.route('/gastos_clientes')
+def gastos_clientes():
+
+    return render_template('gastos_clientes.html')
+
+@main.route('/ingreso_servicio')
+def ingreso_servicio():
+    
+
+    return render_template('ingreso_servicio.html')

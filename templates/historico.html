@@ -21,7 +21,6 @@
                   <form class="d-flex justify-content-end" role="search">
                     <div class="row g-3">
                       <div class="row g-3">
-
                       <div class="col-sm-7">
                         <input type="text" class="form-control" aria-label="">
                       </div>
@@ -36,9 +35,10 @@
                 
 
               </div>
+              <input type="text" id="inputBusqueda" placeholder="Buscar..." oninput="buscarEnTabla()">
               <div class="card-body px-0 pb-2">
                 <div class="table-responsive p-0">
-                  <table class="table align-items-center mb-0">
+                  <table class="table align-items-center mb-0" id="tabla_cotizaciones">
                     <thead>
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Numero</th>
@@ -97,6 +97,28 @@
     
       </div>
 
-
+      <script>
+        function buscarEnTabla() {
+          var inputBusqueda = document.getElementById("inputBusqueda").value.toUpperCase();
+          var tabla = document.getElementById("tabla_cotizaciones");
+          var filas = tabla.getElementsByTagName("tr");
+      
+          for (var i = 0; i < filas.length; i++) {
+            var celdas = filas[i].getElementsByTagName("td");
+            var mostrarFila = false;
+      
+            for (var j = 0; j < celdas.length; j++) {
+              var textoCelda = celdas[j].innerText || celdas[j].textContent;
+      
+              if (textoCelda.toUpperCase().indexOf(inputBusqueda) > -1) {
+                mostrarFila = true;
+                break;
+              }
+            }
+      
+            filas[i].style.display = mostrarFila ? "" : "none";
+          }
+        }
+      </script>
 
 {% endblock %}

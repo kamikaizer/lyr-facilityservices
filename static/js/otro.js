@@ -304,3 +304,21 @@ $('#agrega_gastos').on("submit", function (event) {
 
 });
 
+$('#agrega_inventario').on("submit", function (event) {
+  event.preventDefault();
+  $.ajax({
+    url: "/agrega_inventario",
+    method: "POST",
+    data: $('#agrega_inventario').serialize(),
+    beforeSend: function () {
+      $('#agrega_inventario').val("Inserting");
+    },
+    success: function (data) {
+      if (data == 'success') {
+        alert("Item agregado");
+        window.location.href = 'Inventario'
+      }
+    }
+  });
+
+});
