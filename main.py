@@ -890,6 +890,12 @@ def gastos_clientes():
 
 @main.route('/ingreso_servicio')
 def ingreso_servicio():
-    
-
     return render_template('ingreso_servicio.html')
+
+@main.route('/ingreso_gasto')
+def ingreso_gasto():
+    return render_template('ingreso_gasto.html')
+
+@main.route('/edita_gasto')
+def edita_gasto():
+    return render_template('edita_gasto.html')
