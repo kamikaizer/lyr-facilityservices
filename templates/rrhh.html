@@ -199,9 +199,9 @@
                     <!-- <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">Aprobado por</span>
                     </td> -->
-                    <td class="align-middle">
-                      <button type="submit" class="btn bg-gradient-info w-100">Aprobar</button>
-                    </td>
+                  <td ><button onClick="aprobar_vacaciones({{dato.id}})"  class="btn bg-gradient-info w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Aprobar</button></td>
+
+                    
                     <td ><button onClick="delete_vacaciones({{dato.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></td>
                   </tr>
                   {% endfor %}

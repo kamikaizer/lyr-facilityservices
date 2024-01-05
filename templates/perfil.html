@@ -22,7 +22,7 @@
 
         <div class="card border-white">
           <div class="card-title pb-0 px-3">
-            <h4 class="mb-0">[aqui va la foto]</h4>
+            <h4 class="mb-0"><img src="{{ imagen_url }}" alt="Imagen del Perfil" style="width:300px;"></h4>
           </div>
 
         </div>
@@ -133,10 +133,9 @@
               <ul class="list-group">
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                   <div class="d-flex flex-column">
-                    <h6 class="mb-3 text-sm">Aprobado por: </h6>
-                    <span class="mb-2 text-xs">Fecha Inicio: <span class="text-dark font-weight-bold ms-sm-2">dd/mm/aaaa</span></span>
-                    <span class="mb-2 text-xs">Fecha Fin: <span class="text-dark font-weight-bold ms-sm-2">dd/mm/aaaa</span></span>
-                    <span class="mb-2 text-xs">Cantidad de días habiles: <span class="text-dark ms-sm-2 font-weight-bold">xxx</span></span>
+                    <h6 class="mb-3 text-sm">Aprobado por: <strong>{{datos[0].aprobador}}</strong></h6>
+                    <span class="mb-2 text-xs">Fecha Inicio: <span class="text-dark font-weight-bold ms-sm-2">{{datos[0].fechainicio}}</span></span>
+                    <span class="mb-2 text-xs">Fecha Fin: <span class="text-dark font-weight-bold ms-sm-2">{{datos[0].fechafin}}</span></span>
                   </div>
 
                 </li>
