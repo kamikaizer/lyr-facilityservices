@@ -14,24 +14,56 @@
     <div class="card-body">
       <form name="datos_cotizacion" id="datos_cotizacion" method="POST">
       <div class="row">
+        <label for="fecha_gasto" class="form-label">Tipo</label>
+        <input type="text" id="Tipo" name="Tipo" class="form-control" placeholder="Tipo" aria-label="Tipo">
         <div class="col">
-          <select id="empresa" name="empresa" class="form-control">
-            <option selected disabled>Seleccione</option>
-            {%for emp in clientes%}
-            
-            <option value="{{emp.rut}}">{{emp.nombre}}</option>
-            
-            {%endfor%}
-          </select>
-        </div>
-        <div class="col">
-          <input type="text" id="solicitante" name="solicitante" class="form-control" placeholder="Solicitante" aria-label="Solicitante">
-        </div>
-        <div class="col">
-          <button type="submit" class="btn bg-gradient-info w-100">Agregar</button>
+          <label for="fecha_gasto" class="form-label">Proveedor</label>
+          <input type="text" id="Proveedor" name="Proveedor" class="form-control" placeholder="Proveedor" aria-label="Proveedor">
         </div>
       </div>
-      
+      <div class="row">
+        <label for="fecha_gasto" class="form-label">N°OT/OC</label>
+        <input type="text" id="Orden" name="Orden" class="form-control" placeholder="Orden" aria-label="Orden">
+        <div class="col">
+          <label for="fecha_gasto" class="form-label">N° Cotización</label>
+          <input type="text" id="Cotizacion2" name="Cotizacion2" class="form-control" placeholder="Cotizacion" aria-label="Cotizacion">
+        </div>
+      </div>
+      <div class="row">
+        <label for="fecha_gasto" class="form-label">Trabajo</label>
+        <input type="text" id="Trabajo" name="Trabajo" class="form-control" placeholder="Trabajo" aria-label="Trabajo">
+        <div class="col">
+          <label for="fecha_gasto" class="form-label">Area</label>
+          <input type="text" id="Area" name="Area" class="form-control" placeholder="Area" aria-label="Area">
+        </div>
+      </div>
+      <div class="row">
+        <label for="fecha_gasto" class="form-label">Fecha</label>
+        <input type="text" id="Fecha_servicio" name="Fecha_servicio" class="form-control" placeholder="Fecha servicio" aria-label="Fecha_servicio">
+        <div class="col">
+          <label for="fecha_gasto" class="form-label">Materiales</label>
+          <input type="text" id="Materiales" name="Materiales" class="form-control" placeholder="Materiales" aria-label="Materiales">
+        </div>
+      </div>
+      <div class="row">
+        <label for="fecha_gasto" class="form-label">Cantidad</label>
+        <input type="text" id="Cantidad" name="Cantidad" class="form-control" placeholder="Cantidad" aria-label="Cantidad">
+        <div class="col">
+          <label for="fecha_gasto" class="form-label">Costo Unitario</label>
+          <input type="text" id="Costo_Unitario" name="Costo_Unitario" class="form-control" placeholder="Costo Unitario" aria-label="Costo_Unitario">
+        </div>
+      </div>
+      <div class="row">
+        <label for="fecha_gasto" class="form-label">Total a cobrar JH</label>
+        <input type="text" id="Total" name="Total" class="form-control" placeholder="Total" aria-label="Total">
+        <div class="col">
+          <label for="fecha_gasto" class="form-label">Costo LYR</label>
+          <input type="text" id="costo" name="costo" class="form-control" placeholder="costo" aria-label="costo">
+        </div>
+      </div>
+      <div class="col">
+        <button type="submit" class="btn bg-gradient-info w-100">Agregar</button>
+      </div>
     </form>
       
     
