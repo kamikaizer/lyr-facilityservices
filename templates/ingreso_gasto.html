@@ -2,50 +2,105 @@
 {% block content %}
 
 <div class="card border-white">
-  <div class="card-title">
-    <a class="btn btn-primary" href="ingreso_gasto" role="button">Ingreso de Gasto</a>
-  </div>
+  <!-- <div class="card-title">
+    <a class="btn btn-primary" href="rendicion" role="button">Rendición de Gastos</a>
+  </div> -->
   <div class="card-body">
 
-      <div class="card-body">
-          <table class="table">
-              <thead>
-                <tr>
-                  <th>Fecha</th>
-                  <th>Tipo de Gasto</th>
-                  <th>Descripción</th>
-                  <th>Empleado</th>
-                  <th>Monto</th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for dato in gastos %}
-                <tr>
-                  <th scope="row">{{dato.fecha_rendicion}}</th>
-                  <th scope="row">{{dato.tipo_gasto}}</th>
-                  <th scope="row">{{dato.descripcion}}</th>
-                  <th scope="row">{{dato.empleado}}</th>
-                  <th scope="row">{{dato.monto_gasto}}</th>
-                  <th style="width: 50px;"><a class="btn btn-warning w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="" role="button">ver</a></th>
-                  <th style="width: 50px;"><a href="edita_gasto?id={{dato.id}}"  class="btn btn-info w-100 " > <span class="iconify" data-icon="bx:edit" style="color: black; text-decoration: none; " data-width=" 26" data-height="26"></span>&nbsp; Editar</a></th>
-                  <th style="width: 50px;"><button onClick="delete_cotizacion()"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></th>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-  </div>    
+    <form class="row g-3" id="agrega_gastos" method="POST">
+      <div class="col-md-6">
+        <label for="fecha_gasto" class="form-label">Fecha</label>
+        <input type="date" class="form-control" id="fecha_rendicion" name="fecha_rendicion">
+      </div>
+      <div class="col-md-6">
+        <label for="tipo_gasto" class="form-label">Tipo de Gasto</label>
+        <input type="text" class="form-control" id="tipo_gasto" name="tipo_gasto">
+      </div>
+      <div class="col-12">
+        <label for="descripcion_gasto" class="form-label">Descripción</label>
+        <input type="text" class="form-control" id="descripcion" name="descripcion">
+      </div>
+      <div class="col-12">
+        <label for="empleado_gasto" class="form-label">Empleado</label>
+        <select id="empleado" name="empleado" class="form-control">
+          <option selected disabled>Seleccione</option>
+          {%for emp in users%}
+          
+          <option value="{{emp.id}}">{{emp.nombre}}</option>
+          
+          {%endfor%}
+        </select>
+      </div>
+      <div class="col-md-12">
+        <label for="monto_gasto" class="form-label">Monto</label>
+        <input type="number" class="form-control" id="monto_gasto" name="monto_gasto">
+      </div>
+      <div class="col-md-12">
+          <label for="agregar_comprobante" class="form-label">Comprobante</label>
+          <input type="file" id="archivo" name="archivo">                    
+      </div>
+
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </form>
   </div>
 </div>
 
 
+<!-- <div class="card border-white">
+    <div class="card-body">
+      <h1 style="text-align: center;">Rendición de Gastos</h1>
+    </div>
+  </div> -->
     
+<br>
+      <!-- <div class="card border-white">
+        <div class="card-body">
+
+
+            <form class="row g-3" id="agrega_gastos" method="POST">
+                <div class="col-md-6">
+                  <label for="fecha_gasto" class="form-label">Fecha</label>
+                  <input type="date" class="form-control" id="fecha_rendicion" name="fecha_rendicion">
+                </div>
+                <div class="col-md-6">
+                  <label for="tipo_gasto" class="form-label">Tipo de Gasto</label>
+                  <input type="text" class="form-control" id="tipo_gasto" name="tipo_gasto">
+                </div>
+                <div class="col-12">
+                  <label for="descripcion_gasto" class="form-label">Descripción</label>
+                  <input type="text" class="form-control" id="descripcion" name="descripcion">
+                </div>
+                <div class="col-12">
+                  <label for="empleado_gasto" class="form-label">Empleado</label>
+                  <select id="empleado" name="empleado" class="form-control">
+                    <option selected disabled>Seleccione</option>
+                    {%for emp in users%}
+                    
+                    <option value="{{emp.id}}">{{emp.nombre}}</option>
+                    
+                    {%endfor%}
+                  </select>
+                </div>
+                <div class="col-md-12">
+                  <label for="monto_gasto" class="form-label">Monto</label>
+                  <input type="number" class="form-control" id="monto_gasto" name="monto_gasto">
+                </div>
+                <div class="col-md-12">
+                    <label for="agregar_comprobante" class="form-label">Comprobante</label>
+                    <input type="file" id="archivo" name="archivo">                    
+                </div>
+
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+              </form>
+      </div>
+    </div> -->
 
 
 
-<!-- modal documento -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
@@ -139,17 +194,12 @@
             </div>
         </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Descargar</button>
+              <button type="button" class="btn btn-primary">Imprimir</button>
             </div>
       </div>
     </div>
   </div>
-
-
-
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-  <script src="{{ url_for('static', filename='js/otro.js')}}"></script>
 
   <script>
     const generarPDF = () => {
@@ -171,4 +221,5 @@
     document.querySelector("#generar-pdf").addEventListener("click", generarPDF);
   
   </script>
+<script src="{{ url_for('static', filename='js/otro.js')}}"></script>
 {% endblock %}

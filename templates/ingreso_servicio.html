@@ -1,0 +1,272 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card border-white">
+  <div class="card-body">
+    <h1 style="text-align: center;">Ingreso de Servicio</h1>
+  </div>
+</div>
+<br>
+    <div class="card border-white">
+    <div class="card-title">
+      <h1>Datos de Servicio </h1>
+    </div>
+  
+    <div class="card-body">
+      <form name="datos_cotizacion" id="datos_cotizacion" method="POST">
+      <div class="row">
+        <label for="fecha_gasto" class="form-label">Tipo</label>
+        <input type="text" id="Tipo" name="Tipo" class="form-control" placeholder="Tipo" aria-label="Tipo">
+        <div class="col">
+          <label for="fecha_gasto" class="form-label">Proveedor</label>
+          <input type="text" id="Proveedor" name="Proveedor" class="form-control" placeholder="Proveedor" aria-label="Proveedor">
+        </div>
+      </div>
+      <div class="row">
+        <label for="fecha_gasto" class="form-label">N°OT/OC</label>
+        <input type="text" id="Orden" name="Orden" class="form-control" placeholder="Orden" aria-label="Orden">
+        <div class="col">
+          <label for="fecha_gasto" class="form-label">N° Cotización</label>
+          <input type="text" id="Cotizacion2" name="Cotizacion2" class="form-control" placeholder="Cotizacion" aria-label="Cotizacion">
+        </div>
+      </div>
+      <div class="row">
+        <label for="fecha_gasto" class="form-label">Trabajo</label>
+        <input type="text" id="Trabajo" name="Trabajo" class="form-control" placeholder="Trabajo" aria-label="Trabajo">
+        <div class="col">
+          <label for="fecha_gasto" class="form-label">Area</label>
+          <input type="text" id="Area" name="Area" class="form-control" placeholder="Area" aria-label="Area">
+        </div>
+      </div>
+      <div class="row">
+        <label for="fecha_gasto" class="form-label">Fecha</label>
+        <input type="text" id="Fecha_servicio" name="Fecha_servicio" class="form-control" placeholder="Fecha servicio" aria-label="Fecha_servicio">
+        <div class="col">
+          <label for="fecha_gasto" class="form-label">Materiales</label>
+          <input type="text" id="Materiales" name="Materiales" class="form-control" placeholder="Materiales" aria-label="Materiales">
+        </div>
+      </div>
+      <div class="row">
+        <label for="fecha_gasto" class="form-label">Cantidad</label>
+        <input type="text" id="Cantidad" name="Cantidad" class="form-control" placeholder="Cantidad" aria-label="Cantidad">
+        <div class="col">
+          <label for="fecha_gasto" class="form-label">Costo Unitario</label>
+          <input type="text" id="Costo_Unitario" name="Costo_Unitario" class="form-control" placeholder="Costo Unitario" aria-label="Costo_Unitario">
+        </div>
+      </div>
+      <div class="row">
+        <label for="fecha_gasto" class="form-label">Total a cobrar JH</label>
+        <input type="text" id="Total" name="Total" class="form-control" placeholder="Total" aria-label="Total">
+        <div class="col">
+          <label for="fecha_gasto" class="form-label">Costo LYR</label>
+          <input type="text" id="costo" name="costo" class="form-control" placeholder="costo" aria-label="costo">
+        </div>
+      </div>
+      <div class="col">
+        <button type="submit" class="btn bg-gradient-info w-100">Agregar</button>
+      </div>
+    </form>
+      
+    
+      <br>
+    </div>
+    </div>
+
+    <!-- <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card my-4 border-white">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-secondary shadow-secondary border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Materiales</h6>
+            </div>
+          </div>
+
+          <br>
+          <form name="material" id="material" method="POST">
+            <div class="row" id="f1">
+              
+              <div class="col">
+                <input type="text" id="proveedor" name="proveedor" class="form-control" placeholder="Proveedor"
+                  aria-label="Proveedor" required>
+              </div>
+              
+              <div class="col">
+                <input type="text" id="glosa" name="glosa" class="form-control" placeholder="Glosa" aria-label="Glosa"
+                  required>
+              </div>
+              <div class="col">
+                <input type="number" id="valor" name="valor" class="form-control" min="0" placeholder="Valor Neto"
+                  aria-label="Valor Neto" required>
+              </div>
+
+              <div class="col">
+                <button type="submit" class="btn bg-gradient-info w-100">Agregar</button>
+              </div>
+
+            </div>
+          </form>
+          <br>
+          <div class="card-body px-0 pb-2" id="div_materiales" name="div_materiales">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Proveedor</th>
+                    
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Glosa</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Valor Neto</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">IVA</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Valor Total</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><h6 class="mb-0 text-sm"></h6></td>
+                    <td><h6 class="mb-0 text-sm"></h6></td>
+                    <td><h6 class="mb-0 text-sm"></h6></td>
+                    <td><h6 class="mb-0 text-sm"></h6></td>
+                    <td><h6 class="mb-0 text-sm"></h6></td>
+             
+                    <td style="width: 50px;"><button class="btn btn-info w-100" data-toggle="modal" ata-target="#changeRequestModal" data-bs-toggle="modal" data-bs-target="#modalmateriasl">Editar</button></td>
+                    <td style="width: 50px;"><button class="btn btn-danger w-100" data-toggle="modal" ata-target="#changeRequestModal">Eliminar</button></td>
+
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="text-center card-body pt-4 p-3 bg-gray-100">
+              <div class="row align-items-start" id="c1">
+                <div class="col">
+                  <h5>Suma Valor Neto $ </h5>
+                </div>
+                <div class="col">
+                  <h5>Suma IVA $ </h5>
+                </div>
+                <div class="col">
+                  <h5>Suma Valor Total $ </h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div> -->
+
+<!-- crud mano de obra -->
+
+<!-- <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card my-4 border-white">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-secondary shadow-secondary border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Mano de Obra</h6>
+            </div>
+          </div>
+
+          <br>
+          <form name="mano_obra" id="mano_obra" method="POST">
+            <div class="row"  id="f2">
+              <input type="hidden" id="cotizacion" name="cotizacion" value="">
+              <div class="col">
+                <input type="number" id="cantidad" name="cantidad" class="form-control" min="1" placeholder="Cantidad" aria-label="cantidad" required>
+              </div>
+              <div class="col">
+                <input type="number" id="valor" name="valor" class="form-control" min="1" placeholder="Precio" aria-label="precio" required>
+              </div>
+              <div class="col">
+                <input type="number" id="dias" name="dias" min="1" class="form-control" placeholder="Días" aria-label="días" required>
+              </div>
+              
+              <div class="col">
+                <button type="submit" class="btn bg-gradient-info w-100">Agregar</button>
+              </div>
+            </div>
+          </form>
+          <br>
+          <div class="card-body px-0 pb-2" name="div_mano_obra" id="div_mano_obra">
+            <div class="table-responsive p-0">
+              <table class="table mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Cantidad</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Precio</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Días</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Total Neto</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><h6 class="mb-0 text-sm"></h6></td>
+                    <td><h6 class="mb-0 text-sm"></h6></td>
+                    <td><h6 class="mb-0 text-sm"></h6></td>
+                    <td><h6 class="mb-0 text-sm"></h6></td>
+
+                    <td style="width: 50px;"><button class="btn btn-info w-100" data-toggle="modal" ata-target="#changeRequestModal" data-bs-toggle="modal" data-bs-target="#modalmano">Editar</button></td>
+                    <td style="width: 50px;"><button class="btn btn-danger w-100" data-toggle="modal" ata-target="#changeRequestModal">Eliminar</button></td>
+                  </tr>
+
+
+                </tbody>
+              </table>
+            </div>
+
+            <div class="card-body pt-4 p-3 bg-gray-100">
+              <h1 id="c1">Total Neto $ </h1>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+</div> -->
+<!-- <div class="card border-white">
+  <div class="card-body">
+    <h3>Detalle:</h3>
+    <br>
+    <textarea class="form-control" id="detalle" id="detalle" rows="3"></textarea>  
+  </div>
+</div> -->
+<!-- tarjeta costos -->
+<!-- <div class="row">
+    <div class="col-md-6 mt-4">
+      <div class="card h-100 mb-4 border-white">
+        <div class="card-title pb-0 px-3">
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class="mb-0">Costo Total Neto:</h6>
+            </div>
+          </div>
+        </div>
+        <div class="card-body pt-4 p-3">
+          <h1 id="c1">$ </h1>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mt-4">
+      <div class="card h-100 mb-4 border-white">
+        <div class="card-title pb-0 px-3">
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class="mb-0">Costo Total Bruto</h6>
+            </div>
+          </div>
+        </div>
+        <div class="card-body pt-4 p-3">
+          <h1 id="c1">$ </h1>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+
+
+  <script src="{{ url_for('static', filename='js/otro.js')}}"></script>
+{% endblock %}

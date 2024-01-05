@@ -2,50 +2,95 @@
 {% block content %}
 
 <div class="card border-white">
-  <div class="card-title">
-    <a class="btn btn-primary" href="ingreso_gasto" role="button">Ingreso de Gasto</a>
+    <div class="card-body">
+      <h1 style="text-align: center;">Inventario</h1>
+    </div>
   </div>
-  <div class="card-body">
-
-      <div class="card-body">
-          <table class="table">
-              <thead>
-                <tr>
-                  <th>Fecha</th>
-                  <th>Tipo de Gasto</th>
-                  <th>Descripción</th>
-                  <th>Empleado</th>
-                  <th>Monto</th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for dato in gastos %}
-                <tr>
-                  <th scope="row">{{dato.fecha_rendicion}}</th>
-                  <th scope="row">{{dato.tipo_gasto}}</th>
-                  <th scope="row">{{dato.descripcion}}</th>
-                  <th scope="row">{{dato.empleado}}</th>
-                  <th scope="row">{{dato.monto_gasto}}</th>
-                  <th style="width: 50px;"><a class="btn btn-warning w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="" role="button">ver</a></th>
-                  <th style="width: 50px;"><a href="edita_gasto?id={{dato.id}}"  class="btn btn-info w-100 " > <span class="iconify" data-icon="bx:edit" style="color: black; text-decoration: none; " data-width=" 26" data-height="26"></span>&nbsp; Editar</a></th>
-                  <th style="width: 50px;"><button onClick="delete_cotizacion()"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></th>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-  </div>    
-  </div>
-</div>
-
-
     
+<br>
+      <div class="card border-white">
+        <div class="card-body">
 
 
+            <form class="row g-3" id="agrega_inventario" method="POST">
+                <div class="col-md-6">
+                  <label for="fecha_gasto" class="form-label">Nombre</label>
+                  <input type="text" class="form-control" id="nombre" name="nombre">
+                </div>
+                <div class="col-6">
+                  <label for="descripcion_gasto" class="form-label">Descripción</label>
+                  <input type="text" class="form-control" id="descripcion" name="descripcion">
+                </div>
+                <div class="col-md-6">
+                  <label for="tipo_gasto" class="form-label">Valor unitario</label>
+                  <input type="number" class="form-control" id="valor_unitario" name="valor_unitario">
+                </div>
+                <div class="col-md-6">
+                  <label for="tipo_gasto" class="form-label">Cantidad</label>
+                  <input type="number" class="form-control" id="cantidad" name="cantidad">
+                </div>
+                <div class="col-md-12">
+                    <label for="agregar_comprobante" class="form-label">Boleta</label>
+                    <input type="file" id="archivo" name="archivo">                    
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+              </form>
+      </div>
+    </div>
+    <br>
+    <div class="card border-white">
+      <div class="container-fluid">
+        <form class="d-flex justify-content-end" id="buscador_gastos" role="search">
+          <div class="row g-3">
+            <div class="row g-3">
+              <label for="fecha_fin_busqueda" class="form-label">Buscar Producto</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" aria-label="">
+              </div>
+              <div class="col-sm">
+                <button class="btn btn-outline-primary" type="submit">Buscar</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+  </div>    
+  <br>
+  <div class="card border-white">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Valor unitario</th>
+                <th>Cantidad</th>
+                <th>Valor Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for dato in inventario %}
+              <tr>
+                <th scope="row">{{dato.nombre}}</th>
+                <th scope="row">{{dato.descripcion}}</th>
+                <th scope="row">{{dato.valor_unitario}}</th>
+                <th scope="row">{{dato.cantidad}}</th>
+                <th scope="row">{{dato.valor_total}}</th>
+                <td>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        ver
+                    </button>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+    </div>
+</div>    
 
-<!-- modal documento -->
+
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
@@ -66,7 +111,6 @@
                     </div>
                     </div>
                   </div>
-            
                   <div class="container text-center">
                     <div class="row align-items-start">
                       <div class="col">
@@ -139,17 +183,12 @@
             </div>
         </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Descargar</button>
+              <button type="button" class="btn btn-primary">Imprimir</button>
             </div>
       </div>
     </div>
   </div>
-
-
-
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-  <script src="{{ url_for('static', filename='js/otro.js')}}"></script>
 
   <script>
     const generarPDF = () => {
@@ -171,4 +210,5 @@
     document.querySelector("#generar-pdf").addEventListener("click", generarPDF);
   
   </script>
+<script src="{{ url_for('static', filename='js/otro.js')}}"></script>
 {% endblock %}

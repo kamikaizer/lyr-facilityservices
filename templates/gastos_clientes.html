@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+
+<div class="card border-white">
+    <div class="card-title">
+      <a class="btn btn-primary" href="ingreso_servicio" role="button">Nuevo Servicio</a>
+    </div>
+    <div class="card-body">
+
+    <table class="table table-striped" id="gastos_clientes" name="gastos_clientes">
+        <thead>
+          <tr>
+            <th scope="col">N° Cotización</th>
+            <th scope="col">Rut Empresa</th>
+            <th scope="col">Empresa</th>
+            <th scope="col">Solicitante</th>
+            <!-- <th scope="col">Tipo</th> -->
+            <!-- <th scope="col">Detalle</th> -->
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for dato in datos %}
+          <tr>
+            <th scope="row">{{dato.id}}</th>
+            <th scope="row">{{dato.rut_empresa}} - {{dato.dv}}</th>
+            <th scope="row">{{dato.nombre}}</th>
+            <th scope="row">{{dato.solicitante}}</th>
+            <!-- <th scope="row">{{dato.tipo}}</th> -->
+            <!-- <th scope="row">{{dato.detalle}}</th> -->
+            <th style="width: 50px;"><a class="btn btn-warning w-100" href="/ct?id={{dato.id}}" role="button">ver</a></th>
+            <th style="width: 50px;"><a href="/edicion?id={{dato.id}}"  class="btn btn-info w-100 " > <span class="iconify" data-icon="bx:edit" style="color: black; text-decoration: none; " data-width=" 26" data-height="26"></span>&nbsp; Editar</a></th>
+            <th style="width: 50px;"><button onClick="delete_cotizacion({{dato.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></th>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div>
+
+
+<script src="{{ url_for('static', filename='js/otro.js')}}"></script>
+{% endblock %}
