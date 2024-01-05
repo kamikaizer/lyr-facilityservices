@@ -2,12 +2,18 @@ import io
 # import pyodbc
 # from flask import make_response 
 from flask import Blueprint,session, render_template, redirect,url_for,request,flash,jsonify,json,send_file,current_app
-
+from flask import Flask, request,render_template_string
+import googleapiclient.discovery
+from oauth2client.service_account import ServiceAccountCredentials
+import sqlalchemy
+from googleapiclient.discovery import build
+from google.oauth2 import service_account
 # from flask_ldap3_login import LDAP3LoginManager
 # from flask_login import LoginManager,login_required, login_user, UserMixin, current_user, logout_user
 # from flask_ldap3_login.forms import LDAPLoginForm
 # from .models import *
 #from . import conn,conn3
+import os
 from datetime import *
 # from .tiempos import *
 # import os
@@ -63,6 +69,24 @@ class User:
     def __init__(self, id, name):
         self.id = id
         self.name = name
+
+def upload_to_drive(file):
+    # Configura tus credenciales aquí
+    
+
+    current_path = os.getcwd()
+    print("El path actual es:", current_path)
+    current_app.logger.debug(current_path)
+    credentials = ServiceAccountCredentials.from_json_keyfile_name('lyr-facilityservices\credentials.json')
+    service = googleapiclient.discovery.build('drive', 'v3', credentials=credentials)
+    
+    file_metadata = {'name': file.filename}
+    media = googleapiclient.http.MediaIoBaseUpload(file, mimetype='file/mimetype')
+    file = service.files().create(body=file_metadata, media_body=media, fields='id').execute()
+    return file.get('id')
+
+
+
 
 def init_db():
     db = get_db()
@@ -198,6 +222,62 @@ def approve_change_route(request_id):
     flash('La solicitud de cambio ha sido aprobada.')
     return redirect(url_for('index'))
 
+
+@main.route('/verify_files/<filename>')
+def files(filename):
+    # Credenciales y construcción del servicio
+    SERVICE_ACCOUNT_FILE = 'lyr-facilityservices/credentials.json'
+    SCOPES = ['https://www.googleapis.com/auth/drive']
+
+    credentials = service_account.Credentials.from_service_account_file(
+            SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+
+    service = build('drive', 'v3', credentials=credentials)
+
+    # Buscar archivos por nombre
+    results = service.files().list(q=f"name='{filename}'", fields='files(id, name)').execute()
+    items = results.get('files', [])
+
+    if not items:
+        return '<p>Archivo no encontrado.</p>'
+    else:
+        item = items[0]  # Asumimos que el primer resultado es el archivo deseado
+        file_id = item['id']
+        current_app.logger.debug(file_id)
+        
+        # Cambiar los permisos del archivo
+        def callback(request_id, response, exception):
+            if exception:
+                # Handle error
+                print(exception)
+            else:
+                print("Permission Id: %s" % response.get('id'))
+
+        batch = service.new_batch_http_request(callback=callback)
+        user_permission = {
+            'type': 'anyone',
+            'role': 'reader',
+        }
+        batch.add(service.permissions().create(
+                fileId=file_id,
+                body=user_permission,
+                fields='id',
+        ))
+        batch.execute()
+        
+        # Generar el enlace de visualización directa
+        direct_link = f"https://drive.google.com/uc?export=view&id={file_id}"
+        html_content = f'<div><img src="{direct_link}" alt="Imagen" style="width:300px;"><br>'
+        html_content += f'Enlace de descarga: <a href="{direct_link}">{direct_link}</a></div>'
+
+        return render_template_string(html_content)
+
+
+
+
+
+
+
 @main.route('/return_equipment/<int:equipment_id>', methods=['POST'])
 def return_equipment_route(equipment_id):
     equipment = get_equipment_by_id(equipment_id)
@@ -326,6 +406,32 @@ def usuarios():
         datos = conn.execute(text(sql1)).fetchall()
     return render_template('panel.html',datos=datos)
 
+def get_image_url(filename):
+    # Credenciales y construcción del servicio
+    SERVICE_ACCOUNT_FILE = 'lyr-facilityservices\credentials.json'
+    SCOPES = ['https://www.googleapis.com/auth/drive']
+
+    credentials = service_account.Credentials.from_service_account_file(
+            SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+
+    service = build('drive', 'v3', credentials=credentials)
+
+    # Buscar archivos por nombre
+    results = service.files().list(q=f"name='{filename}'").execute()
+    items = results.get('files', [])
+
+    if not items:
+        return None  # Retorna None si no se encuentra el archivo
+    else:
+        item = items[0]  # Asumimos que el primer resultado es el archivo deseado
+        id = item['id']
+
+        # Obtener detalles del archivo
+        request = service.files().get(fileId=id, fields='webContentLink')
+        response = request.execute()
+
+        return response.get('webContentLink')
+    
 @main.route('/perfil',methods=['POST','GET'])
 def perfil():
     with engine.connect() as conn:
@@ -346,8 +452,13 @@ def perfil():
         dias_pedidos=0
 
     current_app.logger.debug(dias_pedidos)
+    # Obtener la URL de la imagen
+    imagen_url = get_image_url(datos_user[0].foto)  # Reemplaza con el nombre del archivo necesario
 
-    return render_template('perfil.html',datos=datos,datos_user=datos_user,dias=dias,dias_pedidos=dias_pedidos)
+    # Pasar la URL de la imagen a la plantilla
+    return render_template('perfil.html', datos=datos, datos_user=datos_user, dias=dias, dias_pedidos=dias_pedidos, imagen_url=imagen_url)
+
+    # return render_template('perfil.html',datos=datos,datos_user=datos_user,dias=dias,dias_pedidos=dias_pedidos)
 
 @main.route('/rrhh')
 def rrhh():
@@ -645,6 +756,18 @@ def delete_vacaciones():
 
     return jsonify('success')
 
+@main.route('/aprobar_vacaciones',methods=['POST','GET'])
+def aprobar_vacaciones():
+
+    id_solicitud = request.args.get('id')
+    sql = "update sol_vacaciones set estado=1, aprobador='"+session['username']+"' where id ="+id_solicitud
+    
+    with engine.connect() as conn:
+        conn.execute(text(sql))
+        conn.commit()
+
+    return jsonify('success')
+
 @main.route('/delete_cliente',methods=['POST','GET'])
 def delete_cliente():
 
@@ -709,15 +832,30 @@ def update_users():
         correo = request.form['correo']
         telefono = request.form['telefono']
         contrato = request.form['contrato']
+        fecha_nac = request.form['fecha_nac']
+        rut = request.form['rut']
         id = request.form['id']
         current_app.logger.debug(username)
         
-        sql = 'update users SET username ="'+username+'", nombre ="'+nombre+'" , apellido="'+apellido+'", role="'+rol+'", correo="'+correo+'", telefono="'+telefono+'", fecha_contrato="'+contrato+'" WHERE id = '+id
+        sql = 'update users SET username ="'+username+'", nombre ="'+nombre+'" , apellido="'+apellido+'", role="'+rol+'", correo="'+correo+'", telefono="'+telefono+'", fecha_contrato="'+contrato+'", fecha_nacimiento="'+fecha_nac+'", rut="'+rut+'" WHERE id = '+id
 
         current_app.logger.debug(sql)
         with engine.connect() as conn:
             conn.execute(text(sql))
             conn.commit()
+
+
+        file = request.files.get('ejemplo_archivo_1', None)
+        current_app.logger.debug(file.filename)
+        with engine.connect() as conn:
+            conn.execute(sqlalchemy.text("update users set foto ='"+file.filename+"' WHERE id ="+id))
+            conn.commit()
+        if file:
+            # Sube el archivo a Google Drive
+            upload_to_drive(file)
+        # Guarda el nombre del archivo en la base de datos
+
+        
 
         return jsonify('success')
     

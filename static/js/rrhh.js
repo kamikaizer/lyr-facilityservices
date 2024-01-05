@@ -38,28 +38,29 @@ $(document).ready(function () {
 
   // });
   
-  $('#update_users').on("submit", function (event) {
-    
+$('#update_users').on("submit", function(event) {
     event.preventDefault();
+
+    var formData = new FormData(this); // Usa FormData para manejar los datos del formulario y el archivo
+
     $.ajax({
-      url: "/update_users",
-      method: "POST",
-      data: $('#update_users').serialize(),
-      beforeSend: function () {
-        $('#update_users').val("Inserting");
-      },
-      success: function (data) {
-        if (data == 'success') {
-          alert("Usuario actualizado");
-          window.close()
-          $("#div_creacion_usuario").load(window.location.href + " #div_creacion_usuario");
-          
+        url: "/update_users",
+        method: "POST",
+        data: formData,
+        processData: false,  // Indica a jQuery que no procese los datos
+        contentType: false,  // Indica a jQuery que no establezca el tipo de contenido
+        beforeSend: function() {
+            $('#update_users').val("Inserting");
+        },
+        success: function(data) {
+            if (data == 'success') {
+                alert("Usuario actualizado");
+                window.close();
+                $("#div_creacion_usuario").load(window.location.href + " #div_creacion_usuario");
+            }
         }
-      }
     });
-
-  });
-
+});
 })
 function delete_user(id){
   if(confirm('¿Seguro que desea eliminar al usuario N°'+id+'?')){
@@ -85,6 +86,22 @@ function delete_vacaciones(id){
     success: function (data) {
       if (data == 'success') {
         alert("Solicitud de vacaciones eliminada");
+        $("#div_vacaciones").load(window.location.href + " #div_vacaciones");
+      }
+    }
+  });
+  }
+}
+
+function aprobar_vacaciones(id){
+  if(confirm('¿Seguro que desea aprobar las vacaciones N°'+id+'?')){
+    event.preventDefault();
+  $.ajax({
+    url: "/aprobar_vacaciones?id="+id,
+    method: "POST",
+    success: function (data) {
+      if (data == 'success') {
+        alert("Solicitud de vacaciones aprobada");
         $("#div_vacaciones").load(window.location.href + " #div_vacaciones");
       }
     }
