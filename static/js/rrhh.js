@@ -62,6 +62,31 @@ $('#update_users').on("submit", function(event) {
     });
 });
 })
+
+$('#upload_docs').on("submit", function(event) {
+  event.preventDefault();
+
+  var formData = new FormData(this); // Usa FormData para manejar los datos del formulario y el archivo
+
+  $.ajax({
+      url: "/upload_docs",
+      method: "POST",
+      data: formData,
+      processData: false,  // Indica a jQuery que no procese los datos
+      contentType: false,  // Indica a jQuery que no establezca el tipo de contenido
+      beforeSend: function() {
+          $('#upload_docs').val("Inserting");
+      },
+      success: function(data) {
+          if (data == 'success') {
+              alert("Documento subido con éxito");
+              window.close();
+          }
+      }
+  });
+});
+
+
 function delete_user(id){
   if(confirm('¿Seguro que desea eliminar al usuario N°'+id+'?')){
     event.preventDefault();

@@ -238,35 +238,39 @@
                   <tr>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Tipo de documento</th>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"">Adjuntar</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Adjuntar</th>
                     <th class=" text-secondary opacity-7"></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
+                    <form id="upload_docs" name="upload_docs" method="POST" enctype="multipart/form-data">
                     <td>
-                      <select class="form-select" aria-label="Default select example">
+                      <select class="form-select" id="user" name="user" aria-label="Default select example">
                         <option selected>Empleado</option>
-                        <option value="1">xxx</option>
-                        <option value="2">yyy</option>
-                        <option value="3">zzz</option>
+                        {% for user in datos%}
+                        <option value={{user.id}}>{{user.nombre}} {{user.apellido}}</option>
+                        {%endfor%}
                       </select>
                     </td>
                     <td>
-                      <select class="form-select" aria-label="Default select example">
-                        <option selected>Tipo de Documento</option>
-                        <option value="1">xxx</option>
-                        <option value="2">yyy</option>
-                        <option value="3">zzz</option>
+                      <select class="form-select" id="doc" name="doc" aria-label="Default select example">
+                        <option selected>Tipo de documento</option>
+                        {% for doc in docs%}
+                        <option value={{doc.id}}>{{doc.nombre_documento}}</option>
+                        {%endfor%}
                       </select>
                     </td>
                     <td>
                       <label for="ejemplo_archivo_1">Adjuntar un archivo</label>
-                      <input type="file" id="ejemplo_archivo_1">
+                      <input type="file" id="ejemplo_archivo_1" name="ejemplo_archivo_1">
                     </td>
                     <td class="align-middle">
-                      <button type="submit" class="btn bg-gradient-info w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar</button>
+                      <div class="col">
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+                      </div>
                     </td>
+                  </form>
 
                   </tr>
                 </tbody>

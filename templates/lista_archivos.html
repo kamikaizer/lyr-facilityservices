@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<html>
+<head>
+    <title>Lista de Archivos</title>
+    <!-- Aquí puedes incluir estilos o scripts adicionales -->
+</head>
+<body>
+    <h1>Archivos:</h1>
+    {% for item in items %}
+        {% set file_id = item.id %}
+        {% set file_name = item.name %}
+        {% if "image" in file_name or "png" in file_name or "jpeg" in file_name %}
+            {% set icon = "🖼️" %}
+        {% elif "pdf" in file_name %}
+            {% set icon = "📄" %}
+        {% elif "word" in file_name %}
+            {% set icon = "📝" %}
+        {% else %}
+            {% set icon = "📁" %}
+        {% endif %}
+        <div>
+            <a href="https://drive.google.com/uc?export=download&id={{ file_id }}">{{ icon }} {{ file_name }}</a>
+            <button onclick="eliminarArchivo('{{ file_id }}', '{{ file_name }}')">Eliminar</button>
+        </div>
+        <br>
+    {% endfor %}
+
+    <script>
+        function eliminarArchivo(fileId, fileName) {
+            if (confirm('¿Estás seguro de que quieres eliminar "' + fileName + '"?')) {
+                fetch('/delete_file/' + fileId + '/' + encodeURIComponent(fileName), {
+                    method: 'GET' // o 'DELETE', según tu implementación del endpoint
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data); // Mensaje de éxito o error
+                    window.location.reload(); // Recargar la página para actualizar la lista de archivos
+                })
+                .catch(error => {
+                    alert('Error al eliminar el archivo: ' + error);
+                });
+            }
+        }
+        </script>
+        
+        
+</body>
+</html>
+{%endblock%}

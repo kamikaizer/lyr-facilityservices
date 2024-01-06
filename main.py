@@ -273,9 +273,67 @@ def files(filename):
         return render_template_string(html_content)
 
 
+@main.route('/all_files')
+def all_files():
+    SERVICE_ACCOUNT_FILE = 'lyr-facilityservices/credentials.json'
+    SCOPES = ['https://www.googleapis.com/auth/drive']
+
+    credentials = service_account.Credentials.from_service_account_file(
+            SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+
+    service = build('drive', 'v3', credentials=credentials)
+    # Listar todos los archivos en Google Drive
+    results = service.files().list(fields='files(id, name, mimeType)').execute()
+    items = results.get('files', [])
+
+    for item in items:
+        file_id = item['id']
+        try:
+            # Crear un nuevo permiso público de lectura
+            permission = {
+                'type': 'anyone',
+                'role': 'reader',
+            }
+            service.permissions().create(
+                fileId=file_id,
+                body=permission,
+                fields='id'
+            ).execute()
+        except Exception as error:
+            # Si ocurre un error al cambiar los permisos, lo imprimimos
+            print(f'Error al cambiar permisos para el archivo {file_id}: {error}')
+
+    # Pasar los datos de los archivos a la plantilla HTML
+    return render_template('lista_archivos.html', items=items)
 
 
 
+@main.route('/delete_file/<file_id>/<file_name>')
+def delete_file(file_id, file_name):
+    SERVICE_ACCOUNT_FILE = 'lyr-facilityservices/credentials.json'
+    SCOPES = ['https://www.googleapis.com/auth/drive']
+
+    credentials = service_account.Credentials.from_service_account_file(
+            SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+
+    service = build('drive', 'v3', credentials=credentials)
+    # [Credenciales y construcción del servicio...]
+    # ... código para configurar el servicio ...
+    current_app.logger.debug(file_name)
+    try:
+        
+        sql1 = "update users set foto = NULL where foto = '"+str(file_name)+"'"
+        sql2 = "delete from documentos where nombre = '"+str(file_name)+"'"
+        
+        with engine.connect() as conn:
+            conn.execute(text(sql1))
+            conn.commit()
+            conn.execute(text(sql2))
+            conn.commit()
+        service.files().delete(fileId=file_id).execute()
+        return 'Archivo eliminado con éxito.'
+    except Exception as e:
+        return f'Error al eliminar el archivo: {e}', 500
 
 
 @main.route('/return_equipment/<int:equipment_id>', methods=['POST'])
@@ -439,7 +497,43 @@ def perfil():
         datos_user = conn.execute(text(datos_user)).fetchall()
         sql1 = """select * from sol_vacaciones where username = '"""+session['username']+"';"
         datos = conn.execute(text(sql1)).fetchall()
+        sql1 = """select * from documentos where user = '"""+str(datos_user[0].id)+"';"
+        docs = conn.execute(text(sql1)).fetchall()
 
+    SERVICE_ACCOUNT_FILE = 'lyr-facilityservices/credentials.json'
+    SCOPES = ['https://www.googleapis.com/auth/drive']
+    DESIRED_FILES = ['foto.png', 'carnet.pdf']
+
+    credentials = service_account.Credentials.from_service_account_file(
+            SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+
+    service = build('drive', 'v3', credentials=credentials)
+
+    # Construir la consulta para buscar archivos por nombres específicos
+    query = " or ".join([f"name = '{file_name.nombre}'" for file_name in docs])
+    current_app.logger.debug(docs)
+    current_app.logger.debug(query)
+    results = service.files().list(q=query, fields='files(id, name, mimeType)').execute()
+    items = results.get('files', [])
+
+    for item in items:
+        file_id = item['id']
+        try:
+            # Crear un nuevo permiso público de lectura
+            permission = {
+                'type': 'anyone',
+                'role': 'reader',
+            }
+            service.permissions().create(
+                fileId=file_id,
+                body=permission,
+                fields='id'
+            ).execute()
+        except Exception as error:
+            # Si ocurre un error al cambiar los permisos, lo imprimimos
+            print(f'Error al cambiar permisos para el archivo {file_id}: {error}')
+                  
+    current_app.logger.debug(docs)
     dias_por_mes = 30
     fecha_actual = datetime.now().date()
     diferencia = (fecha_actual - datos_user[0].fecha_contrato).days
@@ -456,7 +550,7 @@ def perfil():
     imagen_url = get_image_url(datos_user[0].foto)  # Reemplaza con el nombre del archivo necesario
 
     # Pasar la URL de la imagen a la plantilla
-    return render_template('perfil.html', datos=datos, datos_user=datos_user, dias=dias, dias_pedidos=dias_pedidos, imagen_url=imagen_url)
+    return render_template('perfil.html', datos=datos, datos_user=datos_user, dias=dias, dias_pedidos=dias_pedidos, imagen_url=imagen_url,docs=docs,items=items)
 
     # return render_template('perfil.html',datos=datos,datos_user=datos_user,dias=dias,dias_pedidos=dias_pedidos)
 
@@ -467,7 +561,9 @@ def rrhh():
         datos = conn.execute(text(sql1)).fetchall()
         sql1 = """select * from sol_vacaciones where estado=0 """
         datos1 = conn.execute(text(sql1)).fetchall()
-        return render_template('rrhh.html',datos=datos,datos1=datos1)
+        sql1 = """select * from tipo_documentos"""
+        docs = conn.execute(text(sql1)).fetchall()
+        return render_template('rrhh.html',datos=datos,datos1=datos1,docs=docs)
     
 
 @main.route('/factura')
@@ -856,6 +952,42 @@ def update_users():
         # Guarda el nombre del archivo en la base de datos
 
         
+
+        return jsonify('success')
+
+@main.route('/upload_docs',methods=['POST','GET'])
+def upload_docs():
+    if request.method == 'POST':
+        user = request.form['user']
+        doc = request.form['doc']
+        current_app.logger.debug(user)
+        current_app.logger.debug(doc)
+        
+        # sql = 'update users SET username ="'+username+'", nombre ="'+nombre+'" , apellido="'+apellido+'", role="'+rol+'", correo="'+correo+'", telefono="'+telefono+'", fecha_contrato="'+contrato+'", fecha_nacimiento="'+fecha_nac+'", rut="'+rut+'" WHERE id = '+id
+
+        # current_app.logger.debug(sql)
+        # with engine.connect() as conn:
+        #     conn.execute(text(sql))
+        #     conn.commit()
+
+        fecha_actual = datetime.now().date()
+        file = request.files.get('ejemplo_archivo_1', None)
+        values = { 'nombre':file.filename, 'tipo_documento':doc,'user':user,'fecha':str(fecha_actual)}
+
+        sql = """
+                INSERT INTO documentos
+                (nombre,tipo_documento,user,fecha)
+                VALUES(:nombre,:tipo_documento,:user,:fecha);
+
+                """
+    
+        with engine.connect() as conn:
+            conn.execute(text(sql),values)
+            conn.commit()
+
+        # Sube el archivo a Google Drive
+        upload_to_drive(file)
+        # Guarda el nombre del archivo en la base de datos
 
         return jsonify('success')
     
