@@ -2,216 +2,232 @@
 
 
 {% block content %}
-<div class="container mt-4">
-    <h1>Control y Administración</h1>
-
-    <h2>Facturas</h2>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Equipo</th>
-                <th>Usuario Asignado</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for equipment in equipment %}
-            <tr>
-                <td>{{ equipment.name }}</td>
-                <td>
-                    {% if equipment.user_id %}
-                    {{ get_user_by_id(equipment.user_id).name }}
-                    {% else %}
-                    Sin asignar
-                    {% endif %}
-                </td>
-                <td>
-                    {% if equipment.is_assigned %}
-                    {% if not change_request_exists(equipment.id) %}
-                    <button class="btn btn-primary" data-toggle="modal"
-                        data-target="#changeRequestModal{{ equipment.id }}">Solicitar Cambio</button>
-                    {% else %}
-                    <button class="btn btn-secondary" disabled>Solicitado</button>
-                    {% endif %}
-                    {% else %}
-                    <button class="btn btn-success" data-toggle="modal"
-                        data-target="#assignEquipmentModal{{ equipment.id }}">Asignar</button>
-                    {% endif %}
-                    {% if equipment.is_assigned %}
-                    <button class="btn btn-warning" data-toggle="modal"
-                        data-target="#returnEquipmentModal{{ equipment.id }}">Devolver</button>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    <h2>Orden de Compra</h2>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Usuario</th>
-                <th>Equipos Asignados</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
-            <tr>
-                <td>{{ user.name }}</td>
-                <td>
-                    {% for equipment in equipment %}
-                    {% if equipment.user_id == user.id %}
-                    {{ equipment.name }},
-                    {% endif %}
-                    {% endfor %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <h2>Solicitudes de Cambio</h2>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Equipo</th>
-            <th>Usuario Actual</th>
-            <th>Nuevo Usuario</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for request in change_requests %}
-        {% set equipment = get_equipment_by_id(request.equipment_id) %}
-        {% set current_user = get_user_by_id(equipment.user_id) %}
-        {% set new_user = get_user_by_id(request.user_id) %}
-        <tr>
-            <td>{{ equipment.name }}</td>
-            <td>{{ current_user.name }}</td>
-            <td>{{ new_user.name }}</td>
-            <td>
-                {% if request.is_approved %}
-                    Aprobado
-                {% else %}
-                    Pendiente
-                {% endif %}
-            </td>
-            <td>
-                {% if not request.is_approved %}
-                    <form action="{{ url_for('approve_change_route', request_id=request.id) }}" method="POST" style="display: inline;">
-                        <button type="submit" class="btn btn-success">Aprobar</button>
-                    </form>
-                    <form action="{{ url_for('reject_change_route', request_id=request.id) }}" method="POST" style="display: inline;">
-                        <button type="submit" class="btn btn-danger">Rechazar</button>
-                    </form>
-                {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-</div>
-
-<!-- Modals -->
-{% for equipment in equipment %}
-<!-- Asignar Equipo Modal -->
-<div class="modal fade" id="assignEquipmentModal{{ equipment.id }}" tabindex="-1" role="dialog"
-    aria-labelledby="assignEquipmentModalLabel{{ equipment.id }}" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="assignEquipmentModalLabel{{ equipment.id }}">Asignar Equipo - {{
-                    equipment.name }}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+<div class="row">
+    <div class="col-lg-4">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="row">
+            <div class="col-md-12 col-12">
+              <div class="card border-white">
+                <div class="card-title mx-4 p-3 text-center">
+                    <canvas id="chart1"></canvas>
+                </div>
+                <div class="card-body pt-0 p-3 text-center">
+                  <hr class="horizontal dark my-3">
+                  <p>texto</p>
+                </div>
+              </div>
             </div>
-            <div class="modal-body">
-                <form action="{{ url_for('assign_equipment_route', equipment_id=equipment.id) }}" method="POST">
-                    <div class="form-group">
-                        <label for="user_id">Usuario:</label>
-                        <select class="form-control" id="user_id" name="user_id" required>
-                            <option value="">Seleccionar usuario</option>
-                            {% for user in users %}
-                            <option value="{{ user.id }}">{{ user.name }}</option>
-                            {% endfor %}
-                        </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="row">
+
+          <div class="col-xl-12">
+            <div class="row">
+              <div class="col-md-12 col-12">
+                <div class="card border-white">
+                  <div class="card-title mx-4 p-3 text-center">
+                    <canvas id="chart2"></canvas>
+                </div>
+                  <div class="card-body pt-0 p-3 text-center">
+                    <hr class="horizontal dark my-3">
+                    <p>texto</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="row">
+              <div class="col-md-12 col-12">
+                <div class="card border-white">
+                  <div class="card-title mx-4 p-3 text-center">
+                    <canvas id="chart3"></canvas>
+                </div>
+                  <div class="card-body pt-0 p-3 text-center">
+                    <hr class="horizontal dark my-3">
+                    <p>texto</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <br>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="row">
+
+            <div class="col-xl-12">
+              <div class="row">
+                <div class="col-md-12 col-12">
+                  <div class="card border-white">
+                    <div class="card-title mx-4 p-3 text-center">
+                        <canvas id="chart4"></canvas>
                     </div>
-                    <button type="submit" class="btn btn-primary">Asignar</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Solicitar Cambio Modal -->
-<div class="modal fade" id="changeRequestModal{{ equipment.id }}" tabindex="-1" role="dialog"
-    aria-labelledby="changeRequestModalLabel{{ equipment.id }}" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="changeRequestModalLabel{{ equipment.id }}">Solicitar Cambio - {{
-                    equipment.name }}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ url_for('request_change_route', equipment_id=equipment.id) }}" method="POST">
-                    <div class="form-group">
-                        <label for="user_id">Nuevo Usuario:</label>
-                        <select class="form-control" id="user_id" name="user_id" required>
-                            <option value="">Seleccionar usuario</option>
-                            {% for user in users %}
-                            <option value="{{ user.id }}">{{ user.name }}</option>
-                            {% endfor %}
-                        </select>
+                    <div class="card-body pt-0 p-3 text-center">
+                      <hr class="horizontal dark my-3">
+                      <p>texto</p>
                     </div>
-                    <button type="submit" class="btn btn-primary">Solicitar Cambio</button>
-                </form>
+                  </div>
+                </div>
+              </div>
             </div>
+
+          </div>
         </div>
-    </div>
-</div>
-
-
-<!-- Devolver Equipo Modal -->
-<div class="modal fade" id="returnEquipmentModal{{ equipment.id }}" tabindex="-1" role="dialog"
-    aria-labelledby="returnEquipmentModalLabel{{ equipment.id }}" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="returnEquipmentModalLabel{{ equipment.id }}">Devolver Equipo - {{
-                    equipment.name }}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        <div class="col-lg-6">
+            <div class="row">
+  
+              <div class="col-xl-12">
+                <div class="row">
+                  <div class="col-md-12 col-12">
+                    <div class="card border-white">
+                      <div class="card-title mx-4 p-3 text-center">
+                        <canvas id="chart5"></canvas>
+                    </div>
+                      <div class="card-body pt-0 p-3 text-center">
+                        <hr class="horizontal dark my-3">
+                        <p>texto</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
             </div>
-            <div class="modal-body">
-                <p>¿Estás seguro de que quieres devolver el equipo?</p>
-                <form action="{{ url_for('return_equipment_route', equipment_id=equipment.id) }}" method="POST">
-                    <button type="submit" class="btn btn-warning">Devolver</button>
-                </form>
-            </div>
+          </div>
         </div>
-    </div>
-</div>
-{% endfor %}
 
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-<div class="container mt-4">
-    {% for message in messages %}
-    <div class="alert alert-success" role="alert">
-        {{ message }}
-    </div>
-    {% endfor %}
-</div>
-{% endif %}
-{% endwith %}
 
-{% endblock %}
-</body>
 
-</html>
+
+
+
+
+        <script>
+            // Gráfico 1 - Barras
+            var ctx1 = document.getElementById('chart1').getContext('2d');
+            var chart1 = new Chart(ctx1, {
+              type: 'bar',
+              data: {
+                labels: ['Dato 1', 'Dato 2', 'Dato 3'],
+                datasets: [{
+                  label: 'Datos de ejemplo',
+                  data: [12, 19, 3],
+                  backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)'],
+                  borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)'],
+                  borderWidth: 1
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+          
+            // Gráfico 2 - Pastel
+            var ctx2 = document.getElementById('chart2').getContext('2d');
+            var chart2 = new Chart(ctx2, {
+              type: 'pie',
+              data: {
+                labels: ['Dato 1', 'Dato 2', 'Dato 3'],
+                datasets: [{
+                  data: [12, 19, 3],
+                  backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)'],
+                  borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)'],
+                  borderWidth: 1
+                }]
+              }
+            });
+          
+            // Gráfico 3 - Línea
+            var ctx3 = document.getElementById('chart3').getContext('2d');
+            var chart3 = new Chart(ctx3, {
+              type: 'line',
+              data: {
+                labels: ['Dato 1', 'Dato 2', 'Dato 3'],
+                datasets: [{
+                  label: 'Datos de ejemplo',
+                  data: [12, 19, 3],
+                  borderColor: 'rgba(75, 192, 192, 1)',
+                  borderWidth: 2,
+                  fill: false
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+          
+            // Gráfico 4 - Radar
+            var ctx4 = document.getElementById('chart4').getContext('2d');
+            var chart4 = new Chart(ctx4, {
+              type: 'radar',
+              data: {
+                labels: ['Dato 1', 'Dato 2', 'Dato 3', 'Dato 4', 'Dato 5'],
+                datasets: [{
+                  label: 'Datos de ejemplo',
+                  data: [12, 19, 3, 5, 2],
+                  backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                  borderColor: 'rgba(255, 99, 132, 1)',
+                  borderWidth: 1
+                }]
+              }
+            });
+          
+            // Gráfico 5 - Burbujas
+            var ctx5 = document.getElementById('chart5').getContext('2d');
+            var chart5 = new Chart(ctx5, {
+              type: 'bubble',
+              data: {
+                datasets: [{
+                  label: 'Datos de ejemplo',
+                  data: [{
+                    x: 10,
+                    y: 20,
+                    r: 5
+                  }, {
+                    x: 30,
+                    y: 40,
+                    r: 10
+                  }, {
+                    x: 50,
+                    y: 60,
+                    r: 8
+                  }],
+                  backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                  borderColor: 'rgba(255, 99, 132, 1)',
+                  borderWidth: 1
+                }]
+              }
+            });
+          </script>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename='js/rrhh.js')}}"></script>
+
+  {% endblock %}

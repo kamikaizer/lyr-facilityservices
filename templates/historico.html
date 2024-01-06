@@ -22,7 +22,7 @@
                     <div class="row g-3">
                       <div class="row g-3">
                       <div class="col-sm-7">
-                        <input type="text" class="form-control" aria-label="">
+                        <input type="text"  class="form-control" id="inputBusqueda" placeholder="Buscar..." oninput="buscarEnTabla()">
                       </div>
                       <div class="col-sm">
                         <button class="btn btn-outline-primary" type="submit">Buscar</button>
@@ -35,7 +35,6 @@
                 
 
               </div>
-              <input type="text" id="inputBusqueda" placeholder="Buscar..." oninput="buscarEnTabla()">
               <div class="card-body px-0 pb-2">
                 <div class="table-responsive p-0">
                   <table class="table align-items-center mb-0" id="tabla_cotizaciones">
@@ -73,26 +72,6 @@
           </div>
         </div>
 
-      <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Ingreso de Factura</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="col-12">
-          <label for="factura" class="form-label">N° de Factura</label>
-          <input type="numbre" class="form-control" id="factura">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar</button>
-      </div>
-    </div>
-  </div>
 </div>
     
       </div>

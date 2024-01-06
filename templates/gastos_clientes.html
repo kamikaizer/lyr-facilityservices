@@ -15,10 +15,13 @@
     <table class="table table-striped" id="gastos_clientes" name="gastos_clientes">
         <thead>
           <tr>
-            <th scope="col">N° Cotización</th>
-            <th scope="col">Rut Empresa</th>
-            <th scope="col">Empresa</th>
-            <th scope="col">Solicitante</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Proveedor</th>
+            <th scope="col">Trabajo</th>
+            <th scope="col">Fecha Servicio</th>
+            <th scope="col">Material</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Total</th>
             <!-- <th scope="col">Tipo</th> -->
             <!-- <th scope="col">Detalle</th> -->
             <th scope="col"></th>
@@ -28,16 +31,19 @@
           </tr>
         </thead>
         <tbody>
-          {% for dato in datos %}
+          {% for dato in gastosclientes %}
           <tr>
-            <th scope="row">{{dato.id}}</th>
-            <th scope="row">{{dato.rut_empresa}} - {{dato.dv}}</th>
-            <th scope="row">{{dato.nombre}}</th>
-            <th scope="row">{{dato.solicitante}}</th>
+            <th scope="row">{{dato.tipo}}</th>
+            <th scope="row">{{dato.proveedor}}</th>
+            <th scope="row">{{dato.trabajo}}</th>
+            <th scope="row">{{dato.fecha_servicio}}</th>
+            <th scope="row">{{dato.material}}</th>
+            <th scope="row">{{dato.cantidad}}</th>
+            <th scope="row">{{dato.total}}</th>
             <!-- <th scope="row">{{dato.tipo}}</th> -->
             <!-- <th scope="row">{{dato.detalle}}</th> -->
             <th style="width: 50px;"><a class="btn btn-warning w-100" href="/ct?id={{dato.id}}" role="button">ver</a></th>
-            <th style="width: 50px;"><a href="/edicion?id={{dato.id}}"  class="btn btn-info w-100 " > <span class="iconify" data-icon="bx:edit" style="color: black; text-decoration: none; " data-width=" 26" data-height="26"></span>&nbsp; Editar</a></th>
+            <th style="width: 50px;"><a href="/edita_servicio"  class="btn btn-info w-100 " > <span class="iconify" data-icon="bx:edit" style="color: black; text-decoration: none; " data-width=" 26" data-height="26"></span>&nbsp; Editar</a></th>
             <th style="width: 50px;"><button onClick="delete_cotizacion({{dato.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></th>
           </tr>
           {% endfor %}

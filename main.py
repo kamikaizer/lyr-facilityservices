@@ -1153,10 +1153,62 @@ def agrega_inventario():
     return jsonify('success')
 
 
+@main.route('/datos_servicios',methods=['POST','GET'])
+def datos_servicios():
+    tipo = str(request.form.get('tipo'))
+    proveedor = str(request.form.get('proveedor'))
+    oc = str(request.form.get('oc'))
+    cotizacion = str(request.form.get('cotizacion'))
+    trabajo = str(request.form.get('trabajo'))
+    area = str(request.form.get('area'))
+    fecha_servicio = str(request.form.get('fecha_servicio'))
+    material = str(request.form.get('material'))
+    cantidad = str(request.form.get('cantidad'))
+    costo_unitario = str(request.form.get('costo_unitario'))
+    total = str(request.form.get('total'))
+    costo_lyr = str(request.form.get('costo_lyr'))
+    
+    current_app.logger.debug(tipo)
+    current_app.logger.debug(proveedor)
+    current_app.logger.debug(oc)
+    current_app.logger.debug(cotizacion)
+    current_app.logger.debug(trabajo)
+    current_app.logger.debug(area)
+    current_app.logger.debug(fecha_servicio)
+    current_app.logger.debug(material)
+    current_app.logger.debug(cantidad)
+    current_app.logger.debug(costo_unitario)
+    current_app.logger.debug(total)
+    current_app.logger.debug(costo_lyr)
+
+
+    values = { 'tipo':tipo,'proveedor':proveedor,'oc':oc,'cotizacion':cotizacion,'trabajo':trabajo,'area':area,'fecha_servicio':fecha_servicio,'material':material,'cantidad':cantidad,'costo_unitario':costo_unitario,'total':total,'costo_lyr':costo_lyr }
+            
+    
+    sql = """
+                INSERT INTO servicios
+                (tipo,proveedor,oc,cotizacion,trabajo,area,fecha_servicio,material,cantidad,costo_unitario,total,costo_lyr)
+                VALUES(:tipo,:proveedor,:oc,:cotizacion,:trabajo,:area,:fecha_servicio,:material,:cantidad,:costo_unitario,:total,:costo_lyr);
+
+                """
+    
+    with engine.connect() as conn:
+        conn.execute(text(sql),values)
+        conn.commit()
+
+    return jsonify('success')
+
+@main.route('/edita_servicio')
+def edita_servicio():
+    return render_template('gastos_clientes.html')
+
 @main.route('/gastos_clientes')
 def gastos_clientes():
 
-    return render_template('gastos_clientes.html')
+    with engine.connect() as conn:
+        sql = """select gas.tipo, gas.proveedor, gas.oc, gas.cotizacion, gas.trabajo, gas.area, gas.fecha_servicio, gas.material, gas.cantidad, gas.costo_unitario, gas.total,gas.costo_lyr from servicios gas"""
+        gastosclientes = conn.execute(text(sql)).fetchall()
+    return render_template('gastos_clientes.html', gastosclientes=gastosclientes)
 
 @main.route('/ingreso_servicio')
 def ingreso_servicio():
