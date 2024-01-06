@@ -322,3 +322,43 @@ $('#agrega_inventario').on("submit", function (event) {
   });
 
 });
+
+$('#datos_servicios').on("submit", function (event) {
+  event.preventDefault();
+  $.ajax({
+    url: "/datos_servicios",
+    method: "POST",
+    data: $('#datos_servicios').serialize(),
+    beforeSend: function () {
+      $('#datos_servicios').val("Inserting");
+    },
+    success: function (data) {
+      if (data == 'success') {
+        alert("Servicio agregado");
+        window.location.href = 'gastos_clientes'
+      }
+    }
+  });
+
+});
+
+$('#update_servicios').on("submit", function (event) {
+    
+  event.preventDefault();
+  $.ajax({
+    url: "/update_servicios",
+    method: "POST",
+    data: $('#update_servicios').serialize(),
+    beforeSend: function () {
+      $('#update_servicios').val("Inserting");
+    },
+    success: function (data) {
+      if (data == 'success') {
+        alert("Servicio actualizado");
+        window.close()
+        $("#gastos_clientes").load(window.location.href + " #gastos_clientes");
+      }
+    }
+  });
+
+});

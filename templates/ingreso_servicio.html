@@ -12,105 +12,55 @@
     </div>
   
     <div class="card-body">
-      <form name="datos_cotizacion" id="datos_cotizacion" method="POST" class="row g-3">
-
-
-        <div class="col-md-6">
-          <label for="fecha_gasto" class="form-label">Tipo</label>
-          <input type="text" id="Tipo" name="Tipo" class="form-control" placeholder="Tipo" aria-label="Tipo">
-        </div>
-        <div class="col-md-6">
-          <label for="fecha_gasto" class="form-label">Proveedor</label>
-          <input type="text" id="Proveedor" name="Proveedor" class="form-control" placeholder="Proveedor" aria-label="Proveedor">
-        </div>
-        <div class="col-md-6">
-          <label for="fecha_gasto" class="form-label">N°OT/OC</label>
-          <input type="number" id="Orden" name="Orden" class="form-control" placeholder="Orden" aria-label="Orden">
-        </div>
-        <div class="col-md-6">
-          <label for="fecha_gasto" class="form-label">N° Cotización</label>
-          <input type="number" id="Cotizacion2" name="Cotizacion2" class="form-control" placeholder="Cotizacion" aria-label="Cotizacion">
-        </div>
-        <div class="col-md-6">
-          <label for="fecha_gasto" class="form-label">Trabajo</label>
-          <input type="text" id="Trabajo" name="Trabajo" class="form-control" placeholder="Trabajo" aria-label="Trabajo">
-        </div>
-        <div class="col-md-6">
-            <label for="fecha_gasto" class="form-label">Area</label>
-            <input type="text" id="Area" name="Area" class="form-control" placeholder="Area" aria-label="Area">
-        </div>
-        <div class="col-md-6">
-          <label for="fecha_gasto" class="form-label">Fecha</label>
-          <input type="date" id="Fecha_servicio" name="Fecha_servicio" class="form-control" placeholder="Fecha servicio" aria-label="Fecha_servicio">
-        </div>
-        <div class="col-md-6">
-            <label for="fecha_gasto" class="form-label">Materiales</label>
-            <input type="datetime" id="Materiales" name="Materiales" class="form-control" placeholder="Materiales" aria-label="Materiales">
-        </div>
-        <div class="col-md-6">
-          <label for="fecha_gasto" class="form-label">Cantidad</label>
-          <input type="number" id="Cantidad" name="Cantidad" class="form-control" placeholder="Cantidad" aria-label="Cantidad">
-        </div>
-        <div class="col-md-6">
-            <label for="fecha_gasto" class="form-label">Costo Unitario</label>
-            <input type="number" id="Costo_Unitario" name="Costo_Unitario" class="form-control" placeholder="Costo Unitario" aria-label="Costo_Unitario">
-        </div>
-        <div class="col-md-6">
-          <label for="fecha_gasto" class="form-label">Total a cobrar JH</label>
-          <input type="number" id="Total" name="Total" class="form-control" placeholder="Total" aria-label="Total">
-        </div>
-        <div class="col-md-6">
-            <label for="fecha_gasto" class="form-label">Costo LYR</label>
-            <input type="number" id="costo" name="costo" class="form-control" placeholder="costo" aria-label="costo">
-        </div>
-      <!-- <div class="row">
+      <form name="datos_servicios" id="datos_servicios" method="POST">
+      <div class="row">
         <label for="fecha_gasto" class="form-label">Tipo</label>
-        <input type="text" id="Tipo" name="Tipo" class="form-control" placeholder="Tipo" aria-label="Tipo">
+        <input type="text" id="tipo" name="tipo" class="form-control" placeholder="Tipo" aria-label="Tipo">
         <div class="col">
           <label for="fecha_gasto" class="form-label">Proveedor</label>
-          <input type="text" id="Proveedor" name="Proveedor" class="form-control" placeholder="Proveedor" aria-label="Proveedor">
+          <input type="text" id="proveedor" name="proveedor" class="form-control" placeholder="Proveedor" aria-label="Proveedor">
         </div>
-      </div> -->
-      <!-- <div class="row">
+      </div>
+      <div class="row">
         <label for="fecha_gasto" class="form-label">N°OT/OC</label>
-        <input type="text" id="Orden" name="Orden" class="form-control" placeholder="Orden" aria-label="Orden">
+        <input type="text" id="oc" name="oc" class="form-control" placeholder="Orden" aria-label="Orden">
         <div class="col">
           <label for="fecha_gasto" class="form-label">N° Cotización</label>
-          <input type="text" id="Cotizacion2" name="Cotizacion2" class="form-control" placeholder="Cotizacion" aria-label="Cotizacion">
+          <input type="text" id="cotizacion" name="cotizacion" class="form-control" placeholder="Cotizacion" aria-label="Cotizacion">
         </div>
-      </div> -->
-      <!-- <div class="row">
+      </div>
+      <div class="row">
         <label for="fecha_gasto" class="form-label">Trabajo</label>
-        <input type="text" id="Trabajo" name="Trabajo" class="form-control" placeholder="Trabajo" aria-label="Trabajo">
+        <input type="text" id="trabajo" name="trabajo" class="form-control" placeholder="Trabajo" aria-label="Trabajo">
         <div class="col">
           <label for="fecha_gasto" class="form-label">Area</label>
-          <input type="text" id="Area" name="Area" class="form-control" placeholder="Area" aria-label="Area">
+          <input type="text" id="area" name="area" class="form-control" placeholder="Area" aria-label="Area">
         </div>
-      </div> -->
-      <!-- <div class="row">
+      </div>
+      <div class="row">
         <label for="fecha_gasto" class="form-label">Fecha</label>
-        <input type="text" id="Fecha_servicio" name="Fecha_servicio" class="form-control" placeholder="Fecha servicio" aria-label="Fecha_servicio">
+        <input type="date" id="fecha_servicio" name="fecha_servicio" class="form-control" placeholder="Fecha servicio" aria-label="Fecha_servicio">
         <div class="col">
           <label for="fecha_gasto" class="form-label">Materiales</label>
-          <input type="text" id="Materiales" name="Materiales" class="form-control" placeholder="Materiales" aria-label="Materiales">
+          <input type="text" id="material" name="material" class="form-control" placeholder="Materiales" aria-label="Materiales">
         </div>
-      </div> -->
-      <!-- <div class="row">
+      </div>
+      <div class="row">
         <label for="fecha_gasto" class="form-label">Cantidad</label>
-        <input type="text" id="Cantidad" name="Cantidad" class="form-control" placeholder="Cantidad" aria-label="Cantidad">
+        <input type="text" id="cantidad" name="cantidad" class="form-control" placeholder="Cantidad" aria-label="Cantidad">
         <div class="col">
           <label for="fecha_gasto" class="form-label">Costo Unitario</label>
-          <input type="text" id="Costo_Unitario" name="Costo_Unitario" class="form-control" placeholder="Costo Unitario" aria-label="Costo_Unitario">
+          <input type="text" id="costo_unitario" name="costo_unitario" class="form-control" placeholder="Costo Unitario" aria-label="Costo_Unitario">
         </div>
-      </div> -->
-      <!-- <div class="row">
+      </div>
+      <div class="row">
         <label for="fecha_gasto" class="form-label">Total a cobrar JH</label>
-        <input type="text" id="Total" name="Total" class="form-control" placeholder="Total" aria-label="Total">
+        <input type="text" id="total" name="total" class="form-control" placeholder="Total" aria-label="Total">
         <div class="col">
           <label for="fecha_gasto" class="form-label">Costo LYR</label>
-          <input type="text" id="costo" name="costo" class="form-control" placeholder="costo" aria-label="costo">
+          <input type="text" id="costo_lyr" name="costo_lyr" class="form-control" placeholder="Costo" aria-label="costo">
         </div>
-      </div> -->
+      </div>
       <div class="col">
         <button type="submit" class="btn bg-gradient-info w-100">Agregar</button>
       </div>
