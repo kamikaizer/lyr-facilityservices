@@ -27961,3 +27961,7 @@ pre[class*="language-"] {
   background-color: #247CEA;
   color: #fff;
 }
+.foto_perfil {
+  width: 300px;
+  height: 190px;
+}
