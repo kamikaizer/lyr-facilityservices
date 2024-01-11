@@ -285,23 +285,49 @@ function delete_cliente(id){
   }
 }
 
-$('#agrega_gastos').on("submit", function (event) {
-  event.preventDefault();
-  $.ajax({
-    url: "/agrega_gastos",
-    method: "POST",
-    data: $('#agrega_gastos').serialize(),
-    beforeSend: function () {
-      $('#agrega_gastos').val("Inserting");
-    },
-    success: function (data) {
-      if (data == 'success') {
-        alert("Gasto agregado");
-        window.location.href = 'gastos'
-      }
-    }
-  });
+// $('#agrega_gastos').on("submit", function (event) {
+//   event.preventDefault();
+//   $.ajax({
+//     url: "/agrega_gastos",
+//     method: "POST",
+//     data: $('#agrega_gastos').serialize(),
+//     beforeSend: function () {
+//       $('#agrega_gastos').val("Inserting");
+//     },
+//     success: function (data) {
+//       if (data == 'success') {
+//         alert("Gasto agregado");
+//         window.location.href = 'gastos'
+//       }
+//     }
+//   });
 
+// });
+
+$('#agrega_gastos').on("submit", function(event) {
+  event.preventDefault();
+
+  var formData = new FormData(this); // Usa FormData para manejar los datos del formulario y el archivo
+
+  $.ajax({
+      url: "/agrega_gastos",
+      method: "POST",
+      data: formData,
+      processData: false,  // Indica a jQuery que no procese los datos
+      contentType: false,  // Indica a jQuery que no establezca el tipo de contenido
+      beforeSend: function() {
+          $('#agrega_gastos').val("Inserting");
+      },
+      success: function(data) {
+          if (data == 'success') {
+            alert("Gasto agregado");
+            window.location.href = 'gastos'
+          }
+          else{
+            alert("Fail");
+          }
+      }
+  });
 });
 
 $('#agrega_inventario').on("submit", function (event) {

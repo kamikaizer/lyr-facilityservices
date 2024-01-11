@@ -502,7 +502,6 @@ def perfil():
 
     SERVICE_ACCOUNT_FILE = 'lyr-facilityservices/credentials.json'
     SCOPES = ['https://www.googleapis.com/auth/drive']
-    DESIRED_FILES = ['foto.png', 'carnet.pdf']
 
     credentials = service_account.Credentials.from_service_account_file(
             SERVICE_ACCOUNT_FILE, scopes=SCOPES)
@@ -1079,34 +1078,32 @@ def agrega_gastos():
     descripcion = str(request.form.get('descripcion'))
     empleado = str(request.form.get('empleado'))
     monto_gasto = str(request.form.get('monto_gasto'))
+    file = request.files.get('archivo', None)
     try:
-        archivo = str(request.form.get('archivo'))
+    
+        # Sube el archivo a Google Drive
+        upload_to_drive(file)
+        # Guarda el nombre del archivo en la base de datos
+
+        values = { 'fecha_rendicion':fecha_rendicion, 'tipo_gasto':tipo_gasto , 'descripcion':descripcion, 'empleado':empleado,'monto_gasto':monto_gasto,'archivo':file.filename}
+                
+        
+        sql = """
+                    INSERT INTO rendicion
+                    (fecha_rendicion,tipo_gasto,descripcion,empleado,monto_gasto,archivo)
+                    VALUES(:fecha_rendicion, :tipo_gasto, :descripcion, :empleado, :monto_gasto, :archivo);
+
+                    """
+        
+        with engine.connect() as conn:
+            conn.execute(text(sql),values)
+            conn.commit()
+        return jsonify('success')
     except:
-        archivo = ""
+        return jsonify('fail')
+
+
     
-    current_app.logger.debug(fecha_rendicion)
-    current_app.logger.debug(tipo_gasto)
-    current_app.logger.debug(descripcion)
-    current_app.logger.debug(empleado)
-    current_app.logger.debug(monto_gasto)
-    current_app.logger.debug(archivo)
-
-
-    values = { 'fecha_rendicion':fecha_rendicion, 'tipo_gasto':tipo_gasto , 'descripcion':descripcion, 'empleado':empleado,'monto_gasto':monto_gasto,'archivo':archivo}
-            
-    
-    sql = """
-                INSERT INTO rendicion
-                (fecha_rendicion,tipo_gasto,descripcion,empleado,monto_gasto,archivo)
-                VALUES(:fecha_rendicion, :tipo_gasto, :descripcion, :empleado, :monto_gasto, :archivo);
-
-                """
-    
-    with engine.connect() as conn:
-        conn.execute(text(sql),values)
-        conn.commit()
-
-    return jsonify('success')
 
 @main.route('/Inventario')
 def Inventario():
