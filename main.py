@@ -1216,8 +1216,31 @@ def ingreso_servicio():
 
 @main.route('/ingreso_gasto')
 def ingreso_gasto():
-    return render_template('ingreso_gasto.html')
+
+    with engine.connect() as conn:
+        sql = """select * from users"""
+        users = conn.execute(text(sql)).fetchall()
+    return render_template('ingreso_gasto.html', users=users)
+
 
 @main.route('/edita_gasto')
 def edita_gasto():
     return render_template('edita_gasto.html')
+
+@main.route('/update_servicio',methods=['POST','GET'])
+def update_servicio():
+    if request.method == 'POST':
+        id_cliente = request.form.get('id_cliente')
+        rut = request.form.get('rut')
+        dv = request.form.get('dv')
+        nombre = request.form.get('nombre')
+
+        
+        sql = 'update clientes SET rut ="'+rut+'", dv ="'+dv+'" , nombre="'+nombre+'" WHERE id = '+id_cliente
+
+        current_app.logger.debug(sql)
+        with engine.connect() as conn:
+            conn.execute(text(sql))
+            conn.commit()
+
+        return jsonify('success')
