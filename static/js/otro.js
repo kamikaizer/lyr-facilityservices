@@ -285,6 +285,42 @@ function delete_cliente(id){
   }
 }
 
+function delete_rendicion(id){
+  if(confirm('¿Seguro que desea eliminar la rendicion de gastos N° '+id+'?')){
+    event.preventDefault();
+  $.ajax({
+    url: "/delete_rendicion?id="+id,
+    method: "POST",
+    success: function (data) {
+      if (data == 'success') {
+        alert("Rendicion eliminada");
+        $("#rendicion").load(window.location.href + " #rendicion");
+
+      }
+    }
+  });
+  }
+}
+
+function delete_inventario(id){
+  if(confirm('¿Seguro que desea eliminar el elemento N° '+id+'?')){
+    event.preventDefault();
+  $.ajax({
+    url: "/delete_inventario?id="+id,
+    method: "POST",
+    success: function (data) {
+      if (data == 'success') {
+        alert("Elemento eliminado");
+        $("#inventario").load(window.location.href + " #inventario");
+
+      }
+    }
+  });
+  }
+}
+
+
+
 $('#agrega_gastos').on("submit", function (event) {
   event.preventDefault();
   $.ajax({
@@ -316,7 +352,7 @@ $('#agrega_inventario').on("submit", function (event) {
     success: function (data) {
       if (data == 'success') {
         alert("Item agregado");
-        window.location.href = 'Inventario'
+        window.location.href = 'inventario'
       }
     }
   });
@@ -336,27 +372,6 @@ $('#datos_servicios').on("submit", function (event) {
       if (data == 'success') {
         alert("Servicio agregado");
         window.location.href = 'gastos_clientes'
-      }
-    }
-  });
-
-});
-
-$('#update_servicios').on("submit", function (event) {
-    
-  event.preventDefault();
-  $.ajax({
-    url: "/update_servicios",
-    method: "POST",
-    data: $('#update_servicios').serialize(),
-    beforeSend: function () {
-      $('#update_servicios').val("Inserting");
-    },
-    success: function (data) {
-      if (data == 'success') {
-        alert("Servicio actualizado");
-        window.close()
-        $("#gastos_clientes").load(window.location.href + " #gastos_clientes");
       }
     }
   });

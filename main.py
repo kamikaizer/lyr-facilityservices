@@ -1108,8 +1108,8 @@ def agrega_gastos():
 
     return jsonify('success')
 
-@main.route('/Inventario')
-def Inventario():
+@main.route('/inventario')
+def inventario():
 
     with engine.connect() as conn:
         sql = """select * from users"""
@@ -1244,3 +1244,29 @@ def update_servicio():
             conn.commit()
 
         return jsonify('success')
+
+
+@main.route('/delete_rendicion',methods=['POST','GET'])
+def delete_rendicion():
+
+    id_cotizacion = request.args.get('id')
+    sql = """delete from rendicion where id ="""+id_cotizacion
+    
+    with engine.connect() as conn:
+        conn.execute(text(sql))
+        conn.commit()
+
+    return jsonify('success')
+
+@main.route('/delete_inventario',methods=['POST','GET'])
+def delete_inventario():
+
+    id_cotizacion = request.args.get('id')
+    sql = """delete from inventario where id ="""+id_cotizacion
+    
+    with engine.connect() as conn:
+        conn.execute(text(sql))
+        conn.commit()
+
+    return jsonify('success')
+

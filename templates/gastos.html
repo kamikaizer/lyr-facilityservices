@@ -23,7 +23,7 @@
   <div class="card-body">
 
       <div class="card-body">
-          <table class="table">
+          <table id="rendicion" name="rendicion"class="table">
               <thead>
                 <tr>
                   <th>Fecha</th>
@@ -44,7 +44,7 @@
                   <th scope="row">{{dato.empleado}}</th>
                   <th scope="row">{{dato.monto_gasto}}</th>
                   <th style="width: 50px;"><a href="edita_gasto?id={{dato.id}}"  class="btn btn-info w-100 " > <span class="iconify" data-icon="bx:edit" style="color: black; text-decoration: none; " data-width=" 26" data-height="26"></span>&nbsp; Editar</a></th>
-                  <th style="width: 50px;"><button onClick="delete_cotizacion()"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></th>
+                  <th style="width: 50px;"><button onClick="delete_rendicion({{dato.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></th>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -53,7 +53,7 @@
   </div>
 </div>
 
-
+<script src="{{ url_for('static', filename='js/otro.js')}}"></script>
     
 
 
