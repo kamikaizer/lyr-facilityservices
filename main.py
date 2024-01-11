@@ -1241,3 +1241,15 @@ def update_servicio():
             conn.commit()
 
         return jsonify('success')
+
+@main.route('/por_cobrar')
+def por_cobrar():
+
+    with engine.connect() as conn:
+        sql = """select gas.tipo, gas.proveedor, gas.oc, gas.cotizacion, gas.trabajo, gas.area, gas.fecha_servicio, gas.material, gas.cantidad, gas.costo_unitario, gas.total,gas.costo_lyr from servicios gas"""
+        gastosclientes = conn.execute(text(sql)).fetchall()
+
+    with engine.connect() as conn:
+        sql1 = """select cot.id,cot.fecha,cot.detalle,cot.estado,cot.rut_empresa,cot.solicitante,cot.orden_compra,cot.factura,cli.rut ,cli.dv,cli.nombre  from cotizacion  cot inner join clientes cli on cli.rut=cot.rut_empresa  where cot.estado = 1 and factura is null"""
+        datos = conn.execute(text(sql1)).fetchall()
+    return render_template('por_cobrar.html', gastosclientes=gastosclientes,datos=datos)
