@@ -37,7 +37,24 @@
 
     <div class="card-body">
       <form class="row g-3" id="edita_servicio" method="POST">
-      
+        <div class="col-md-6">
+          <label for="fecha_gasto" class="form-label">Fecha</label>
+          <input type="date" class="form-control" id="fecha_rendicion" name="fecha_rendicion">
+        </div>
+        <div class="col-md-6">
+          <label for="tipo_gasto" class="form-label">Tipo de Gasto</label>
+          <input type="text" class="form-control" id="tipo_gasto" name="tipo_gasto">
+        </div>
+        <div class="col-12">
+          <label for="descripcion_gasto" class="form-label">Descripción</label>
+          <input type="text" class="form-control" id="descripcion" name="descripcion">
+        </div>
+          </select>
+        </div>
+        <div class="col-md-12">
+          <label for="monto_gasto" class="form-label">Monto</label>
+          <input type="number" class="form-control" id="monto_gasto" name="monto_gasto">
+        </div>
         <div class="col-md-12">
             <label for="agregar_comprobante" class="form-label">Comprobante</label>
             <input type="file" id="archivo" name="archivo">                    
