@@ -36,39 +36,39 @@
     </div> -->
 
     <div class="card-body">
-      <form class="row g-3" id="agrega_gastos" method="POST">
+      <form class="row g-3" id="update_gastos" method="POST">
         <div class="col-md-6">
           <label for="fecha_gasto" class="form-label">Fecha</label>
-          <input type="date" class="form-control" id="fecha_rendicion" name="fecha_rendicion">
+          <input type="date" class="form-control" id="fecha_rendicion" name="fecha_rendicion" value="{{datos[0].fecha_rendicion}}">
         </div>
         <div class="col-md-6">
           <label for="tipo_gasto" class="form-label">Tipo de Gasto</label>
-          <input type="text" class="form-control" id="tipo_gasto" name="tipo_gasto">
+          <input type="text" class="form-control" id="tipo_gasto" name="tipo_gasto" value="{{datos[0].tipo_gasto}}">
         </div>
         <div class="col-12">
           <label for="descripcion_gasto" class="form-label">Descripción</label>
-          <input type="text" class="form-control" id="descripcion" name="descripcion">
+          <input type="text" class="form-control" id="descripcion" name="descripcion" value="{{datos[0].descripcion}}">
         </div>
         <div class="col-12">
           <label for="empleado_gasto" class="form-label">Empleado</label>
           <select id="empleado" name="empleado" class="form-control">
-            <option selected disabled>Seleccione</option>
+            <option disabled>Seleccione</option>
             {%for emp in users%}
-            
-            <option value="{{emp.id}}">{{emp.nombre}}</option>
+        
+            <option value="{{emp.id}}" {%if emp.id==datos[0].empleado %} selected {% endif %}>{{emp.nombre}}</option>
             
             {%endfor%}
           </select>
         </div>
         <div class="col-md-12">
           <label for="monto_gasto" class="form-label">Monto</label>
-          <input type="number" class="form-control" id="monto_gasto" name="monto_gasto">
+          <input type="number" class="form-control" id="monto_gasto" name="monto_gasto" value="{{datos[0].monto_gasto}}">
         </div>
         <div class="col-md-12">
             <label for="agregar_comprobante" class="form-label">Comprobante</label>
             <input type="file" id="archivo" name="archivo">                    
         </div>
-  
+        <input type="hidden" name="id" id="id" value="{{datos[0].id}}">
         <div class="col-12">
           <button type="submit" class="btn btn-primary">Guardar</button>
         </div>
@@ -83,4 +83,4 @@
 </body>
 
 </html>
-<script src="{{ url_for('static', filename='js/rrhh.js')}}"></script>
+<script src="{{ url_for('static', filename='js/otro.js')}}"></script>

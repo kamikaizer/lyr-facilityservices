@@ -916,6 +916,30 @@ def update_materiales():
             conn.commit()
 
         return jsonify('success')
+
+@main.route('/update_gastos',methods=['POST','GET'])
+def update_gastos():
+    if request.method == 'POST':
+        fecha_rendicion = str(request.form.get('fecha_rendicion'))
+        tipo_gasto = str(request.form.get('tipo_gasto'))
+        descripcion = str(request.form.get('descripcion'))
+        empleado = str(request.form.get('empleado'))
+        monto_gasto = str(request.form.get('monto_gasto'))
+        file = request.files.get('archivo', None)
+        id_rendicion = str(request.form.get('id'))
+    
+    # Sube el archivo a Google Drive
+        upload_to_drive(file)
+    # Guarda el nombre del archivo en la base de datos
+    
+        sql = 'update rendicion SET fecha_rendicion ="'+fecha_rendicion+'", tipo_gasto ="'+tipo_gasto+'" , descripcion="'+descripcion+'" , empleado="'+empleado+'" , monto_gasto="'+monto_gasto+'" , archivo="'+file.filename+'" WHERE id = '+id_rendicion
+
+        current_app.logger.debug(sql)
+        with engine.connect() as conn:
+            conn.execute(text(sql))
+            conn.commit()
+
+        return jsonify('success')       
     
 @main.route('/update_users',methods=['POST','GET'])
 def update_users():
@@ -1066,7 +1090,7 @@ def gastos():
 
     with engine.connect() as conn:
         sql = """select * from users"""
-        sql1 = """select ren.id, ren.fecha_rendicion, ren.tipo_gasto, ren.descripcion, ren.empleado, ren.monto_gasto from rendicion ren"""
+        sql1 = """select ren.id, ren.fecha_rendicion, ren.tipo_gasto, ren.descripcion, ren.empleado, u.nombre , u.apellido , ren.monto_gasto from rendicion ren left join users u on u.id = ren.id"""
         users = conn.execute(text(sql)).fetchall()
         gastos = conn.execute(text(sql1)).fetchall()
     return render_template('gastos.html', users=users, gastos=gastos)
@@ -1220,9 +1244,18 @@ def ingreso_gasto():
     return render_template('ingreso_gasto.html', users=users)
 
 
-@main.route('/edita_gasto')
+@main.route('/edita_gasto', methods=['POST','GET'])
 def edita_gasto():
-    return render_template('edita_gasto.html')
+
+    id_gasto=request.args.get('id')
+
+
+    with engine.connect() as conn:
+        sql = """select * from users"""
+        sql1 = "select ren.id, ren.fecha_rendicion, ren.tipo_gasto, ren.descripcion, ren.empleado, u.nombre , u.id as id_empleado , u.apellido , ren.monto_gasto from rendicion ren left join users u on u.id = ren.empleado where ren.id="+id_gasto
+        users = conn.execute(text(sql)).fetchall()
+        gastos = conn.execute(text(sql1)).fetchall()
+    return render_template('edita_gasto.html', datos = gastos, users = users)
 
 @main.route('/update_servicio',methods=['POST','GET'])
 def update_servicio():
