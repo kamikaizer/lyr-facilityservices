@@ -2,22 +2,29 @@
 {% block content %}
 
 <div class="card border-white">
-  <div class="card-title">
-    <a class="btn btn-primary" href="ingreso_gasto" role="button">Ingreso de Gasto</a>
-  </div>
-  <div class="container-fluid">
-    <form class="d-flex justify-content-end" role="search">
-      <div class="row g-3">
-        <div class="row g-3">
-        <div class="col-sm-7">
-          <input type="text"  class="form-control" id="inputBusqueda" placeholder="Buscar..." oninput="buscarEnTabla()">
-        </div>
-        <div class="col-sm">
-          <button class="btn btn-outline-primary" type="submit">Buscar</button>
-        </div>
-      </div>
+  <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+    <div class="bg-gradient-warning shadow-warning border-radius-lg pt-4 pb-3">
+      <h6 class="text-white text-capitalize ps-3">Rendición de Gatos</h6>
     </div>
+  </div>
 
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="card-title">
+          <a class="btn btn-primary" href="ingreso_gasto" role="button">Agregar</a>
+      </div>
+      <div class="container-fluid">
+          <form class="d-flex justify-content-end" role="search">
+              <div class="row g-3">
+                  <div class="col-sm-7">
+                      <input type="text" class="form-control" id="inputBusqueda" placeholder="Buscar..."
+                          oninput="buscarEnTabla()">
+                  </div>
+                  <div class="col-sm">
+                      <button class="btn btn-outline-primary" type="submit">Buscar</button>
+                  </div>
+              </div>
+          </form>
+      </div>
     </form>
   </div>
   <div class="card-body">
@@ -52,6 +59,38 @@
   </div>    
   </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+<script>
+  function buscarEnTabla() {
+      var input, filter, table, tr, td, i, j, txtValue;
+      input = document.getElementById("inputBusqueda");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("rendicion");
+      tr = table.getElementsByTagName("tr");
+
+      for (i = 1; i < tr.length; i++) {
+          var found = false;
+        for (j = 1; j < tr[i].cells.length; j++) {
+              td = tr[i].cells[j];
+              if (td) {
+                  txtValue = td.textContent || td.innerText;
+                  if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                      found = true;
+                      break;
+                  }
+              }
+          }
+          
+          if (found) {
+              tr[i].style.display = "";
+          } else {
+              tr[i].style.display = "none";
+          }
+      }
+  }
+</script>
 
 <script src="{{ url_for('static', filename='js/otro.js')}}"></script>
 
