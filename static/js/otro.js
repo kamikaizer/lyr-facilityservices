@@ -321,22 +321,22 @@ function delete_inventario(id){
 
 
 
-$('#agrega_gastos').on("submit", function (event) {
-  event.preventDefault();
-  $.ajax({
-    url: "/agrega_gastos",
-    method: "POST",
-    data: $('#agrega_gastos').serialize(),
-    beforeSend: function () {
-      $('#agrega_gastos').val("Inserting");
-    },
-    success: function (data) {
-      if (data == 'success') {
-        alert("Gasto agregado");
-        window.location.href = 'gastos'
-      }
-    }
-  });
+// $('#agrega_gastos').on("submit", function (event) {
+//   event.preventDefault();
+//   $.ajax({
+//     url: "/agrega_gastos",
+//     method: "POST",
+//     data: $('#agrega_gastos').serialize(),
+//     beforeSend: function () {
+//       $('#agrega_gastos').val("Inserting");
+//     },
+//     success: function (data) {
+//       if (data == 'success') {
+//         alert("Gasto agregado");
+//         window.location.href = 'gastos'
+//       }
+//     }
+//   });
 
 // });
 

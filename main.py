@@ -1278,3 +1278,7 @@ def por_cobrar():
         sql1 = """select cot.id,cot.fecha,cot.detalle,cot.estado,cot.rut_empresa,cot.solicitante,cot.orden_compra,cot.factura,cli.rut ,cli.dv,cli.nombre  from cotizacion  cot inner join clientes cli on cli.rut=cot.rut_empresa  where cot.estado = 1 and factura is null"""
         datos = conn.execute(text(sql1)).fetchall()
     return render_template('por_cobrar.html', gastosclientes=gastosclientes,datos=datos)
+
+@main.route('/agrega_inventarios')
+def agrega_inventarios():
+    return render_template('agrega_inventarios.html')

@@ -37,7 +37,8 @@
               </div>
               <div class="card-body px-0 pb-2">
                 <div class="table-responsive p-0">
-                  <table class="table align-items-center mb-0" id="tabla_cotizaciones">
+                    <table id="tabla_cotizaciones" name="tabla_cotizaciones" class="table align-items-center mb-0">
+
                     <thead>
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Numero</th>
@@ -76,27 +77,35 @@
     
       </div>
 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
       <script>
         function buscarEnTabla() {
-          var inputBusqueda = document.getElementById("inputBusqueda").value.toUpperCase();
-          var tabla = document.getElementById("tabla_cotizaciones");
-          var filas = tabla.getElementsByTagName("tr");
+            var input, filter, table, tr, td, i, j, txtValue;
+            input = document.getElementById("inputBusqueda");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("tabla_cotizaciones");
+            tr = table.getElementsByTagName("tr");
       
-          for (var i = 0; i < filas.length; i++) {
-            var celdas = filas[i].getElementsByTagName("td");
-            var mostrarFila = false;
-      
-            for (var j = 0; j < celdas.length; j++) {
-              var textoCelda = celdas[j].innerText || celdas[j].textContent;
-      
-              if (textoCelda.toUpperCase().indexOf(inputBusqueda) > -1) {
-                mostrarFila = true;
-                break;
-              }
+            for (i = 1; i < tr.length; i++) {
+                var found = false;
+              for (j = 1; j < tr[i].cells.length; j++) {
+                    td = tr[i].cells[j];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                
+                if (found) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
             }
-      
-            filas[i].style.display = mostrarFila ? "" : "none";
-          }
         }
       </script>
 
