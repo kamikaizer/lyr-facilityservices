@@ -6,12 +6,12 @@
             <h6 class="text-white text-capitalize ps-3">Inventario</h6>
         </div>
     </div>
-    <div class="card-title">
-        <a class="btn btn-primary" href="agrega_inventarios" role="button">Agregar</a>
-    </div>
-    <div class="container-fluid">
-        <form class="d-flex justify-content-end" role="search">
-            <div class="row g-3">
+    <div class="d-flex align-items-center justify-content-between">
+        <div class="card-title">
+            <a class="btn btn-primary" href="agrega_inventarios" role="button">Agregar</a>
+        </div>
+        <div class="container-fluid">
+            <form class="d-flex justify-content-end" role="search">
                 <div class="row g-3">
                     <div class="col-sm-7">
                         <input type="text" class="form-control" id="inputBusqueda" placeholder="Buscar..."
@@ -21,9 +21,10 @@
                         <button class="btn btn-outline-primary" type="submit">Buscar</button>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
+    
 
     <div class="card-body">
         <table id="inventario" name="inventario" class="table">
