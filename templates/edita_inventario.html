@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="card border-white">
+  
+    <div class="card border-white">
+        <div class="card-body">
+
+
+            <form class="row g-3" id="agrega_inventario" method="POST">
+                <div class="col-md-6">
+                  <label for="fecha_gasto" class="form-label">Nombre</label>
+                  <input type="text" class="form-control" id="nombre" name="nombre">
+                </div>
+                <div class="col-6">
+                  <label for="descripcion_gasto" class="form-label">Descripción</label>
+                  <input type="text" class="form-control" id="descripcion" name="descripcion">
+                </div>
+                <div class="col-md-6">
+                  <label for="tipo_gasto" class="form-label">Valor unitario</label>
+                  <input type="number" class="form-control" id="valor_unitario" name="valor_unitario">
+                </div>
+                <div class="col-md-6">
+                  <label for="tipo_gasto" class="form-label">Cantidad</label>
+                  <input type="number" class="form-control" id="cantidad" name="cantidad">
+                </div>
+                <div class="col-md-12">
+                    <label for="agregar_comprobante" class="form-label">Boleta</label>
+                    <input type="file" id="archivo" name="archivo">                    
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+              </form>
+      </div>
+    </div> 
+
+
+  </div> 
+
+
+
+  <script src="{{ url_for('static', filename='js/otro.js')}}"></script>
+{% endblock %}

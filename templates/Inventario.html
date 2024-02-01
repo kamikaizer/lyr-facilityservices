@@ -49,12 +49,8 @@
                     <td>{{dato.cantidad}}</td>
                     <td>${{("{:,}".format(dato.cantidad * dato.valor_unitario |float)).replace('.0','').replace(',','.')}}</td>
                     <td>
-                        <td style="width: 50px;"><a href="/edita_inventario" class="btn btn-info w-100 "> <span
-                                    class="iconify" data-icon="bx:edit" style="color: black; text-decoration: none; "
-                                    data-width=" 26" data-height="26"></span>&nbsp; Editar</a></td>
-                        <td style="width: 50px;"><button onClick="delete_inventario({{dato.id}})"
-                                class="btn btn-danger w-100 "> <span class="iconify" style="color: black; "
-                                    data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></td>
+                        <td style="width: 50px;"><button class="btn btn-info w-100"><a href="javascript:ediciones('edita_inventario?id={{dato.id}}')"  style="color: black; text-decoration: none;">Editar</a></button></td>
+                        <td style="width: 50px;"><button onClick="delete_inventario({{dato.id}})" class="btn btn-danger w-100 "> <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></td>
                     </td>
                 </tr>
                 {% endfor %}

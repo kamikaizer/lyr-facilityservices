@@ -1315,3 +1315,7 @@ def por_cobrar():
 @main.route('/agrega_inventarios')
 def agrega_inventarios():
     return render_template('agrega_inventarios.html')
+
+@main.route('/edita_inventario')
+def edita_inventario():
+    return render_template('edita_inventario.html')
