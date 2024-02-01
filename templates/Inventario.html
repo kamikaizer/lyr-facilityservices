@@ -47,7 +47,7 @@
                     <td>{{dato.descripcion}}</td>
                     <td>{{dato.valor_unitario}}</td>
                     <td>{{dato.cantidad}}</td>
-                    <td>{{dato.valor_total}}</td>
+                    <td>${{("{:,}".format(dato.cantidad * dato.valor_unitario |float)).replace('.0','').replace(',','.')}}</td>
                     <td>
                         <td style="width: 50px;"><button class="btn btn-info w-100"><a href="javascript:ediciones('edita_inventario?id={{dato.id}}')"  style="color: black; text-decoration: none;">Editar</a></button></td>
                         <td style="width: 50px;"><button onClick="delete_inventario({{dato.id}})" class="btn btn-danger w-100 "> <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></td>
@@ -91,7 +91,7 @@
 
         for (i = 1; i < tr.length; i++) {
             var found = false;
-          for (j = 1; j < tr[i].cells.length; j++) {
+          for (j = 0; j < tr[i].cells.length; j++) {
                 td = tr[i].cells[j];
                 if (td) {
                     txtValue = td.textContent || td.innerText;
