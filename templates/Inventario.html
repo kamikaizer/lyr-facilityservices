@@ -111,5 +111,18 @@
     }
 </script>
 
+<script>
+    function ediciones(URL) {
+      var ventana = window.open(URL, "ventana1", "width=850,height=650,scrollbars=auto");
+      // Define una función que se ejecutará cuando la ventana se cierre
+      ventana.onunload = function() {
+        // Carga los elementos en la página emisora cuando la ventana se cierre
+        $("#inventario").load(window.location.href + " #inventario");
+      };
+    }
+    </script>
+
 <script src="{{ url_for('static', filename='js/otro.js')}}"></script>
 {% endblock %}
+
+

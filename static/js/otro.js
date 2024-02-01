@@ -202,6 +202,8 @@ $(document).ready(function () {
 
   });
 
+
+
   $('#update_cliente').on("submit", function (event) {
     
     event.preventDefault();
@@ -428,6 +430,35 @@ $('#datos_servicios').on("submit", function (event) {
         alert("Servicio agregado");
         window.location.href = 'gastos_clientes'
       }
+    }
+  });
+
+});
+
+$('#update_inventario').on("submit", function (event) {
+
+  event.preventDefault();
+
+      var formData = new FormData(this); // Usa FormData para manejar los datos del formulario y el archivo
+
+  $.ajax({
+      url: "/update_inventario",
+      method: "POST",
+      data: formData,
+      processData: false,  // Indica a jQuery que no procese los datos
+      contentType: false,  // Indica a jQuery que no establezca el tipo de contenido
+      beforeSend: function() {
+          $('#update_inventario').val("Inserting");
+      },
+      success: function(data) {
+          if (data == 'success') {
+            alert("Item actualizado");
+            window.close()
+            $("#inventario").load(window.location.href + " #inventario");
+          }
+          else{
+            alert("Fail");
+          }
     }
   });
 

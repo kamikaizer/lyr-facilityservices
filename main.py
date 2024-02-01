@@ -1318,4 +1318,31 @@ def agrega_inventarios():
 
 @main.route('/edita_inventario')
 def edita_inventario():
-    return render_template('edita_inventario.html')
+
+    id_inventario=request.args.get('id')
+
+
+    with engine.connect() as conn:
+        sql = "select * from inventario where id= "+ id_inventario
+        inventario = conn.execute(text(sql)).fetchall()
+    return render_template('edita_inventario.html', inventario = inventario)
+
+
+@main.route('/update_inventario',methods=['POST','GET'])
+def update_inventario():
+    if request.method == 'POST':
+        id_inventario = request.form.get('id_inventario')
+        nombre = request.form.get('nombre')
+        descripcion = request.form.get('descripcion')
+        valor_unitario = request.form.get('valor_unitario')
+        cantidad = request.form.get('cantidad')
+
+        
+        sql = 'update inventario SET nombre ="'+ nombre +'", descripcion ="'+ descripcion +'" , valor_unitario="'+valor_unitario+'" , cantidad="'+cantidad+'" WHERE id = '+ id_inventario
+
+        current_app.logger.debug(sql)
+        with engine.connect() as conn:
+            conn.execute(text(sql))
+            conn.commit()
+
+        return jsonify('success')
