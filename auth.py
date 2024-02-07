@@ -41,6 +41,7 @@ def insert_register():
         correo = request.form['correo']
         telefono = request.form['telefono']
         contrato = request.form['contrato']
+        fecha_nacimiento = request.form['fecha_nacimiento']
         current_app.logger.debug(username)
         current_app.logger.debug(password)
         contraseña=hashlib.sha256(password.encode()).hexdigest()
@@ -55,10 +56,10 @@ def insert_register():
         if error is None:
             try:
                 current_app.logger.debug('entre')
-                values = { 'username':username, 'contraseña':contraseña,'rol':rol,'nombre':nombre,'apellido':apellido,'correo':correo,'telefono':telefono,'contrato':contrato}
+                values = { 'username':username, 'contraseña':contraseña,'rol':rol,'nombre':nombre,'apellido':apellido,'correo':correo,'telefono':telefono,'contrato':contrato , 'fecha_nacimiento':fecha_nacimiento}
                 sql = """
-                INSERT INTO users(username, password,role,nombre,apellido,correo,telefono,fecha_contrato)
-                  VALUES(:username, :contraseña, :rol, :nombre, :apellido, :correo, :telefono, :contrato);
+                INSERT INTO users(username, password,role,nombre,apellido,correo,telefono,fecha_contrato,fecha_nacimiento)
+                  VALUES(:username, :contraseña, :rol, :nombre, :apellido, :correo, :telefono, :contrato, :fecha_nacimiento);
                   """
     
                 with engine.connect() as conn:
