@@ -13,6 +13,10 @@ $(document).ready(function () {
           alert("Usuario Creado");
           $("#div_creacion_usuario").load(window.location.href + " #div_creacion_usuario");
         }
+        if (data == 'fail'){
+          alert("El Usuario no a podido ser creado, verifique los datos");
+          $("#div_creacion_usuario").load(window.location.href + " #div_creacion_usuario");
+        }
       }
     });
 

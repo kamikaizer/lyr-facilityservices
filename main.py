@@ -282,28 +282,43 @@ def all_files():
             SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 
     service = build('drive', 'v3', credentials=credentials)
-    # Listar todos los archivos en Google Drive
+
     results = service.files().list(fields='files(id, name, mimeType)').execute()
     items = results.get('files', [])
 
+    sql = text("SELECT doc.nombre as name, user, users.nombre FROM documentos doc INNER JOIN users ON users.id=doc.user")
+
+    archivo_empleado_map = {}
+    with engine.connect() as conn:
+        result = conn.execute(sql)
+        for row in result:
+            current_app.logger.debug(row)
+            archivo_empleado_map[row.name] = row.nombre
+
+    def callback(request_id, response, exception):
+        if exception:
+            current_app.logger.error(f'Error al cambiar permisos para el archivo {request_id}: {exception}')
+        else:
+            current_app.logger.info(f'Permiso creado para el archivo {request_id}')
+
+    batch = service.new_batch_http_request(callback=callback)
+
     for item in items:
         file_id = item['id']
-        try:
-            # Crear un nuevo permiso público de lectura
-            permission = {
-                'type': 'anyone',
-                'role': 'reader',
-            }
-            service.permissions().create(
-                fileId=file_id,
-                body=permission,
-                fields='id'
-            ).execute()
-        except Exception as error:
-            # Si ocurre un error al cambiar los permisos, lo imprimimos
-            print(f'Error al cambiar permisos para el archivo {file_id}: {error}')
+        permission = {
+            'type': 'anyone',
+            'role': 'reader',
+        }
+        batch.add(service.permissions().create(
+            fileId=file_id,
+            body=permission,
+            fields='id'
+        ))
 
-    # Pasar los datos de los archivos a la plantilla HTML
+        nombre_archivo = item['name']
+        item['empleado_asignado'] = archivo_empleado_map.get(nombre_archivo, 'No Asignado')
+    batch.execute()
+
     return render_template('lista_archivos.html', items=items)
 
 
@@ -863,6 +878,7 @@ def aprobar_vacaciones():
 
     return jsonify('success')
 
+
 @main.route('/delete_cliente',methods=['POST','GET'])
 def delete_cliente():
 
@@ -927,16 +943,26 @@ def update_gastos():
         monto_gasto = str(request.form.get('monto_gasto'))
         file = request.files.get('archivo', None)
         id_rendicion = str(request.form.get('id'))
-    
+        fecha_actual = datetime.now().date()
     # Sube el archivo a Google Drive
         upload_to_drive(file)
     # Guarda el nombre del archivo en la base de datos
     
         sql = 'update rendicion SET fecha_rendicion ="'+fecha_rendicion+'", tipo_gasto ="'+tipo_gasto+'" , descripcion="'+descripcion+'" , empleado="'+empleado+'" , monto_gasto="'+monto_gasto+'" , archivo="'+file.filename+'" WHERE id = '+id_rendicion
 
+        values_files = { 'nombre':file.filename, 'tipo_documento':4,'user':empleado,'fecha':str(fecha_actual)}
+
+        sql_files = """
+                INSERT INTO documentos
+                (nombre,tipo_documento,user,fecha)
+                VALUES(:nombre,:tipo_documento,:user,:fecha);
+
+                """
         current_app.logger.debug(sql)
         with engine.connect() as conn:
             conn.execute(text(sql))
+            conn.commit()
+            conn.execute(text(sql_files,values_files))
             conn.commit()
 
         return jsonify('success')       
@@ -1103,6 +1129,7 @@ def agrega_gastos():
     empleado = str(request.form.get('empleado'))
     monto_gasto = str(request.form.get('monto_gasto'))
     file = request.files.get('archivo', None)
+    fecha_actual = datetime.now().date()
     try:
     
         # Sube el archivo a Google Drive
@@ -1118,9 +1145,18 @@ def agrega_gastos():
                     VALUES(:fecha_rendicion, :tipo_gasto, :descripcion, :empleado, :monto_gasto, :archivo);
 
                     """
-        
+        values_files = { 'nombre':file.filename, 'tipo_documento':4,'user':empleado,'fecha':str(fecha_actual)}
+
+        sql_files = """
+                INSERT INTO documentos
+                (nombre,tipo_documento,user,fecha)
+                VALUES(:nombre,:tipo_documento,:user,:fecha);
+
+                """
         with engine.connect() as conn:
             conn.execute(text(sql),values)
+            conn.commit()
+            conn.execute(text(sql_files),values_files)
             conn.commit()
         return jsonify('success')
     except:
@@ -1145,6 +1181,7 @@ def agrega_inventario():
     descripcion = str(request.form.get('descripcion'))
     valor_unitario = str(request.form.get('valor_unitario'))
     cantidad = str(request.form.get('cantidad'))
+    fecha_actual = datetime.now().date()
     try:
         archivo = str(request.form.get('archivo'))
     except:
@@ -1167,8 +1204,18 @@ def agrega_inventario():
 
                 """
     
+    values_files = { 'nombre':archivo, 'tipo_documento':5,'fecha':str(fecha_actual)}
+
+    sql_files = """
+            INSERT INTO documentos
+            (nombre,tipo_documento,fecha)
+            VALUES(:nombre,:tipo_documento,:fecha);
+
+            """
     with engine.connect() as conn:
         conn.execute(text(sql),values)
+        conn.commit()
+        conn.execute(text(sql_files),values_files)
         conn.commit()
 
     return jsonify('success')

@@ -67,7 +67,7 @@ def insert_register():
                 return jsonify('success')
             except:
                 error = f"User {username} is already registered."
-                return error
+                return jsonify('fail')
         else:
             return jsonify('fail')
 
