@@ -29,24 +29,26 @@
           <br>
           <form id="creacion_usuario" name="creacion_usuario" method="POST">
             <div class="row" id="form_contrato">
-
               <div class="col">
-                <input type="text" class="form-control" name="username" id="username" placeholder="Usuario"
-                  aria-label="Nombre de usuario" required>
-              </div>
-              <div class="col">
-                <input type="text" class="form-control" name="name" id="name" placeholder="Nombre" aria-label="Nombre"
+                <label for="formGroupExampleInput" class="form-label">Usuario</label>
+                <input type="text" class="form-control" name="username" id="username" aria-label="Nombre de usuario"
                   required>
               </div>
               <div class="col">
-                <input type="text" class="form-control" placeholder="Apellido" name="apellido" id="apellido"
-                  aria-label="Apellido" required>
+                <label for="formGroupExampleInput" class="form-label">Nombre</label>
+                <input type="text" class="form-control" name="name" id="name" aria-label="Nombre" required>
               </div>
               <div class="col">
-                <input type="number" class="form-control" placeholder="rut" name="rut" id="rut"
-                  aria-label="rut" required>
+                <label for="formGroupExampleInput" class="form-label">Apellido</label>
+                <input type="text" class="form-control" name="apellido" id="apellido" aria-label="Apellido" required>
               </div>
               <div class="col">
+                <label for="formGroupExampleInput" class="form-label">Rut</label>
+                <input type="text" class="form-control" name="rut" id="rut" aria-label="rut" required>
+              </div>
+              <div class="col">
+                <label for="formGroupExampleInput" class="form-label">Cargo</label>
+
                 <select class="form-select" aria-label="Default select example" name="rol" id="rol">
                   <option selected>Cargo</option>
                   <option value="1">One</option>
@@ -55,28 +57,32 @@
                 </select>
               </div>
               <div class="col">
-                <input type="text" class="form-control" placeholder="Mail" name="correo" id="correo" aria-label="Mail"
-                  required>
+                <label for="formGroupExampleInput" class="form-label">Mail</label>
+                <input type="text" class="form-control" name="correo" id="correo" aria-label="Mail" required>
               </div>
               <div class="col">
-                <input type="number" class="form-control" placeholder="Teléfono" name="telefono" id="telefono"
-                  aria-label="Teléfono" required>
+                <label for="formGroupExampleInput" class="form-label">Teléfono</label>
+                <input type="number" class="form-control" name="telefono" id="telefono" aria-label="Teléfono" required>
               </div>
               <div class="col">
-                <input type="date" class="form-control" name="contrato" id="contrato" placeholder="Fecha de contrato"
+                <label for="formGroupExampleInput" class="form-label">Fecha de Contrato</label>
+                <input type="date" class="form-control" name="contrato" id="contrato" aria-label="First name" required>
+
+              </div>
+              <div class="col">
+                <label for="formGroupExampleInput" class="form-label">Fecha de Nacimiento</label>
+                <input type="date" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento"
                   aria-label="First name" required>
 
               </div>
               <div class="col">
-                <input type="password" class="form-control" placeholder="Clave" name="clave" id="clave"
-                  aria-label="Apellido" required>
-
-
+                <label for="formGroupExampleInput" class="form-label">Clave</label>
+                <input type="password" class="form-control" name="clave" id="clave" aria-label="Apellido" required>
               </div>
               <div class="col">
+                <label for="formGroupExampleInput" class="form-label" style="margin-top: 16px;"> </label>
                 <button type="submit" class="btn bg-gradient-info w-100">Agregar</button>
               </div>
-
             </div>
           </form>
           <br>
@@ -85,10 +91,13 @@
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre / Nombre Usuario</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre / Nombre
+                      Usuario</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha Nac</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Cargo</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Contacto</th>
-                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha Contrato</th>
+                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha
+                      Contrato</th>
                     <th class="text-secondary opacity-7"></th>
                     <th class="text-secondary opacity-7"></th>
 
@@ -105,6 +114,7 @@
                         </div>
                       </div>
                     </td>
+                    <td>{{dato.fecha_nacimiento}}</td>
                     <td>
                       <p class="text-xs text-secondary mb-0">{{dato.role}}</p>
                     </td>
@@ -128,7 +138,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -152,10 +161,14 @@
                 <thead>
                   <tr>
                     <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Id</th>
-                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre</th>
-                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Fehca Inicio</th>
-                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Fecha Fin</th>
-                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Motivo</th>
+                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre
+                    </th>
+                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
+                      Fehca Inicio</th>
+                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
+                      Fecha Fin</th>
+                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Motivo
+                    </th>
                     <!-- <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Aprobador
                     </th> -->
                     <th class="text-secondary opacity-7"></th>
@@ -166,24 +179,24 @@
                   {% for dato in datos1 %}
                   <tr>
                     <td>
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{dato.id}}</h6>
-                        </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">{{dato.id}}</h6>
+                      </div>
                     </td>
                     <td>
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{dato.username}}</h6>
-                        </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">{{dato.username}}</h6>
+                      </div>
                     </td>
                     <td class="align-middle text-center">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{dato.fechainicio}}</h6>
-                        </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">{{dato.fechainicio}}</h6>
+                      </div>
                     </td>
                     <td class="align-middle text-center">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{dato.fechafin}}</h6>
-                        </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">{{dato.fechafin}}</h6>
+                      </div>
                     </td>
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">{{dato.detalle}}</span>
@@ -191,10 +204,14 @@
                     <!-- <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">Aprobado por</span>
                     </td> -->
-                  <td ><button onClick="aprobar_vacaciones({{dato.id}})"  class="btn bg-gradient-info w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Aprobar</button></td>
+                    <td><button onClick="aprobar_vacaciones({{dato.id}})" class="btn bg-gradient-info w-100 "> <span
+                          class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp;
+                        Aprobar</button></td>
 
-                    
-                    <td ><button onClick="delete_vacaciones({{dato.id}})"  class="btn btn-danger w-100 " > <span class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp; Eliminar</button></td>
+
+                    <td><button onClick="delete_vacaciones({{dato.id}})" class="btn btn-danger w-100 "> <span
+                          class="iconify" style="color: black; " data-width=" 26" data-height="26"></span>&nbsp;
+                        Eliminar</button></td>
                   </tr>
                   {% endfor %}
                 </tbody>
@@ -229,7 +246,8 @@
                 <thead>
                   <tr>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombre</th>
-                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Tipo de documento</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Tipo de
+                      documento</th>
                     <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Adjuntar</th>
                     <th class=" text-secondary opacity-7"></th>
                   </tr>
@@ -237,32 +255,32 @@
                 <tbody>
                   <tr>
                     <form id="upload_docs" name="upload_docs" method="POST" enctype="multipart/form-data">
-                    <td>
-                      <select class="form-select" id="user" name="user" aria-label="Default select example">
-                        <option selected>Empleado</option>
-                        {% for user in datos%}
-                        <option value={{user.id}}>{{user.nombre}} {{user.apellido}}</option>
-                        {%endfor%}
-                      </select>
-                    </td>
-                    <td>
-                      <select class="form-select" id="doc" name="doc" aria-label="Default select example">
-                        <option selected>Tipo de documento</option>
-                        {% for doc in docs%}
-                        <option value={{doc.id}}>{{doc.nombre_documento}}</option>
-                        {%endfor%}
-                      </select>
-                    </td>
-                    <td>
-                      <label for="ejemplo_archivo_1">Adjuntar un archivo</label>
-                      <input type="file" id="ejemplo_archivo_1" name="ejemplo_archivo_1">
-                    </td>
-                    <td class="align-middle">
-                      <div class="col">
-                        <button type="submit" class="btn btn-primary">Agregar</button>
-                      </div>
-                    </td>
-                  </form>
+                      <td>
+                        <select class="form-select" id="user" name="user" aria-label="Default select example">
+                          <option selected>Empleado</option>
+                          {% for user in datos%}
+                          <option value={{user.id}}>{{user.nombre}} {{user.apellido}}</option>
+                          {%endfor%}
+                        </select>
+                      </td>
+                      <td>
+                        <select class="form-select" id="doc" name="doc" aria-label="Default select example">
+                          <option selected>Tipo de documento</option>
+                          {% for doc in docs%}
+                          <option value={{doc.id}}>{{doc.nombre_documento}}</option>
+                          {%endfor%}
+                        </select>
+                      </td>
+                      <td>
+                        <label for="ejemplo_archivo_1">Adjuntar un archivo</label>
+                        <input type="file" id="ejemplo_archivo_1" name="ejemplo_archivo_1">
+                      </td>
+                      <td class="align-middle">
+                        <div class="col">
+                          <button type="submit" class="btn btn-primary">Agregar</button>
+                        </div>
+                      </td>
+                    </form>
 
                   </tr>
                 </tbody>

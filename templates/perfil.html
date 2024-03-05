@@ -3,26 +3,37 @@
 
 {% block content %}
 
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>No hay mensajes flash.</p>
-        {% endif %}
-    {% endwith %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="list-group">
+      {% for message in messages %}
+        <li class="list-group-item alert alert-danger" role="alert">
+          {{ message }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+  {% endif %}
+{% endwith %}
+
 {% if error %}
-        <p>{{ error }}</p>
-    {% endif %}
+<div class="alert alert-danger d-flex align-items-center" role="alert">
+  <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+  <div>
+    {{ error }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+  </div>
+</div>
+{% endif %}
+
+
     <div class="row">
       <div class="col-xl-2">
 
         <div class="card border-white">
           <div class="card-title pb-0 px-3">
-            <h4 class="mb-0"><img src="{{ imagen_url }}" id="foto_perfil" alt="Imagen del Perfil"></h4>
+            <img src="{{ imagen_url }}" id="foto_perfil" alt="Imagen del Perfil">
           </div>
 
         </div>
