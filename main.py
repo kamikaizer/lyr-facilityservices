@@ -867,7 +867,7 @@ def aprobar_vacaciones():
 def delete_cliente():
 
     rut = request.args.get('id')
-    sql = """delete from clientes where rut ="""+rut
+    sql = """delete from clientes where id ="""+rut
     
     with engine.connect() as conn:
         conn.execute(text(sql))
