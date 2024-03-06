@@ -31,32 +31,31 @@
                 </div>
               </div>
               <br>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Nombre Archivo</th>
-                <th scope="col">Empleado</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-    
-        <tbody>
-            {% for item in items %}
-            {% set file_id = item.id %}
-            {% set file_name = item.name %} 
+              <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre Archivo</th>
+                        <th scope="col">Empleado</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+            
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td>
+                            <a href="https://drive.google.com/uc?export=download&id={{ item['id'] }}">{{ item['name'] }}</a>
+                        </td>
+                        <td>{{ item['empleado_asignado'] }}</td>
+                        <td>
+                            <button class="btn btn-danger" onclick="eliminarArchivo('{{ item['id'] }}', '{{ item['name'] }}')">Eliminar</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
 
-            <tr>
-                <td>
-                    <a href="https://drive.google.com/uc?export=download&id={{ file_id }}">{{ icon }} {{ file_name }}</a>
-                </td>
-                <td></td>
-                <td>
-                    <button class="btn btn-danger" onclick="eliminarArchivo('{{ file_id }}', '{{ file_name }}')">Eliminar</button>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
     
 </div>
 </div>
