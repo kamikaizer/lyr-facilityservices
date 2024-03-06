@@ -88,90 +88,90 @@ def upload_to_drive(file):
 
 
 
-def init_db():
-    db = get_db()
-    cursor = db.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS equipment (
-            id INT IDENTITY(1,1) PRIMARY KEY,
-            name NVARCHAR(50) NOT NULL,
-            user_id INT,
-            is_assigned BIT DEFAULT 0
-        )
-    ''')
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS users (
-            id INT IDENTITY(1,1) PRIMARY KEY,
-            name NVARCHAR(50) NOT NULL
-        )
-    ''')
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS change_requests (
-            id INT IDENTITY(1,1) PRIMARY KEY,
-            equipment_id INT NOT NULL,
-            user_id INT NOT NULL,
-            is_approved BIT DEFAULT 0
-        )
-    ''')
-    db.commit()
+# def init_db():
+#     db = get_db()
+#     cursor = db.cursor()
+#     cursor.execute('''
+#         CREATE TABLE IF NOT EXISTS equipment (
+#             id INT IDENTITY(1,1) PRIMARY KEY,
+#             name NVARCHAR(50) NOT NULL,
+#             user_id INT,
+#             is_assigned BIT DEFAULT 0
+#         )
+#     ''')
+#     cursor.execute('''
+#         CREATE TABLE IF NOT EXISTS users (
+#             id INT IDENTITY(1,1) PRIMARY KEY,
+#             name NVARCHAR(50) NOT NULL
+#         )
+#     ''')
+#     cursor.execute('''
+#         CREATE TABLE IF NOT EXISTS change_requests (
+#             id INT IDENTITY(1,1) PRIMARY KEY,
+#             equipment_id INT NOT NULL,
+#             user_id INT NOT NULL,
+#             is_approved BIT DEFAULT 0
+#         )
+#     ''')
+#     db.commit()
 
-def fetch_all_equipment():
-    db = get_db()
-    cursor = db.cursor()
-    cursor.execute('SELECT id, name, user_id, is_assigned FROM equipment')
-    rows = cursor.fetchall()
-    equipment = [Equipment(row[0], row[1], row[2], row[3]) for row in rows]
-    return equipment
+# def fetch_all_equipment():
+#     db = get_db()
+#     cursor = db.cursor()
+#     cursor.execute('SELECT id, name, user_id, is_assigned FROM equipment')
+#     rows = cursor.fetchall()
+#     equipment = [Equipment(row[0], row[1], row[2], row[3]) for row in rows]
+#     return equipment
 
-def fetch_all_users():
-    db = get_db()
-    cursor = db.cursor()
-    cursor.execute('SELECT id, name FROM users')
-    rows = cursor.fetchall()
-    users = [User(row[0], row[1]) for row in rows]
-    return users
+# def fetch_all_users():
+#     db = get_db()
+#     cursor = db.cursor()
+#     cursor.execute('SELECT id, name FROM users')
+#     rows = cursor.fetchall()
+#     users = [User(row[0], row[1]) for row in rows]
+#     return users
 
-def get_equipment_by_id(equipment_id):
-    db = get_db()
-    cursor = db.cursor()
-    cursor.execute('SELECT id, name, user_id, is_assigned FROM equipment WHERE id = ?', (equipment_id,))
-    row = cursor.fetchone()
-    if row:
-        return Equipment(row[0], row[1], row[2], row[3])
-    return None
+# def get_equipment_by_id(equipment_id):
+#     db = get_db()
+#     cursor = db.cursor()
+#     cursor.execute('SELECT id, name, user_id, is_assigned FROM equipment WHERE id = ?', (equipment_id,))
+#     row = cursor.fetchone()
+#     if row:
+#         return Equipment(row[0], row[1], row[2], row[3])
+#     return None
 
-def get_user_by_id(user_id):
-    db = get_db()
-    cursor = db.cursor()
-    cursor.execute('SELECT id, name FROM users WHERE id = ?', (user_id,))
-    row = cursor.fetchone()
-    if row:
-        return User(row[0], row[1])
-    return None
+# def get_user_by_id(user_id):
+#     db = get_db()
+#     cursor = db.cursor()
+#     cursor.execute('SELECT id, name FROM users WHERE id = ?', (user_id,))
+#     row = cursor.fetchone()
+#     if row:
+#         return User(row[0], row[1])
+#     return None
 
-def assign_equipment(equipment_id, user_id):
-    db = get_db()
-    cursor = db.cursor()
-    cursor.execute('UPDATE equipment SET user_id = ?, is_assigned = 1 WHERE id = ?', (user_id, equipment_id))
-    db.commit()
+# def assign_equipment(equipment_id, user_id):
+#     db = get_db()
+#     cursor = db.cursor()
+#     cursor.execute('UPDATE equipment SET user_id = ?, is_assigned = 1 WHERE id = ?', (user_id, equipment_id))
+#     db.commit()
 
-def request_change(equipment_id, user_id):
-    db = get_db()
-    cursor = db.cursor()
-    cursor.execute('INSERT INTO change_requests (equipment_id, user_id) VALUES (?, ?)', (equipment_id, user_id))
-    db.commit()
+# def request_change(equipment_id, user_id):
+#     db = get_db()
+#     cursor = db.cursor()
+#     cursor.execute('INSERT INTO change_requests (equipment_id, user_id) VALUES (?, ?)', (equipment_id, user_id))
+#     db.commit()
 
-def approve_change(request_id):
-    db = get_db()
-    cursor = db.cursor()
-    cursor.execute('UPDATE change_requests SET is_approved = 1 WHERE id = ?', (request_id,))
-    db.commit()
+# def approve_change(request_id):
+#     db = get_db()
+#     cursor = db.cursor()
+#     cursor.execute('UPDATE change_requests SET is_approved = 1 WHERE id = ?', (request_id,))
+#     db.commit()
 
-def return_equipment(equipment_id):
-    db = get_db()
-    cursor = db.cursor()
-    cursor.execute('UPDATE equipment SET user_id = NULL, is_assigned = 0 WHERE id = ?', (equipment_id,))
-    db.commit()
+# def return_equipment(equipment_id):
+#     db = get_db()
+#     cursor = db.cursor()
+#     cursor.execute('UPDATE equipment SET user_id = NULL, is_assigned = 0 WHERE id = ?', (equipment_id,))
+#     db.commit()
 
 @main.route('/main')
 def index():
@@ -203,24 +203,24 @@ def index():
 
 #     return redirect(url_for('main.index'))
 
-@main.route('/request_change/<int:equipment_id>', methods=['POST'])
-def request_change_route(equipment_id):
-    user_id = int(request.form.get('user_id'))
+# @main.route('/request_change/<int:equipment_id>', methods=['POST'])
+# def request_change_route(equipment_id):
+#     user_id = int(request.form.get('user_id'))
 
-    equipment = get_equipment_by_id(equipment_id)
-    user = get_user_by_id(user_id)
+#     equipment = get_equipment_by_id(equipment_id)
+#     user = get_user_by_id(user_id)
 
-    if equipment and user:
-        request_change(equipment_id, user_id)
-        flash(f'Se ha solicitado el cambio del equipo {equipment.name} al usuario {user.name}.')
+#     if equipment and user:
+#         request_change(equipment_id, user_id)
+#         flash(f'Se ha solicitado el cambio del equipo {equipment.name} al usuario {user.name}.')
 
-    return redirect(url_for('index'))
+#     return redirect(url_for('index'))
 
-@main.route('/approve_change/<int:request_id>', methods=['POST'])
-def approve_change_route(request_id):
-    approve_change(request_id)
-    flash('La solicitud de cambio ha sido aprobada.')
-    return redirect(url_for('index'))
+# @main.route('/approve_change/<int:request_id>', methods=['POST'])
+# def approve_change_route(request_id):
+#     approve_change(request_id)
+#     flash('La solicitud de cambio ha sido aprobada.')
+#     return redirect(url_for('index'))
 
 
 @main.route('/verify_files/<filename>')
@@ -282,28 +282,43 @@ def all_files():
             SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 
     service = build('drive', 'v3', credentials=credentials)
-    # Listar todos los archivos en Google Drive
+
     results = service.files().list(fields='files(id, name, mimeType)').execute()
     items = results.get('files', [])
 
+    sql = text("SELECT doc.nombre as name, user, users.nombre FROM documentos doc INNER JOIN users ON users.id=doc.user")
+
+    archivo_empleado_map = {}
+    with engine.connect() as conn:
+        result = conn.execute(sql)
+        for row in result:
+            current_app.logger.debug(row)
+            archivo_empleado_map[row.name] = row.nombre
+
+    def callback(request_id, response, exception):
+        if exception:
+            current_app.logger.error(f'Error al cambiar permisos para el archivo {request_id}: {exception}')
+        else:
+            current_app.logger.info(f'Permiso creado para el archivo {request_id}')
+
+    batch = service.new_batch_http_request(callback=callback)
+
     for item in items:
         file_id = item['id']
-        try:
-            # Crear un nuevo permiso público de lectura
-            permission = {
-                'type': 'anyone',
-                'role': 'reader',
-            }
-            service.permissions().create(
-                fileId=file_id,
-                body=permission,
-                fields='id'
-            ).execute()
-        except Exception as error:
-            # Si ocurre un error al cambiar los permisos, lo imprimimos
-            print(f'Error al cambiar permisos para el archivo {file_id}: {error}')
+        permission = {
+            'type': 'anyone',
+            'role': 'reader',
+        }
+        batch.add(service.permissions().create(
+            fileId=file_id,
+            body=permission,
+            fields='id'
+        ))
 
-    # Pasar los datos de los archivos a la plantilla HTML
+        nombre_archivo = item['name']
+        item['empleado_asignado'] = archivo_empleado_map.get(nombre_archivo, 'No Asignado')
+    batch.execute()
+
     return render_template('lista_archivos.html', items=items)
 
 
@@ -336,14 +351,14 @@ def delete_file(file_id, file_name):
         return f'Error al eliminar el archivo: {e}', 500
 
 
-@main.route('/return_equipment/<int:equipment_id>', methods=['POST'])
-def return_equipment_route(equipment_id):
-    equipment = get_equipment_by_id(equipment_id)
-    if equipment:
-        return_equipment(equipment_id)
-        flash(f'El equipo {equipment.name} ha sido devuelto y está disponible para asignación.')
+# @main.route('/return_equipment/<int:equipment_id>', methods=['POST'])
+# def return_equipment_route(equipment_id):
+#     equipment = get_equipment_by_id(equipment_id)
+#     if equipment:
+#         return_equipment(equipment_id)
+#         flash(f'El equipo {equipment.name} ha sido devuelto y está disponible para asignación.')
 
-    return redirect(url_for('index'))
+#     return redirect(url_for('index'))
 
 @main.route('/agregar')
 def ingreso():
@@ -795,7 +810,8 @@ def datos_cotizacion():
 def delete_cotizacion():
 
     id_cotizacion = request.args.get('id')
-    sql = """delete from cotizacion where id ="""+id_cotizacion
+    
+    sql = "update cotizacion set estado=3 where id ="""+id_cotizacion
     
     with engine.connect() as conn:
         conn.execute(text(sql))
@@ -863,6 +879,7 @@ def aprobar_vacaciones():
 
     return jsonify('success')
 
+
 @main.route('/delete_cliente',methods=['POST','GET'])
 def delete_cliente():
 
@@ -927,16 +944,26 @@ def update_gastos():
         monto_gasto = str(request.form.get('monto_gasto'))
         file = request.files.get('archivo', None)
         id_rendicion = str(request.form.get('id'))
-    
+        fecha_actual = datetime.now().date()
     # Sube el archivo a Google Drive
         upload_to_drive(file)
     # Guarda el nombre del archivo en la base de datos
     
         sql = 'update rendicion SET fecha_rendicion ="'+fecha_rendicion+'", tipo_gasto ="'+tipo_gasto+'" , descripcion="'+descripcion+'" , empleado="'+empleado+'" , monto_gasto="'+monto_gasto+'" , archivo="'+file.filename+'" WHERE id = '+id_rendicion
 
+        values_files = { 'nombre':file.filename, 'tipo_documento':4,'user':empleado,'fecha':str(fecha_actual)}
+
+        sql_files = """
+                INSERT INTO documentos
+                (nombre,tipo_documento,user,fecha)
+                VALUES(:nombre,:tipo_documento,:user,:fecha);
+
+                """
         current_app.logger.debug(sql)
         with engine.connect() as conn:
             conn.execute(text(sql))
+            conn.commit()
+            conn.execute(text(sql_files,values_files))
             conn.commit()
 
         return jsonify('success')       
@@ -1082,8 +1109,10 @@ def update_cliente():
 def historico():
     with engine.connect() as conn:
         sql1 = """select cot.id,cot.fecha,cot.detalle,cot.estado,cot.rut_empresa,cot.solicitante,cot.orden_compra,cot.factura,cli.rut ,cli.dv,cli.nombre  from cotizacion  cot inner join clientes cli on cli.rut=cot.rut_empresa where cot.estado = 1 and factura is not null"""
+        sql2 = """select cot.id,cot.fecha,cot.detalle,cot.estado,cot.rut_empresa,cot.solicitante,cot.orden_compra,cot.factura,cli.rut ,cli.dv,cli.nombre  from cotizacion  cot inner join clientes cli on cli.rut=cot.rut_empresa where cot.estado = 3 and factura is null"""
         datos = conn.execute(text(sql1)).fetchall()
-    return render_template('historico.html',datos=datos)
+        datos2 = conn.execute(text(sql2)).fetchall()
+    return render_template('historico.html',datos=datos,datos2=datos2)
 
 @main.route('/gastos')
 def gastos():
@@ -1103,6 +1132,7 @@ def agrega_gastos():
     empleado = str(request.form.get('empleado'))
     monto_gasto = str(request.form.get('monto_gasto'))
     file = request.files.get('archivo', None)
+    fecha_actual = datetime.now().date()
     try:
     
         # Sube el archivo a Google Drive
@@ -1118,9 +1148,18 @@ def agrega_gastos():
                     VALUES(:fecha_rendicion, :tipo_gasto, :descripcion, :empleado, :monto_gasto, :archivo);
 
                     """
-        
+        values_files = { 'nombre':file.filename, 'tipo_documento':4,'user':empleado,'fecha':str(fecha_actual)}
+
+        sql_files = """
+                INSERT INTO documentos
+                (nombre,tipo_documento,user,fecha)
+                VALUES(:nombre,:tipo_documento,:user,:fecha);
+
+                """
         with engine.connect() as conn:
             conn.execute(text(sql),values)
+            conn.commit()
+            conn.execute(text(sql_files),values_files)
             conn.commit()
         return jsonify('success')
     except:
@@ -1145,6 +1184,7 @@ def agrega_inventario():
     descripcion = str(request.form.get('descripcion'))
     valor_unitario = str(request.form.get('valor_unitario'))
     cantidad = str(request.form.get('cantidad'))
+    fecha_actual = datetime.now().date()
     try:
         archivo = str(request.form.get('archivo'))
     except:
@@ -1167,8 +1207,18 @@ def agrega_inventario():
 
                 """
     
+    values_files = { 'nombre':archivo, 'tipo_documento':5,'fecha':str(fecha_actual)}
+
+    sql_files = """
+            INSERT INTO documentos
+            (nombre,tipo_documento,fecha)
+            VALUES(:nombre,:tipo_documento,:fecha);
+
+            """
     with engine.connect() as conn:
         conn.execute(text(sql),values)
+        conn.commit()
+        conn.execute(text(sql_files),values_files)
         conn.commit()
 
     return jsonify('success')

@@ -38,6 +38,7 @@ def insert_register():
         apellido = request.form['apellido']
         password = request.form['clave']
         rol = request.form['rol']
+        rut = request.form['rut']
         correo = request.form['correo']
         telefono = request.form['telefono']
         contrato = request.form['contrato']
@@ -56,10 +57,10 @@ def insert_register():
         if error is None:
             try:
                 current_app.logger.debug('entre')
-                values = { 'username':username, 'contraseña':contraseña,'rol':rol,'nombre':nombre,'apellido':apellido,'correo':correo,'telefono':telefono,'contrato':contrato , 'fecha_nacimiento':fecha_nacimiento}
+                values = { 'username':username, 'contraseña':contraseña,'rol':rol,'nombre':nombre,'apellido':apellido,'correo':correo,'telefono':telefono,'contrato':contrato , 'fecha_nacimiento':fecha_nacimiento,'rut':rut}
                 sql = """
-                INSERT INTO users(username, password,role,nombre,apellido,correo,telefono,fecha_contrato,fecha_nacimiento)
-                  VALUES(:username, :contraseña, :rol, :nombre, :apellido, :correo, :telefono, :contrato, :fecha_nacimiento);
+                INSERT INTO users(username, password,role,nombre,apellido,correo,telefono,fecha_contrato,fecha_nacimiento,rut)
+                  VALUES(:username, :contraseña, :rol, :nombre, :apellido, :correo, :telefono, :contrato, :fecha_nacimiento,:rut);
                   """
     
                 with engine.connect() as conn:
@@ -68,7 +69,7 @@ def insert_register():
                 return jsonify('success')
             except:
                 error = f"User {username} is already registered."
-                return error
+                return jsonify('fail')
         else:
             return jsonify('fail')
 
