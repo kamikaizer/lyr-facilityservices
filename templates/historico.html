@@ -5,47 +5,45 @@
         <p>{{ error }}</p>
     {% endif %}
 
+<div class="tab">
+  <button class="tablinks" onclick="showTab('Tab3')" id="defaultTab">Aprobadas</button>
+  <button class="tablinks" onclick="showTab('Tab4')">Rechazadas</button>
+</div>
+<br><br>
 
-
+<div id="Tab3" class="tabcontent">
     <div class="container-fluid py-4">
         <div class="row">
           <div class="col-12">
             <div class="card my-4 border-white">
               <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                 <div class="bg-gradient-info shadow-info border-radius-lg pt-4 pb-3">
-                  <h6 class="text-white text-capitalize ps-3">Cotizaciones Finalizadas</h6>
+                  <h6 class="text-white text-capitalize ps-3">Cotizaciones Finalizadas Aprobadas</h6>
                 </div>
               </div>
 
-              <div class="tab" Style="padding: 25px;">
-                <button class="tablinks" onclick="showTab('Tab3')" id="defaultTab">Aprobadas</button>
-                <button class="tablinks" onclick="showTab('Tab4')">Rechazadas</button>
-              </div>
 
-                
-              
-              
-              <div class="container-fluid">
-                <form class="d-flex justify-content-end" role="search">
-                  <div class="row g-3">
-                    
-                  </div>
-                </form>
-              </div>
-                
-              <div id="Tab3" class="tabcontent">
-                <div class="row g-3">
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control" id="inputBusqueda" placeholder="Buscar..." oninput="buscarEnTabla()">
-                  </div>
-                  <div class="col-sm">
-                    <button class="btn btn-outline-primary" type="submit">Buscar</button>
-                  </div>
+
+                <div class="container-fluid">
+                  <form class="d-flex justify-content-end" role="search">
+                    <div class="row g-3">
+                      <div class="row g-3">
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" id="inputBusqueda" placeholder="Buscar..." oninput="buscarEnTabla()">
+                        </div>
+                        <div class="col-sm">
+                          <button class="btn btn-outline-primary" type="submit">Buscar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
                 </div>
+                
 
               <div class="card-body px-0 pb-2">
                 <div class="table-responsive p-0">
                     <table id="tabla_cotizaciones" name="tabla_cotizaciones" class="table align-items-center mb-0">
+
                     <thead>
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Numero</th>
@@ -77,97 +75,94 @@
                 </div>
               </div>
             </div>
-            
-            <div id="Tab4" class="tabcontent">
+          </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="Tab4" class="tabcontent">
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-12">
+
+      <div class="card my-4 border-white">
+        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+          <div class="bg-gradient-info shadow-info border-radius-lg pt-4 pb-3">
+            <h6 class="text-white text-capitalize ps-3">Cotizaciones Rechazadas</h6>
+          </div>
+        </div>
+
+          <div class="container-fluid">
+            <form class="d-flex justify-content-end" role="search">
               <div class="row g-3">
+                <div class="row g-3">
                 <div class="col-sm-7">
-                  <input type="text" class="form-control" id="inputBusqueda2" placeholder="Buscar..." oninput="buscarEnTabla2()">
+                  <input type="text"  class="form-control" id="inputBusqueda" placeholder="Buscar..." oninput="buscarEnTabla()">
                 </div>
                 <div class="col-sm">
                   <button class="btn btn-outline-primary" type="submit">Buscar</button>
                 </div>
               </div>
-              <div class="card-body px-0 pb-2">
-                <div class="table-responsive p-0">
-                    <table id="tabla_cotizaciones2" name="tabla_cotizaciones2" class="table align-items-center mb-0">
-                    <thead>
-                      <tr>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Numero</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Rut Empresa</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nombre</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Orden de Compra</th>
-                        <!-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Fecha Emisión</th> -->
-                        <th style="width: 60px;"></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {% for dato in datos2 %}
-                      <tr>
-                        <th scope="row">{{dato.id}}</th>
-                        <th scope="row">{{dato.rut_empresa}} - {{dato.dv}}</th>
-                        <th scope="row">{{dato.nombre}}</th>
-                        <th scope="row">{%if dato.orden_compra == -1%}Sin O.C{%else%}{{dato.orden_compra}}{%endif%}</th>
-                        <!-- <th scope="row">{{dato.fecha}}</th> -->
-                        <td style="width: 60px;">      
-                          <a class="btn btn-warning w-100" href="/ct?id={{dato.id}}" role="button">Ver</a>
-                        </td>
+            </div>
 
-                      </tr>
-                      {% endfor %}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+            </form>
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0">
+                <table id="tabla_cotizaciones" name="tabla_cotizaciones" class="table align-items-center mb-0">
+
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Numero</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Rut Empresa</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nombre</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Orden de Compra</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Factura</th>
+                    <!-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Fecha Emisión</th> -->
+                    <th style="width: 60px;"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for dato in datos %}
+                  <tr>
+                    <th scope="row">{{dato.id}}</th>
+                    <th scope="row">{{dato.rut_empresa}} - {{dato.dv}}</th>
+                    <th scope="row">{{dato.nombre}}</th>
+                    <th scope="row">{%if dato.orden_compra == -1%}Sin O.C{%else%}{{dato.orden_compra}}{%endif%}</th>
+                    <th scope="row">{{dato.factura}}</th>
+                    <!-- <th scope="row">{{dato.fecha}}</th> -->
+                    <td style="width: 60px;">      
+                      <a class="btn btn-warning w-100" href="/ct?id={{dato.id}}" role="button">Ver</a>
+                    </td>
+
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
             </div>
           </div>
 
 
+      </div>
 
-            </div>
-          </div>
-        </div>
+    </div>
+  </div>
 
 </div>
-    
+</div>
 
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 
-      <script>
-        function buscarEnTabla() {
-            var input, filter, table, tr, td, i, j, txtValue;
-            input = document.getElementById("inputBusqueda");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("tabla_cotizaciones");
-            tr = table.getElementsByTagName("tr");
-      
-            for (i = 1; i < tr.length; i++) {
-                var found = false;
-              for (j = 0; j < tr[i].cells.length; j++) {
-                    td = tr[i].cells[j];
-                    if (td) {
-                        txtValue = td.textContent || td.innerText;
-                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                            found = true;
-                            break;
-                        }
-                    }
-                }
-                
-                if (found) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-      </script>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 
 <script>
-  function buscarEnTabla2() {
+  function buscarEnTabla() {
       var input, filter, table, tr, td, i, j, txtValue;
-      input = document.getElementById("inputBusqueda2");
+      input = document.getElementById("inputBusqueda");
       filter = input.value.toUpperCase();
-      table = document.getElementById("tabla_cotizaciones2");
+      table = document.getElementById("tabla_cotizaciones");
       tr = table.getElementsByTagName("tr");
 
       for (i = 1; i < tr.length; i++) {
@@ -190,6 +185,7 @@
           }
       }
   }
-</script>
+  document.getElementById("defaultTab").click();
 
+</script>
 {% endblock %}
